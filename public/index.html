@@ -1,121 +1,175 @@
-<style>
+/* ============================================================
+   IGPC LIVE SYSTEM — PROJECT FILES MASTER COLOUR SYSTEM
+   APPLY INSIDE THE EXISTING DASHBOARD CSS
+   DO NOT REPLACE THE EXISTING HTML STRUCTURE
+   ============================================================ */
+
 :root{
   --bg:#050B14;
   --panel:#0A121E;
   --panel2:#070D18;
   --border:#1E293B;
+
   --text:#E2E8F0;
   --muted:#64748B;
   --muted2:#94A3B8;
+
   --cyan:#00F0FF;
   --green:#00FF9D;
   --gold:#FFC000;
   --red:#FF4B4B;
 }
 
-html,body{
+/* GLOBAL */
+html,
+body{
   background:var(--bg)!important;
   color:var(--text)!important;
 }
 
 body{
-  margin:0;
-  font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
 }
 
+/* MAIN DASHBOARD */
 header,
-.top-header,
+.topbar,
 .navbar,
-.sidebar,
-.panel,
-.card,
-.module,
-.dashboard-panel,
-.workspace,
-.metric-card,
-.modal,
-.content-card{
-  background:var(--panel)!important;
+.dashboard-header,
+.app-header{
+  background:var(--bg)!important;
   border-color:var(--border)!important;
+}
+
+main,
+.workspace,
+.content,
+.dashboard,
+.main-content,
+.page{
+  background:var(--bg)!important;
   color:var(--text)!important;
 }
 
-h1,h2,h3,h4,h5,
-.title,
-.heading{
+/* PANELS / CARDS */
+.card,
+.panel,
+.module,
+.widget,
+.tile,
+.section,
+.workspace-card,
+.dashboard-card,
+.metric-card,
+.project-card,
+.table-wrap{
+  background:var(--panel)!important;
+  border:1px solid var(--border)!important;
+  color:var(--text)!important;
+}
+
+/* HEADINGS */
+h1,h2,h3,h4,h5,h6{
+  color:var(--text)!important;
+}
+
+.section-title,
+.panel-title,
+.card-title,
+.module-title{
   color:var(--cyan)!important;
 }
 
+/* SECONDARY TEXT */
+small,
+.muted,
+.subtitle,
+.description,
+.meta,
+.secondary{
+  color:var(--muted2)!important;
+}
+
+/* NAVIGATION */
 button,
-.nav-link,
 .nav-item,
 .tab,
 .menu-item{
-  background:var(--panel2);
-  color:var(--muted2);
-  border:1px solid var(--border);
-  cursor:pointer;
+  background:var(--panel)!important;
+  color:var(--muted2)!important;
+  border:1px solid var(--border)!important;
 }
 
 button:hover,
-.nav-link:hover,
 .nav-item:hover,
 .tab:hover,
 .menu-item:hover{
-  color:var(--cyan);
-  border-color:var(--cyan);
+  color:var(--cyan)!important;
+  border-color:var(--cyan)!important;
 }
 
 button.active,
-.nav-link.active,
 .nav-item.active,
 .tab.active,
 .menu-item.active{
   color:var(--cyan)!important;
   border-color:var(--cyan)!important;
-  background:rgba(0,240,255,.06)!important;
+  box-shadow:0 0 12px rgba(0,240,255,.12);
+}
+
+/* PROJECT FILES */
+.project-card.active,
+.project-row.active,
+.selected{
+  border-color:var(--cyan)!important;
+  box-shadow:0 0 16px rgba(0,240,255,.10);
 }
 
 .status-active,
-.validated,
+.active-status,
 .success,
-.online{
+.validated{
   color:var(--green)!important;
 }
 
+.status-standby,
 .warning,
 .attention{
   color:var(--gold)!important;
 }
 
 .error,
-.critical,
-.exception{
+.failed,
+.critical{
   color:var(--red)!important;
 }
 
+/* DATA / TABLES */
 table{
-  background:var(--panel2)!important;
+  background:var(--panel)!important;
   color:var(--text)!important;
   border-color:var(--border)!important;
 }
 
-th{
-  background:#131F33!important;
-  color:var(--cyan)!important;
-  border-color:var(--border)!important;
-}
-
-td{
+thead{
   background:var(--panel2)!important;
-  color:#CBD5E1!important;
+  color:var(--cyan)!important;
+}
+
+th,
+td{
   border-color:var(--border)!important;
 }
 
+tr:hover{
+  background:rgba(0,240,255,.035)!important;
+}
+
+/* INPUTS */
 input,
 select,
 textarea{
-  background:#070D18!important;
+  background:var(--panel2)!important;
   color:var(--text)!important;
   border:1px solid var(--border)!important;
 }
@@ -123,244 +177,155 @@ textarea{
 input:focus,
 select:focus,
 textarea:focus{
-  outline:none;
+  outline:none!important;
   border-color:var(--cyan)!important;
-  box-shadow:0 0 8px rgba(0,240,255,.15);
+  box-shadow:0 0 0 2px rgba(0,240,255,.08)!important;
 }
 
-.pipeline-btn{
-  background:transparent!important;
-  color:var(--muted2)!important;
+/* PRIMARY ACTION */
+.btn-primary,
+.primary,
+.action-primary{
+  background:var(--cyan)!important;
+  color:#02070D!important;
+  border-color:var(--cyan)!important;
+}
+
+.btn-primary:hover,
+.primary:hover,
+.action-primary:hover{
+  box-shadow:0 0 16px rgba(0,240,255,.25);
+}
+
+/* POSITIVE ACTION */
+.btn-success,
+.success-btn{
+  background:var(--green)!important;
+  color:#02070D!important;
+  border-color:var(--green)!important;
+}
+
+/* WARNING */
+.btn-warning,
+.warning-btn{
+  background:var(--gold)!important;
+  color:#02070D!important;
+  border-color:var(--gold)!important;
+}
+
+/* DANGER */
+.btn-danger,
+.danger-btn{
+  background:var(--red)!important;
+  color:#fff!important;
+  border-color:var(--red)!important;
+}
+
+/* LINKS */
+a{
+  color:var(--cyan);
+}
+
+a:hover{
+  color:var(--green);
+}
+
+/* PIPELINE / SYSTEM FLOW */
+.flow,
+.pipeline,
+.architecture,
+.system-flow{
+  background:var(--panel2)!important;
   border-color:var(--border)!important;
 }
 
-.pipeline-btn:hover,
-.pipeline-btn.active{
+.flow-item.active,
+.pipeline-item.active,
+.architecture-item.active{
   color:var(--cyan)!important;
   border-color:var(--cyan)!important;
-  background:rgba(0,240,255,.05)!important;
 }
 
-.metric-value,
-.value{
-  color:var(--cyan)!important;
+/* ANALYTICS */
+.analytics,
+.analytics-panel,
+.analytics-widget{
+  background:var(--panel)!important;
+  border-color:var(--border)!important;
 }
 
-.metric-positive,
-.valid{
+.layer{
+  background:var(--panel2)!important;
+  border:1px solid var(--border)!important;
+}
+
+.layer.active{
+  border-color:var(--cyan)!important;
+}
+
+.widget.active{
+  border-color:var(--cyan)!important;
+  box-shadow:0 0 14px rgba(0,240,255,.10);
+}
+
+/* DIAGNOSTICS */
+.diagnostic-card{
+  background:var(--panel)!important;
+  border-color:var(--border)!important;
+}
+
+.cause-high{
+  border-color:var(--red)!important;
+}
+
+.cause-medium{
+  border-color:var(--gold)!important;
+}
+
+.cause-low{
+  border-color:var(--green)!important;
+}
+
+/* REPORTS */
+.report-card{
+  background:var(--panel)!important;
+  border-color:var(--border)!important;
+}
+
+.report-ready{
   color:var(--green)!important;
 }
 
-.metric-warning{
+.report-pending{
   color:var(--gold)!important;
 }
 
-.metric-critical{
-  color:var(--red)!important;
+/* F08 */
+.f08-step{
+  background:var(--panel)!important;
+  border:1px solid var(--border)!important;
 }
 
-/* ONE IGPC SYSTEM NAVIGATION */
-
-#igpc-main-navigation{
-  display:flex;
-  gap:8px;
-  padding:10px;
-  background:var(--panel);
-  border-bottom:1px solid var(--border);
+.f08-step.active{
+  border-color:var(--cyan)!important;
+  color:var(--cyan)!important;
 }
 
-#igpc-main-navigation button{
-  flex:1;
-  min-height:42px;
-  font-weight:800;
-  letter-spacing:.4px;
+/* SCROLLBARS */
+::-webkit-scrollbar{
+  width:8px;
+  height:8px;
 }
 
-.igpc-module{
-  display:none;
-  width:100%;
+::-webkit-scrollbar-track{
+  background:var(--bg);
 }
 
-.igpc-module.active{
-  display:block;
+::-webkit-scrollbar-thumb{
+  background:var(--border);
+  border-radius:4px;
 }
 
-/* MODULE FLOW */
-
-#igpc-flow{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  padding:10px 0;
-  overflow:auto;
+::-webkit-scrollbar-thumb:hover{
+  background:var(--cyan);
 }
-
-.igpc-flow-node{
-  min-width:150px;
-  padding:10px;
-  text-align:center;
-  background:var(--panel2);
-  border:1px solid var(--border);
-  color:var(--muted2);
-  border-radius:5px;
-  cursor:pointer;
-  font-size:.7rem;
-  font-weight:800;
-}
-
-.igpc-flow-node.active{
-  color:var(--cyan);
-  border-color:var(--cyan);
-  background:rgba(0,240,255,.06);
-}
-
-.igpc-flow-arrow{
-  color:var(--cyan);
-  font-weight:900;
-}
-</style>
-
-<nav id="igpc-main-navigation">
-
-  <button onclick="IGPC.open('virtual-library')">
-    VIRTUAL LIBRARY
-  </button>
-
-  <button onclick="IGPC.open('project-files')">
-    PROJECT FILES
-  </button>
-
-  <button onclick="IGPC.open('analytics')">
-    ANALYTICS
-  </button>
-
-  <button onclick="IGPC.open('diagnostics')">
-    DIAGNOSTICS
-  </button>
-
-  <button onclick="IGPC.open('reports')">
-    REPORTS
-  </button>
-
-</nav>
-
-<div id="igpc-flow">
-
-  <div class="igpc-flow-node" onclick="IGPC.open('virtual-library')">
-    CLIENT LINK
-  </div>
-
-  <div class="igpc-flow-arrow">→</div>
-
-  <div class="igpc-flow-node" onclick="IGPC.open('virtual-library')">
-    VIRTUAL LIBRARY
-  </div>
-
-  <div class="igpc-flow-arrow">→</div>
-
-  <div class="igpc-flow-node" onclick="IGPC.open('project-files')">
-    PROJECT FILES
-  </div>
-
-  <div class="igpc-flow-arrow">→</div>
-
-  <div class="igpc-flow-node" onclick="IGPC.open('analytics')">
-    ANALYTICS
-  </div>
-
-  <div class="igpc-flow-arrow">→</div>
-
-  <div class="igpc-flow-node" onclick="IGPC.open('diagnostics')">
-    DIAGNOSTICS
-  </div>
-
-  <div class="igpc-flow-arrow">→</div>
-
-  <div class="igpc-flow-node" onclick="IGPC.open('reports')">
-    REPORTS
-  </div>
-
-</div>
-
-<script>
-const IGPC = {
-
-  currentModule: 'project-files',
-
-  open(module){
-
-    this.currentModule = module;
-
-    document.querySelectorAll('.igpc-module')
-      .forEach(el => el.classList.remove('active'));
-
-    document.querySelectorAll('#igpc-main-navigation button')
-      .forEach(el => el.classList.remove('active'));
-
-    document.querySelectorAll('.igpc-flow-node')
-      .forEach(el => el.classList.remove('active'));
-
-    const target =
-      document.getElementById('module-' + module);
-
-    if(target){
-      target.classList.add('active');
-    }
-
-    const nav =
-      document.querySelector(
-        '#igpc-main-navigation button[onclick*="' +
-        module +
-        '"]'
-      );
-
-    if(nav){
-      nav.classList.add('active');
-    }
-
-    document.querySelectorAll('.igpc-flow-node')
-      .forEach(el => {
-        if(
-          el.getAttribute('onclick') &&
-          el.getAttribute('onclick').includes(module)
-        ){
-          el.classList.add('active');
-        }
-      });
-
-    if(module === 'project-files' &&
-       typeof renderStep === 'function'){
-
-      renderStep(0);
-    }
-
-    if(module === 'analytics' &&
-       typeof openAnalytics === 'function'){
-
-      openAnalytics();
-    }
-
-    if(module === 'diagnostics' &&
-       typeof openDiagnostics === 'function'){
-
-      openDiagnostics();
-    }
-
-    if(module === 'reports' &&
-       typeof openReports === 'function'){
-
-      openReports();
-    }
-
-    if(module === 'virtual-library' &&
-       typeof openVirtualLibrary === 'function'){
-
-      openVirtualLibrary();
-    }
-  }
-};
-
-document.addEventListener('DOMContentLoaded',()=>{
-  IGPC.open('project-files');
-});
-</script>
