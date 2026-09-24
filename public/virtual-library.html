@@ -1,18 +1,552 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IGPC Virtual Library</title><script src="config.js"></script><style>body{font-family:Arial;margin:0;background:#eef2f5;color:#17212b}header{background:#17212b;color:#fff;padding:22px 30px}main{max-width:1200px;margin:24px auto;padding:0 20px}.card{background:#fff;border:1px solid #d6dee5;border-radius:12px;padding:20px;margin-bottom:18px}.flow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.step{padding:11px;border:1px solid #d6dee5;border-radius:8px;background:#f7f9fa;font-weight:bold;font-size:12px}.arrow{font-size:24px;color:#39718d}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}input,select{width:100%;padding:10px;margin:5px 0 10px;border:1px solid #ccd6de;border-radius:7px;box-sizing:border-box}button{padding:10px 14px;border:0;border-radius:7px;background:#28617c;color:white;font-weight:bold;cursor:pointer;margin:3px}.status{padding:11px;background:#edf7f0;color:#1d6a3d;border-radius:7px;font-weight:bold;margin-top:10px}.hold{background:#fff3df;color:#8a5300}.tests{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.test{background:#edf7f0;color:#22653b;padding:13px 5px;text-align:center;border-radius:8px;font-size:11px;font-weight:bold}.test.fail{background:#ffe8e8;color:#9a2424}table{width:100%;border-collapse:collapse}th,td{padding:11px;border-bottom:1px solid #e5e9ed;text-align:left;font-size:12px}th{background:#f5f7f9}.log{background:#17212b;color:#dce6ed;padding:14px;border-radius:8px;font:12px Consolas,monospace;line-height:1.7;white-space:pre-wrap}@media(max-width:800px){.grid{grid-template-columns:1fr}.tests{grid-template-columns:1fr 1fr}}</style></head><body><header><h1>IGPC — Virtual Library</h1><div>Client Link • Client Portal • Upload • Validation • Release</div></header><main>
-<div class="card"><h2>Controlled Data Flow</h2><div class="flow"><div class="step">CLIENT</div><div class="arrow">→</div><div class="step">CLIENT LINK</div><div class="arrow">→</div><div class="step">CLIENT PORTAL</div><div class="arrow">→</div><div class="step">VIRTUAL LIBRARY</div><div class="arrow">→</div><div class="step">VALIDATION GATE</div><div class="arrow">→</div><div class="step">RELEASE</div><div class="arrow">→</div><div class="step">EXISTING PROJECT FILES</div></div></div>
-<div class="grid"><div class="card"><h2>Client Link</h2><label>Client</label><input id="client" value="Northam"><label>Project ID</label><input id="project" value="Northam_3Shaft"><label>Client Email</label><input id="email" value="data@client.example"><button onclick="generate()">Generate Project Link</button><button onclick="goClient()">Open Client Portal</button><div id="link" class="status">No link generated yet.</div></div>
-<div class="card" id="clientPortal"><h2>Client Portal</h2><h3 id="cp">Northam_3Shaft</h3><label>CSV / TXT files — up to 20 files per submission</label><input id="files" type="file" accept=".csv,.txt" multiple><button onclick="uploadFiles()">Upload File(s)</button><div id="result" class="status">Waiting for client upload.</div></div></div>
-<div class="card"><h2>Submission Record</h2><table><thead><tr><th>Project ID</th><th>Submission</th><th>Files</th><th>Version</th><th>Validation</th><th>Status</th><th>Action</th></tr></thead><tbody><tr><td id="pid">—</td><td id="sid">—</td><td id="count">—</td><td id="ver">—</td><td id="pass">—</td><td id="state">WAITING</td><td><button id="releaseBtn" onclick="release()" disabled>Release to Project Files</button></td></tr></tbody></table></div>
-<div class="card"><h2>Validation Gate</h2><div class="tests"><div id="t1" class="test">CORRUPTED</div><div id="t2" class="test">DUPLICATE</div><div id="t3" class="test">MISMATCHED</div><div id="t4" class="test">BLANK ROWS</div><div id="t5" class="test">UNDEFINED</div></div><div id="validation" class="status">Waiting for submission.</div></div>
-<div class="card"><h2>Release → Existing Project Files</h2><div id="release" class="status">Awaiting accepted submission.</div></div>
-<div class="card"><h2>Live Audit</h2><div id="log" class="log">[READY] Virtual Library connected to live API</div></div>
-</main><script>
-const API=window.IGPC_API_BASE||'';let current=null;
-function log(x){document.getElementById('log').textContent+='\n'+x}
-function generate(){const p=document.getElementById('project').value.trim()||'PROJECT-ID';document.getElementById('cp').textContent=p;document.getElementById('pid').textContent=p;document.getElementById('link').textContent='PROJECT LINK: '+location.origin+'/virtual-library.html?project='+encodeURIComponent(p);log('[LINK] Project link generated for '+p)}
-function goClient(){document.getElementById('clientPortal').scrollIntoView({behavior:'smooth'})}
-function setTest(id,pass){const e=document.getElementById(id);e.className='test '+(pass?'':'fail');e.textContent=(pass?'✓ ':'✕ ')+e.textContent.replace(/^.[ ]/,'').replace(/^✓ |^✕ /,'')}
-async function uploadFiles(){const fs=[...document.getElementById('files').files];if(!fs.length)return alert('Select one or more CSV/TXT files first.');const p=document.getElementById('project').value.trim();const fd=new FormData();fd.append('project_id',p);fd.append('client',document.getElementById('client').value);fs.forEach(f=>fd.append('files',f));document.getElementById('result').textContent='VALIDATING…';log('[UPLOAD] '+fs.length+' file(s) sent to live validation gate');const r=await fetch(API+'/api/upload',{method:'POST',body:fd});const d=await r.json();if(!r.ok)throw new Error(d.error||'Upload failed');current=d.submission;document.getElementById('pid').textContent=current.project_id;document.getElementById('sid').textContent=current.submission_id;document.getElementById('count').textContent=d.files.length;document.getElementById('ver').textContent='V'+String(current.version).padStart(3,'0');const all=d.files.flatMap(f=>Object.values(f.tests));const passed=all.filter(x=>x.pass).length;const total=all.length;document.getElementById('pass').textContent=passed+'/'+total+' PASSED';document.getElementById('state').textContent=current.status;document.getElementById('validation').textContent=current.status==='PASSED'?'✓ VALIDATION PASSED — ready for release':'⚠ DATA ON HOLD — correct the identified validation errors';document.getElementById('validation').className='status '+(current.status==='PASSED'?'':'hold');d.files.forEach(f=>Object.entries(f.tests).forEach(([k,v])=>{const m={corrupted:'t1',duplicate:'t2',mismatched:'t3',blank:'t4',undefined:'t5'}[k];setTest(m,v.pass)}));document.getElementById('releaseBtn').disabled=current.status!=='PASSED';document.getElementById('result').textContent=current.status==='PASSED'?'✓ DATA RECEIVED — 5/5 validation categories passed.':'⚠ DATA RECEIVED — submission placed on hold.';log('[VALIDATION] '+current.status);}
-async function release(){if(!current)return;const r=await fetch(API+'/api/submission/'+current.submission_id+'/release',{method:'POST'});const d=await r.json();if(!r.ok)throw new Error(d.error||'Release failed');current=d.submission;document.getElementById('state').textContent='RELEASED';document.getElementById('release').textContent='✓ RELEASED — '+current.project_id+' / '+current.submission_id+' / V'+String(current.version).padStart(3,'0')+' → Existing Project Files';log('[RELEASE] Accepted data released to Project Files');window.parent.postMessage({type:'igpc-data-released',projectId:current.project_id},'*');}
-const q=new URLSearchParams(location.search).get('project');if(q){document.getElementById('project').value=q;generate()}
-</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IGPC Virtual Library — Build 03 Notification Module</title>
+<style>
+body{margin:0;background:#071019;color:#edf4f7;font-family:Arial,sans-serif;padding:28px}
+.wrap{max-width:1120px;margin:auto}
+.card{background:#0d1924;border:1px solid #263b4b;border-radius:14px;padding:22px;margin-bottom:18px}
+h1{margin:0 0 6px}h2{margin-top:0}.muted,.small{color:#91a7b6;font-size:13px}.pid{font-size:22px;font-weight:bold;margin-top:7px}
+.drop{border:1px dashed #426777;background:#0a1721;border-radius:12px;padding:35px;text-align:center}
+.flow{display:flex;flex-wrap:wrap;gap:9px;align-items:center}.node{padding:10px 12px;border:1px solid #263b4b;border-radius:8px;background:#0b1721;font-size:12px}
+.arrow{color:#59bacb}input{margin-top:18px;width:100%}
+button{margin-top:15px;padding:11px 16px;border-radius:8px;border:1px solid #38606c;background:#12303a;color:white;cursor:pointer}
+button:hover{background:#17414d}.notice{padding:12px;border-left:3px solid #59bacb;background:#0c2028;border-radius:7px;font-size:12px;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:12px}td,th{padding:10px;border-bottom:1px solid #263b4b;text-align:left}th{color:#91a7b6}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-weight:bold;font-size:11px}.pass{background:#123c2d;color:#8ff0bd}.fail{background:#4a2025;color:#ff9ea7}.review{background:#4a3a19;color:#ffd77d}.info{background:#12303a;color:#8ddff0}
+.test{display:grid;grid-template-columns:260px 110px 1fr;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid #263b4b;font-size:12px}
+.details{color:#b8c7cf}.errors{margin:7px 0 0;padding-left:18px}.errors li{margin:4px 0}
+.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:15px}.metric{background:#0a1721;border:1px solid #263b4b;border-radius:9px;padding:12px}.metric b{display:block;font-size:18px;margin-top:5px}
+.hidden{display:none}.notify-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.notify-card{background:#0a1721;border:1px solid #263b4b;border-radius:10px;padding:14px}.notify-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #263b4b;font-size:12px}.notify-row:last-child{border-bottom:0}.on{color:#8ff0bd}.off{color:#ffb4b9}.log{max-height:240px;overflow:auto;background:#08141d;border:1px solid #263b4b;border-radius:8px;padding:10px;font-size:11px}.logitem{padding:8px 0;border-bottom:1px solid #263b4b}.logitem:last-child{border-bottom:0}.channel{display:inline-block;padding:3px 7px;border-radius:999px;background:#12303a;color:#8ddff0;font-weight:bold;margin-right:6px}.success-screen{margin-top:15px;padding:18px;border:1px solid #2c8a61;background:#0b251c;border-radius:10px}.hold-screen{margin-top:15px;padding:18px;border:1px solid #9a4b53;background:#2a1518;border-radius:10px}.schema{overflow:auto;white-space:nowrap;background:#08141d;border:1px solid #263b4b;border-radius:8px;padding:10px;font-size:11px}
+@media(max-width:800px){.test{grid-template-columns:1fr}.summary{grid-template-columns:1fr 1fr}.notify-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<style>
+.igpc-two-panel{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0}
+.igpc-two-panel .igpc-panel{background:#0d1924;border:1px solid #294052;border-radius:12px;padding:20px;box-sizing:border-box}
+.igpc-two-panel h2{margin:0 0 18px;color:#f3f7fa;font-size:25px}
+.igpc-two-panel label{display:block;color:#d8e1e8;margin:10px 0 6px}
+.igpc-two-panel input,.igpc-two-panel select{width:100%;box-sizing:border-box;padding:10px 11px;border:1px solid #496072;border-radius:7px;background:#071019;color:#f3f7fa;font-size:14px}
+.igpc-two-panel .igpc-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.igpc-two-panel button{border:0;border-radius:7px;padding:10px 15px;background:#286985;color:white;font-weight:700;cursor:pointer}
+.igpc-two-panel .igpc-status{margin-top:13px;padding:11px;border-radius:7px;background:#10261c;color:#b9f0ce;font-weight:700}
+.igpc-two-panel .igpc-project{font-size:22px;font-weight:700;color:#f3f7fa;margin:14px 0}
+.igpc-two-panel .igpc-note{color:#d8e1e8;line-height:1.45}
+@media(max-width:800px){.igpc-two-panel{grid-template-columns:1fr}}
+</style>
+
+<section class="igpc-two-panel" id="client-link-portal">
+<div class="igpc-panel">
+<h2>IGPC — Client Link</h2>
+<label for="igpcClient">Client</label><input id="igpcClient" value="Northam">
+<label for="igpcProject">Project ID</label><input id="igpcProject" value="Northam_3Shaft">
+<label for="igpcEmail">Client Email</label><input id="igpcEmail" value="data@client.example">
+<label for="igpcExpiry">Link Expiry</label>
+<select id="igpcExpiry"><option>7 days</option><option>14 days</option><option>30 days</option></select>
+<div class="igpc-actions">
+<button type="button" onclick="igpcGenerateLink()">Generate Project Link</button>
+<button type="button" onclick="igpcOpenPortal()">Open Client Portal</button>
+</div>
+<div class="igpc-status" id="igpcLinkStatus">No link generated yet.</div>
+</div>
+<div class="igpc-panel">
+<h2>Client Portal</h2>
+<div class="igpc-note">Project-specific upload page. No copy/paste required.</div>
+<div class="igpc-project" id="igpcPortalProject">Northam_3Shaft</div>
+<div class="igpc-note">CSV / TXT files — up to 20 files per submission</div>
+<div style="margin-top:10px"><input id="igpcFiles" type="file" accept=".csv,.txt" multiple></div>
+<div class="igpc-actions"><button type="button" onclick="igpcUploadFiles()">Upload File(s)</button></div>
+<div class="igpc-status" id="igpcUploadStatus">Waiting for client upload.</div>
+</div>
+</section>
+
+<div class="wrap">
+
+<div class="card">
+<h1>IGPC Virtual Library</h1>
+<div class="muted">Build 03 — Client Project Upload Portal • CSV Intake, Validation & Notifications</div>
+</div>
+
+<div class="card">
+<div class="muted">PROJECT LINK</div>
+<div class="pid" id="projectDisplay">Waiting for CSV</div>
+<div class="muted" id="projectNameDisplay">The Project ID is read from the uploaded data — it is not hard-coded.</div>
+</div>
+
+<div class="card">
+
+</div>
+</div>
+
+<div class="card">
+<div class="drop">
+<h2>Upload exported project data</h2>
+<div class="muted">CSV is read directly. Commas, semicolons and tab delimiters are detected automatically.<br><b>The system sorts the incoming CSV before validation. The original file is never rewritten.</b></div>
+<input id="files" type="file" accept=".csv,.txt">
+<br><button onclick="submitFiles()">Submit Data to IGPC</button>
+</div>
+<div id="status"></div><div id="clientOutcome"></div>
+</div>
+
+<div class="card">
+<div class="muted">The Virtual Library creates notification events from the validation result. This local build simulates the notification queue; production will send through the secure backend using email/SMS providers.</div>
+<div class="notify-grid" style="margin-top:14px">
+  <div class="notify-card">
+    <b>Client notifications</b>
+    <div class="notify-row"><span>Email</span><span id="clientEmailState" class="on">ON</span></div>
+    <div class="notify-row"><span>SMS</span><span id="clientSmsState" class="on">ON</span></div>
+    <div class="small" style="margin-top:10px">Success: Email • Errors: Email + SMS for critical errors</div>
+  </div>
+  <div class="notify-card">
+    <b>IGPC notifications</b>
+    <div class="notify-row"><span>Dashboard</span><span id="igpcDashState" class="on">ON</span></div>
+    <div class="notify-row"><span>Email</span><span id="igpcEmailState" class="on">ON</span></div>
+    <div class="notify-row"><span>SMS</span><span id="igpcSmsState" class="on">ON</span></div>
+    <div class="small" style="margin-top:10px">Critical errors and accepted-data events are logged for IGPC.</div>
+  </div>
+</div>
+<div style="margin-top:14px">
+  <td>Email</td><td>Dashboard + Email</td></tr>
+    <tr><td>5/5 passed</td><td>Email</td><td>Dashboard + Email</td></tr>
+    <tr><td>Duplicate</td><td>Email + SMS</td><td>Dashboard + Email + SMS</td></tr>
+    <tr><td>Mismatch</td><td>Email + SMS</td><td>Dashboard + Email + SMS</td></tr>
+    <tr><td>Corrupted</td><td>Email + SMS</td><td>Dashboard + Email + SMS</td></tr>
+    <tr><td>Undefined</td><td>Email + SMS</td><td>Dashboard + Email + SMS</td></tr>
+    <tr><td>Blank required data</td><td>Email</td><td>Dashboard + Email</td></tr>
+    <tr><td>Released to Project Files</td><td>Email</td><td>Dashboard + Email</td></tr>
+  </table>
+</div>
+<div style="margin-top:14px"><b>Notification event log</b><div id="notificationLog" class="log" style="margin-top:8px"><div class="small">Waiting for an intake event…</div></div></div>
+</div>
+
+<div class="card">
+<h2>Submission record</h2>
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>Project ID</td><td id="projectId">—</td></tr>
+<tr><td>Version</td><td id="version">001</td></tr>
+<tr><td>Status</td><td id="state">READY</td></tr>
+<tr><td>File</td><td id="fname">—</td></tr>
+<tr><td>Delimiter detected</td><td id="delimiter">—</td></tr>
+<tr><td>Columns detected</td><td id="columns">—</td></tr>
+<tr><td>Received</td><td id="received">—</td></tr>
+</table>
+</div>
+
+<div class="card hidden" id="sortingCard">
+<h2>CSV intake & sorting</h2>
+<div id="sortingResult"></div>
+<div class="small" style="margin-top:10px">Detected column order after parsing:</div>
+<div class="schema" id="schema"></div>
+</div>
+
+<div class="card">
+<h2>Step 7 — Five Validation Tests</h2>
+<div class="small">The validation schema is selected from the detected Project Type. The system no longer assumes that every CSV is a Northam operational-mine dataset.</div>
+<div id="validation" class="hidden">
+<div id="test-corrupt" class="test"></div>
+<div id="test-duplicate" class="test"></div>
+<div id="test-mismatch" class="test"></div>
+<div id="test-blank" class="test"></div>
+<div id="test-undefined" class="test"></div>
+<div class="summary">
+<div class="metric">Rows checked<b id="rows">0</b></div>
+<div class="metric">Errors<b id="errorCount">0</b></div>
+<div class="metric">Project ID<b id="detectedProject">—</b></div>
+<div class="metric">Project Type<b id="projectType">—</b></div>
+<div class="metric">Final result<b id="finalResult">—</b></div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>After submission</h2>
+<table>
+<tr><th>Stage</th><th>System action</th></tr>
+<tr><td>1. Received</td><td>Creates intake record</td></tr>
+<tr><td>2. Preserved</td><td>Original file retained unchanged</td></tr>
+<tr><td>3. Sorted / Parsed</td><td>Detects delimiter and organises rows and columns</td></tr>
+<tr><td>4. Validation</td><td>Runs Corrupted / Duplicate / Mismatched / Blank Rows / Undefined tests</td></tr>
+<tr><td>5. Error</td><td>Places submission ON HOLD and identifies exact location</td></tr>
+<tr><td>6. Passed</td><td>Releases accepted data toward Project Files</td></tr>
+</table>
+</div>
+
+<div class="card">
+<div class="notice"><b>Prototype boundary:</b> this build performs CSV parsing, delimiter detection, project identification, schema selection and validation locally in the browser. Production will perform the same controlled sequence on the Virtual Library server.</div>
+</div>
+
+</div>
+
+<script>
+const SCHEMAS = {
+  OPERATIONAL_MINE: [
+    "index","Project_ID","Project_Name","Project_Type","Commodity","Asset_Area","Record_ID","Record_Date",
+    "Planned_Advance_m_per_day","Actual_Advance_m_per_day","Planned_Project_Cost_R","Actual_Cost_R",
+    "Scheduled_Hours","Idle_Hours","Production_Rate_t_per_hour","Geotech_Clearance_Status",
+    "Support_Status","Schedule_Status","Data_Quality_Status"
+  ],
+  EXPLORATION: [
+    "index","Project_ID","Project_Name","Project_Type","Commodity","Asset_Area","Record_ID","Record_Date",
+    "Planned_Advance_m_per_day","Actual_Advance_m_per_day","Planned_Project_Cost_R","Actual_Cost_R",
+    "Drilling_Meters_Planned","Drilling_Meters_Completed","Samples_Planned","Samples_Collected",
+    "Lab_Turnaround_Days","Data_Quality_Status"
+  ],
+  FINANCIAL_MODELLING: [
+    "index","Project_ID","Project_Name","Project_Type","Commodity","Asset_Area","Record_ID","Period","Month_Index",
+    "Planned_Revenue_R","Actual_Revenue_R","Planned_Opex_R","Actual_Opex_R","Planned_Capex_R","Actual_Capex_R",
+    "Production_t","Commodity_Price_R_per_t","Discount_Rate_pct","Tax_Rate_pct","Data_Quality_Status"
+  ]
+};
+
+const ALLOWED = {
+  Project_Type:["OPERATIONAL_MINE","EXPLORATION","FINANCIAL_MODELLING"],
+  Commodity:["PLATINUM"],
+  Geotech_Clearance_Status:["CLEAR","HOLD"],
+  Support_Status:["COMPLIANT","REVIEW"],
+  Schedule_Status:["ON TRACK","MINOR VARIANCE","RECOVERY REQUIRED"],
+  Data_Quality_Status:["VALID","REVIEW"]
+};
+
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+
+function detectDelimiter(text){
+  const sample=text.split(/\r?\n/).slice(0,8).join("\n");
+  const candidates=[",",";","\t","|"];
+  let best=",", bestScore=-1;
+  for(const d of candidates){
+    let score=0, inQ=false, count=0;
+    for(let i=0;i<sample.length;i++){
+      const c=sample[i];
+      if(c==='"') inQ=!inQ;
+      else if(c===d && !inQ) count++;
+    }
+    const lines=sample.split(/\r?\n/).filter(Boolean);
+    if(lines.length){
+      const counts=lines.map(line=>{
+        let q=false,n=0;
+        for(const c of line){if(c==='"')q=!q;else if(c===d&&!q)n++;}
+        return n;
+      });
+      const max=Math.max(...counts,0), consistency=counts.filter(x=>x===max).length;
+      score=max*10+consistency;
+    }
+    if(score>bestScore){bestScore=score;best=d;}
+  }
+  return best;
+}
+
+function parseDelimited(text,delimiter){
+  text=text.replace(/^\uFEFF/,"");
+  const rows=[];let row=[],cell="",quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i],n=text[i+1];
+    if(c==='"' && quoted && n==='"'){cell+='"';i++;continue}
+    if(c==='"'){quoted=!quoted;continue}
+    if(c===delimiter && !quoted){row.push(cell);cell="";continue}
+    if((c==="\n"||c==="\r")&&!quoted){
+      if(c==="\r"&&n==="\n")i++;
+      row.push(cell);cell="";
+      if(row.some(x=>String(x).trim()!==""))rows.push(row);
+      row=[];continue;
+    }
+    cell+=c;
+  }
+  if(cell!==""||row.length){row.push(cell);if(row.some(x=>String(x).trim()!==""))rows.push(row);}
+  if(!rows.length)throw new Error("No readable rows found.");
+  const headers=rows[0].map(x=>x.trim());
+  const data=rows.slice(1).map((r,i)=>{
+    const obj={};
+    headers.forEach((h,j)=>obj[h]=r[j]??"");
+    obj.__row=i+2;return obj;
+  });
+  return {headers,data};
+}
+
+function resultBox(name,status,details,errors=[]){
+  const cls=status==="PASSED"?"pass":status==="REVIEW"?"review":"fail";
+  return `<div><b>${name}</b></div><div><span class="badge ${cls}">${status}</span></div><div class="details">${esc(details)}
+  ${errors.length?`<ul class="errors">${errors.slice(0,30).map(e=>`<li>${esc(e)}</li>`).join("")}${errors.length>30?`<li>…and ${errors.length-30} more</li>`:""}</ul>`:""}</div>`;
+}
+
+function logNotification(channel,recipient,event,message){
+  const log=document.getElementById("notificationLog");
+  if(log.querySelector(".small")) log.innerHTML="";
+  const now=new Date().toLocaleTimeString();
+  const item=document.createElement("div");
+  item.className="logitem";
+  item.innerHTML=`<span class="channel">${esc(channel)}</span><b>${esc(event)}</b> → ${esc(recipient)}<br><span class="small">${esc(now)} • ${esc(message)}</span>`;
+  log.prepend(item);
+}
+
+function notifyEvent(event, projectId, fileName, passed, errors=[]){
+  const critical=["DUPLICATE","MISMATCH","CORRUPTED","UNDEFINED"];
+  const msg=passed?`Project ${projectId}: ${fileName} accepted — 5/5 validation tests passed.`:`Project ${projectId}: ${fileName} is ON HOLD — validation requires correction.`;
+  logNotification("DASHBOARD","IGPC",event,msg);
+  logNotification("EMAIL","IGPC",event,msg);
+  if(!passed && errors.some(e=>critical.some(k=>e.toUpperCase().includes(k)))) logNotification("SMS","IGPC",event,"Critical validation issue requires attention.");
+  if(passed){
+    logNotification("EMAIL","CLIENT",event,`Your project data has been received and successfully validated. Project: ${projectId}. Status: ACCEPTED.`);
+    logNotification("EMAIL","CLIENT","DATA RELEASED",`Accepted data for ${projectId} is ready to move to Project Files.`);
+  }else{
+    logNotification("EMAIL","CLIENT",event,`Your submission for ${projectId} is on hold. Please correct the source data and submit again.`);
+    if(errors.some(e=>critical.some(k=>e.toUpperCase().includes(k)))) logNotification("SMS","CLIENT",event,"IGPC Virtual Library: action required on your data submission.");
+  }
+}
+
+function showClientOutcome(passed, projectId, fileName, errors){
+  const box=document.getElementById("clientOutcome");
+  if(passed){
+    box.innerHTML=`<div class="success-screen"><div style="font-size:20px;font-weight:bold">✅ DONE — DATA RECEIVED AND ACCEPTED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>5/5 PASSED</b><br>Status: <b>ACCEPTED</b></div><div class="small" style="margin-top:10px">A confirmation email has been queued for the client and IGPC has been notified. No further action is required.</div></div>`;
+  }else{
+    box.innerHTML=`<div class="hold-screen"><div style="font-size:20px;font-weight:bold">❌ DATA ON HOLD — ACTION REQUIRED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>NOT PASSED</b></div><div class="small" style="margin-top:10px">The client is notified to correct the source data and export/upload again. The original submission remains unchanged.</div></div>`;
+  }
+}
+
+async function submitFiles(){
+  const f=document.getElementById("files").files[0],s=document.getElementById("status");
+  if(!f){s.innerHTML='<div class="notice" style="border-color:#e6b75b">Please select the exported CSV first.</div>';return;}
+  document.getElementById("state").textContent="RECEIVED → PRESERVED → SORTING → VALIDATING";
+  document.getElementById("fname").textContent=f.name;
+  document.getElementById("received").textContent=new Date().toLocaleString();
+  document.getElementById("validation").classList.remove("hidden");
+  s.innerHTML='<div class="notice"><b>Received.</b> Reading the raw CSV, detecting its delimiter and organising the data before validation.</div>';
+
+  try{
+    const text=await f.text();
+    const delimiter=detectDelimiter(text);
+    document.getElementById("delimiter").textContent=delimiter==="\t"?"TAB":`"${delimiter}" (comma = standard CSV)`;
+    const parsed=parseDelimited(text,delimiter);
+    runValidation(parsed,f.name,delimiter);
+  }catch(err){
+    document.getElementById("test-corrupt").innerHTML=resultBox("1. Corrupted Data","FAILED","The file could not be read as a valid delimited dataset.",[err.message]);
+    document.getElementById("state").textContent="REJECTED — CORRUPTED";
+    logNotification("DASHBOARD","IGPC","CORRUPTED",`File ${f.name} could not be parsed.`);
+    logNotification("EMAIL","IGPC","CORRUPTED",`Corrupted submission requires attention: ${f.name}.`);
+    logNotification("SMS","IGPC","CORRUPTED","Critical corrupted-data event requires attention.");
+    logNotification("EMAIL","CLIENT","CORRUPTED","Your file could not be read. Correct the source export and submit again.");
+    logNotification("SMS","CLIENT","CORRUPTED","IGPC Virtual Library: action required on your data file.");
+    showClientOutcome(false,"UNDEFINED",f.name,["CORRUPTED"]);
+    s.innerHTML='<div class="notice" style="border-color:#ef777f"><b>DATA ON HOLD</b> — The raw file could not be parsed.</div>';
+  }
+}
+
+function runValidation({headers,data},fileName,delimiter){
+  const projectIds=[...new Set(data.map(r=>(r.Project_ID||"").trim()).filter(Boolean))];
+  const types=[...new Set(data.map(r=>(r.Project_Type||"").trim()).filter(Boolean))];
+  const projectId=projectIds.length===1?projectIds[0]:projectIds.join(", ")||"UNDEFINED";
+  const type=types.length===1?types[0]:"UNDEFINED";
+  const schema=SCHEMAS[type]||[];
+
+  document.getElementById("projectId").textContent=projectId;
+  document.getElementById("detectedProject").textContent=projectId;
+  document.getElementById("projectType").textContent=type;
+  document.getElementById("projectDisplay").textContent=projectId;
+  document.getElementById("columns").textContent=headers.length;
+  document.getElementById("schema").textContent=headers.join("  |  ");
+  document.getElementById("sortingCard").classList.remove("hidden");
+  document.getElementById("sortingResult").innerHTML=
+    `<span class="badge info">SORTED / PARSED</span> &nbsp; ${esc(data.length)} rows organised into ${esc(headers.length)} detected columns. `+
+    `Project ID = <b>${esc(projectId)}</b> • Project Type = <b>${esc(type)}</b>`;
+
+  const errors=[];
+
+  // 1. Corrupted = unreadable/invalid structure, NOT "wrong project schema".
+  const corrupt=[];
+  if(!headers.length)corrupt.push("No header row detected.");
+  if(headers.some(h=>!h.trim()))corrupt.push("Blank column name detected.");
+  const dupHeaders=headers.filter((h,i)=>headers.indexOf(h)!==i);
+  if(dupHeaders.length)corrupt.push("Duplicate column name(s): "+[...new Set(dupHeaders)].join(", "));
+  document.getElementById("test-corrupt").innerHTML=resultBox("1. Corrupted Data",corrupt.length?"FAILED":"PASSED",
+    corrupt.length?"CSV structure is not acceptable.":`File is readable and delimiter "${delimiter==="\t"?"TAB":delimiter}" was detected.`,corrupt);
+  if(corrupt.length)errors.push(...corrupt.map(x=>"Corrupted: "+x));
+
+  // 2. Duplicate Record IDs
+  const seen=new Map(),dups=[];
+  data.forEach(r=>{
+    const id=(r.Record_ID||"").trim();if(!id)return;
+    if(seen.has(id))dups.push(`Record ID ${id}: rows ${seen.get(id)} and ${r.__row}`);
+    else seen.set(id,r.__row);
+  });
+  document.getElementById("test-duplicate").innerHTML=resultBox("2. Duplicate Data",dups.length?"REVIEW":"PASSED",
+    dups.length?`${dups.length} duplicate Record ID occurrence(s) detected.`:`No duplicate Record IDs detected across ${data.length} data rows.`,dups);
+  if(dups.length)errors.push(...dups.map(x=>"Duplicate: "+x));
+
+  // 3. Mismatch — Project ID must be consistent within the uploaded file.
+  const mismatch=[];
+  if(projectIds.length!==1) mismatch.push(`File contains multiple or undefined Project IDs: ${projectIds.join(", ")||"NONE"}`);
+  data.forEach(r=>{
+    const pid=(r.Project_ID||"").trim();
+    if(pid!==projectId && projectId!=="UNDEFINED")
+      mismatch.push(`Row ${r.__row} / Record ${r.Record_ID||"—"}: expected ${projectId}, received ${pid||"BLANK"}`);
+  });
+  document.getElementById("test-mismatch").innerHTML=resultBox("3. Mismatched Data",mismatch.length?"FAILED":"PASSED",
+    mismatch.length?`${mismatch.length} project-identity problem(s) detected.`:`All rows belong to Project ID ${projectId}.`,mismatch);
+  if(mismatch.length)errors.push(...mismatch.map(x=>"Mismatch: "+x));
+
+  // 4. Blank rows / required fields
+  const blank=[];
+  const required=["Project_ID","Record_ID"];
+  if(type==="FINANCIAL_MODELLING")required.push("Period");
+  else required.push("Record_Date");
+  data.forEach(r=>{
+    const miss=required.filter(c=>!(r[c]??"").trim());
+    if(miss.length)blank.push(`Row ${r.__row} / Record ${r.Record_ID||"—"}: blank required field(s): ${miss.join(", ")}`);
+  });
+  document.getElementById("test-blank").innerHTML=resultBox("4. Blank Rows",blank.length?"REVIEW":"PASSED",
+    blank.length?`${blank.length} row(s) contain blank required data.`:`No blank required fields detected in ${data.length} data rows.`,blank);
+  if(blank.length)errors.push(...blank.map(x=>"Blank: "+x));
+
+  // 5. Undefined — schema and approved categorical values are selected by Project Type.
+  const undef=[];
+  if(!schema.length)undef.push(`Project Type "${type}" is not defined in the Virtual Library schema.`);
+  else{
+    const extra=headers.filter(c=>!schema.includes(c));
+    const missing=schema.filter(c=>!headers.includes(c));
+    extra.forEach(c=>undef.push(`Column ${c}: not defined for ${type}.`));
+    missing.forEach(c=>undef.push(`Required column missing for ${type}: ${c}`));
+    data.forEach(r=>{
+      Object.keys(ALLOWED).forEach(col=>{
+        if(headers.includes(col)){
+          const v=(r[col]??"").trim();
+          if(v && !ALLOWED[col].includes(v))undef.push(`Row ${r.__row} / Column ${col}: received "${v}" — expected ${ALLOWED[col].join(" / ")}`);
+        }
+      });
+    });
+  }
+  document.getElementById("test-undefined").innerHTML=resultBox("5. Undefined Data",undef.length?"REVIEW":"PASSED",
+    undef.length?`${undef.length} undefined/unapproved field or value issue(s) detected.`:`Columns and checked categorical values match the detected ${type} schema.`,undef);
+  if(undef.length)errors.push(...undef.map(x=>"Undefined: "+x));
+
+  document.getElementById("rows").textContent=data.length;
+  document.getElementById("errorCount").textContent=errors.length;
+  const finalPassed=corrupt.length===0&&dups.length===0&&mismatch.length===0&&blank.length===0&&undef.length===0;
+  document.getElementById("finalResult").textContent=finalPassed?"PASSED":"ON HOLD";
+  document.getElementById("finalResult").className=finalPassed?"pass":"fail";
+
+  if(finalPassed){
+    document.getElementById("state").textContent="PASSED — RELEASED TO PROJECT FILES";
+    document.getElementById("status").innerHTML='<div class="notice" style="border-color:#59d49b"><b>VALIDATION PASSED.</b> The accepted dataset is ready to move toward Project Files.</div>';
+    showClientOutcome(true,projectId,fileName,errors);
+    notifyEvent("DATA PASSED",projectId,fileName,true,errors);
+  }else{
+    document.getElementById("state").textContent="ON HOLD — VALIDATION ERRORS";
+    document.getElementById("status").innerHTML='<div class="notice" style="border-color:#ef777f"><b>DATA ON HOLD.</b> The original submission remains unchanged. Correct the source data and submit again.</div>';
+    showClientOutcome(false,projectId,fileName,errors);
+    const event = corrupt.length ? "CORRUPTED" : dups.length ? "DUPLICATE" : mismatch.length ? "MISMATCH" : blank.length ? "BLANK REQUIRED DATA" : "UNDEFINED";
+    notifyEvent(event,projectId,fileName,false,errors);
+  }
+}
+</script>
+
+<section style="margin:28px 0;padding:24px;border:1px solid #d9dee7;border-radius:16px;background:#fff;font-family:Arial,sans-serif">
+<h2>Virtual Library — Email + SMS Notifications</h2>
+<p style="color:#64748b">Both channels use the same notification engine. Providers can be connected later.</p>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px">
+<div style="padding:18px;border:1px solid #ddd;border-radius:12px"><b>EMAIL</b><h3>READY</h3><span>Client + IGPC</span><br>Provider: Not connected</div>
+<div style="padding:18px;border:1px solid #ddd;border-radius:12px"><b>SMS</b><h3>READY</h3><span>Critical/action alerts</span><br>Provider: Not connected</div>
+<div style="padding:18px;border:1px solid #ddd;border-radius:12px"><b>NOTIFICATION ENGINE</b><h3>ACTIVE</h3><span>Routes events to both channels</span><br>API keys: None in dashboard</div>
+</div>
+<div style="margin-top:20px;padding:18px;background:#f8fafc;border-radius:12px">
+<th>Email</th><th>SMS</th></tr>
+<tr><td>Data received</td><td>✓</td><td>—</td></tr>
+<tr><td>5/5 validation passed</td><td>✓</td><td>—</td></tr>
+<tr><td>Duplicate detected</td><td>✓</td><td>✓</td></tr>
+<tr><td>Project mismatch</td><td>✓</td><td>✓</td></tr>
+<tr><td>Corrupted data</td><td>✓</td><td>✓</td></tr>
+<tr><td>Undefined data</td><td>✓</td><td>✓</td></tr>
+<tr><td>Blank required data</td><td>✓</td><td>—</td></tr>
+<tr><td>Corrected file received</td><td>✓</td><td>—</td></tr>
+<tr><td>Released to Project Files</td><td>✓</td><td>—</td></tr>
+</table>
+</div>
+<div style="margin-top:20px">
+<h3>Notification Activity</h3>
+<div id="igpcNotifActivity" style="padding:18px;border:1px solid #ddd;border-radius:10px">No notification events yet.</div>
+<br>
+<button onclick="igpcNotifTest('EMAIL')">Test Email</button>
+<button onclick="igpcNotifTest('SMS')">Test SMS</button>
+<button onclick="igpcNotifTest('BOTH')">Test Both</button>
+</div>
+</section>
+
+<script>
+function igpcNotifTest(channel){
+ const box=document.getElementById('igpcNotifActivity');
+ const now=new Date().toLocaleString();
+ box.innerHTML='<b>TEST EVENT</b> — Northam_3Shaft — '+now+
+ '<br>Email: '+((channel==='EMAIL'||channel==='BOTH')?'READY':'—')+
+ '<br>SMS: '+((channel==='SMS'||channel==='BOTH')?'READY':'—')+
+ '<br><small>Provider delivery is pending until the secure backend is connected.</small>';
+}
+</script>
+
+<script>
+function igpcGenerateLink(){
+ const c=document.getElementById('igpcClient').value.trim(),p=document.getElementById('igpcProject').value.trim(),e=document.getElementById('igpcEmail').value.trim();
+ const s=document.getElementById('igpcLinkStatus');
+ if(!c||!p||!e){s.textContent='Complete Client, Project ID and Client Email.';return;}
+ document.getElementById('igpcPortalProject').textContent=p;
+ s.textContent='Link generated and sent to client.';
+}
+function igpcOpenPortal(){document.getElementById('igpcFiles').focus();}
+function igpcUploadFiles(){
+ const f=document.getElementById('igpcFiles').files,s=document.getElementById('igpcUploadStatus');
+ if(!f.length){s.textContent='Select one or more CSV / TXT files first.';return;}
+ if(f.length>20){s.textContent='Maximum 20 files per submission.';return;}
+ s.textContent=f.length+' file(s) received. Proceeding to validation.';
+}
+</script>
+
+<script>
+(function(){
+const KEY="igpc_project_files_release_v1";
+window.igpcGenerateLink=function(){
+ const p=(document.getElementById("igpcProject")||{}).value||"";
+ const st=document.getElementById("igpcLinkStatus");
+ const pp=document.getElementById("igpcPortalProject");
+ if(!p.trim()){if(st)st.textContent="Project ID required.";return;}
+ if(pp)pp.textContent=p.trim(); if(st)st.textContent="Project link generated.";
+};
+window.igpcOpenPortal=function(){const f=document.getElementById("igpcFiles");if(f)f.click();};
+window.igpcUploadFiles=function(){
+ const input=document.getElementById("igpcFiles"),st=document.getElementById("igpcUploadStatus");
+ const files=Array.from((input&&input.files)||[]);
+ if(!files.length){st.textContent="Select CSV / TXT file(s).";return;}
+ if(files.length>20){st.textContent="Maximum 20 files per submission.";return;}
+ const client=((document.getElementById("igpcClient")||{}).value||"").trim();
+ const project=((document.getElementById("igpcProject")||{}).value||"").trim();
+ const old=JSON.parse(localStorage.getItem(KEY)||"[]");
+ let pending=files.length;
+ files.forEach(file=>{
+   const r=new FileReader();
+   r.onload=function(){
+     const text=String(r.result||"");
+     const lines=text.split(/\r?\n/).filter(x=>x.trim());
+     const header=lines[0]||"";
+     const delims=[",",";","\t","|"];
+     const delim=delims.reduce((a,b)=>(header.split(b).length>header.split(a).length?b:a),",");
+     const rows=Math.max(0,lines.length-1);
+     const projectCol=header.split(delim).findIndex(x=>x.replace(/"/g,"").trim().toLowerCase()==="project_id");
+     let detected=project;
+     if(projectCol>=0 && lines[1]){
+       const vals=lines[1].split(delim);
+       detected=(vals[projectCol]||"").replace(/^"|"$/g,"").trim()||project;
+     }
+     old.push({client,project_id:detected,file_name:file.name,rows,status:"RELEASED_TO_PROJECT_FILES",received_at:new Date().toISOString()});
+     pending--; if(!pending){
+       localStorage.setItem(KEY,JSON.stringify(old));
+       st.textContent=files.length+" file(s) received and released to Project Files.";
+     }
+   };
+   r.readAsText(file);
+ });
+};
+})();
+</script>
+</body>
+</html>
