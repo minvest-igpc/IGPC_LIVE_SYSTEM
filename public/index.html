@@ -134,18 +134,18 @@ button:focus{outline:2px solid #7db4ff;outline-offset:1px} .analytics-scope .app
 const IGPC_API=window.IGPC_API_BASE||'';
 async function igpcLiveRefresh(){try{const r=await fetch(IGPC_API+'/api/projects');if(!r.ok)return;const ps=await r.json();const latest=ps[0];if(latest){document.querySelectorAll('.project strong').forEach(e=>e.textContent='Project ID: '+latest.project_id);const live=document.querySelector('.live');if(live)live.textContent='● LIVE / '+latest.status;}}catch(e){}}
 window.addEventListener('message',e=>{if(e.data?.type==='igpc-data-released'){igpcLiveRefresh();}});igpcLiveRefresh();setInterval(igpcLiveRefresh,10000);
-</script></head>
+</script><link rel="stylesheet" href="unified-theme.css"></head>
 <body>
 <div class="app">
 <aside class="sidebar">
 <div class="logo"><div class="logo-main">IGPC</div><div class="logo-sub">INTEGRATED GEOTECHNICAL<br>PROJECT CONTROLS</div></div>
 <nav class="nav">
 <button class="active" data-view="home">⌂ &nbsp; MAIN DASHBOARD</button>
-<button data-view="analytics">▥ &nbsp; ANALYTICS</button>
 <button data-view="library">◉ &nbsp; VIRTUAL LIBRARY</button>
+<button data-view="projectfiles">◈ &nbsp; PROJECT FILES</button>
+<button data-view="analytics">▥ &nbsp; ANALYTICS</button>
+<button data-view="diagnostics">◫ &nbsp; DIAGNOSTICS</button>
 <button data-view="reports">▧ &nbsp; REPORTS</button>
-<button data-view="diagnostics">〽 &nbsp; DIAGNOSTICS</button>
-<button data-view="projectfiles">▤ &nbsp; PROJECT FILES</button>
 </nav>
 <div class="support"><strong>Need Help?</strong><br>IGPC Support</div>
 </aside>
@@ -170,11 +170,11 @@ window.addEventListener('message',e=>{if(e.data?.type==='igpc-data-released'){ig
 </div>
 
 <div class="modules">
-<div class="module analytics" onclick="openView('analytics')"><div class="num">01</div><h3>ANALYTICS</h3><p>W1–W10, Layers 1–4, F08 and PCV1–PCV4. This is the integrated analytics dashboard already built.</p><div class="go">OPEN ANALYTICS →</div></div>
-<div class="module library" onclick="openView('library')"><div class="num">02</div><h3>VIRTUAL LIBRARY</h3><p>Secure bridge between client information and IGPC project intelligence, without touching the client's server.</p><div class="go">OPEN VIRTUAL LIBRARY →</div></div>
-<div class="module reports" onclick="openView('reports')"><div class="num">03</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS →</div></div>
+<div class="module library" onclick="openView('library')"><div class="num">01</div><h3>VIRTUAL LIBRARY</h3><p>Secure bridge between client information and IGPC project intelligence, without touching the client's server.</p><div class="go">OPEN VIRTUAL LIBRARY →</div></div>
+<div class="module files" onclick="openView('projectfiles')"><div class="num">02</div><h3>PROJECT FILES</h3><p>Master project entry point with the three IGPC core operational boxes and the structured project architecture.</p><div class="go">OPEN PROJECT FILES →</div></div>
+<div class="module analytics" onclick="openView('analytics')"><div class="num">03</div><h3>ANALYTICS</h3><p>W1-W10, Layers 1-4, F08 and PCV1-PCV4. This is the integrated analytics dashboard already built.</p><div class="go">OPEN ANALYTICS →</div></div>
 <div class="module diagnostics" onclick="openView('diagnostics')"><div class="num">04</div><h3>DIAGNOSTICS</h3><p>Moves from an identified problem or deviation to the most likely causes, probabilities and diagnostic evidence.</p><div class="go">OPEN DIAGNOSTICS →</div></div>
-<div class="module files" onclick="window.location.href='IGPC_Project_Files_PASS4_FUNCTIONAL.html'"><div class="num">05</div><h3>PROJECT FILES</h3><p>Master project entry point with the three IGPC core operational boxes and the structured project architecture.</p><div class="go">OPEN PROJECT FILES →</div></div>
+<div class="module reports" onclick="openView('reports')"><div class="num">05</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS →</div></div>
 </div>
 <div class="card">
 <h3>PROJECT ID — SYSTEM ANCHOR</h3>
