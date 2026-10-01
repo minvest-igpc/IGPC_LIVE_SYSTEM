@@ -22,6 +22,61 @@ table{width:100%;border-collapse:collapse;font-size:12px}td,th{padding:10px;bord
 .summary{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:15px}.metric{background:#0a1721;border:1px solid #263b4b;border-radius:9px;padding:12px}.metric b{display:block;font-size:18px;margin-top:5px}
 .hidden{display:none}.notify-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.notify-card{background:#0a1721;border:1px solid #263b4b;border-radius:10px;padding:14px}.notify-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #263b4b;font-size:12px}.notify-row:last-child{border-bottom:0}.on{color:#8ff0bd}.off{color:#ffb4b9}.log{max-height:240px;overflow:auto;background:#08141d;border:1px solid #263b4b;border-radius:8px;padding:10px;font-size:11px}.logitem{padding:8px 0;border-bottom:1px solid #263b4b}.logitem:last-child{border-bottom:0}.channel{display:inline-block;padding:3px 7px;border-radius:999px;background:#12303a;color:#8ddff0;font-weight:bold;margin-right:6px}.success-screen{margin-top:15px;padding:18px;border:1px solid #2c8a61;background:#0b251c;border-radius:10px}.hold-screen{margin-top:15px;padding:18px;border:1px solid #9a4b53;background:#2a1518;border-radius:10px}.schema{overflow:auto;white-space:nowrap;background:#08141d;border:1px solid #263b4b;border-radius:8px;padding:10px;font-size:11px}
 @media(max-width:800px){.test{grid-template-columns:1fr}.summary{grid-template-columns:1fr 1fr}.notify-grid{grid-template-columns:1fr}}
+:root{
+  --igpc-chocolate:#1D1815;
+  --igpc-chocolate-light:#BCAAA3;
+  --igpc-graphite:#2C2E37;
+  --igpc-deep:#171A1F;
+  --igpc-orange:#F2A65A;
+  --igpc-orange-light:#FFD29B;
+}
+
+body{
+  background:
+    radial-gradient(circle at 15% 5%,rgba(242,166,90,.14),transparent 28%),
+    linear-gradient(145deg,#2C2E37,#1D1815,#171A1F)!important;
+  color:#FFFFFF!important;
+}
+
+.container,
+.card,
+.panel,
+section,
+main{
+  background:transparent!important;
+  color:#FFFFFF!important;
+}
+
+button{
+  background:linear-gradient(145deg,#2C2E37,#1D1815)!important;
+  color:#FFFFFF!important;
+  border:1px solid rgba(242,166,90,.50)!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+button:hover{
+  background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;
+  color:#1D1815!important;
+}
+
+input,
+select,
+textarea{
+  background:#2C2E37!important;
+  color:#FFFFFF!important;
+  border:1px solid rgba(242,166,90,.40)!important;
+}
+
+h1,h2,h3,h4,p,label,span{
+  color:#FFFFFF!important;
+}
+
+.badge,
+.status,
+.pill{
+  background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;
+  color:#1D1815!important;
+}
 </style>
 </head>
 <body>
@@ -120,7 +175,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}td,th{padding:10px;bord
     <tr><td>Released to Project Files</td><td>Email</td><td>Dashboard + Email</td></tr>
   </table>
 </div>
-<div style="margin-top:14px"><b>Notification event log</b><div id="notificationLog" class="log" style="margin-top:8px"><div class="small">Waiting for an intake event…</div></div></div>
+<div style="margin-top:14px"><b>Notification event log</b><div id="validationReport"></div><div id="notificationLog" class="log" style="margin-top:8px"><div class="small">Waiting for an intake event…</div></div></div>
 </div>
 
 <div class="card">
@@ -146,7 +201,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}td,th{padding:10px;bord
 
 <div class="card">
 <h2>Step 7 — Five Validation Tests</h2>
-<div class="small">The validation schema is selected from the detected Project Type. The system no longer assumes that every CSV is a Northam operational-mine dataset.</div>
+<div class="small">The system identifies the Project Type and generates the validation schema from the incoming CSV. Client-specific columns are retained and do not require a pre-defined schema.</div>
 <div id="validation" class="hidden">
 <div id="test-corrupt" class="test"></div>
 <div id="test-duplicate" class="test"></div>
@@ -183,34 +238,195 @@ table{width:100%;border-collapse:collapse;font-size:12px}td,th{padding:10px;bord
 </div>
 
 <script>
-const SCHEMAS = {
-  OPERATIONAL_MINE: [
-    "index","Project_ID","Project_Name","Project_Type","Commodity","Asset_Area","Record_ID","Record_Date",
-    "Planned_Advance_m_per_day","Actual_Advance_m_per_day","Planned_Project_Cost_R","Actual_Cost_R",
-    "Scheduled_Hours","Idle_Hours","Production_Rate_t_per_hour","Geotech_Clearance_Status",
-    "Support_Status","Schedule_Status","Data_Quality_Status"
+const CATEGORY_PROFILES = {
+  OPERATIONAL_MINING: {
+    aliases: [
+      "OPERATIONAL_MINING",
+      "OPERATIONAL_MINE",
+      "OPERATIONAL_MINE_PROJECT",
+      "MINING_OPERATIONS"
+    ],
+    signals: [
+      "SHIFT","LOCATION","ACTIVITY","EQUIPMENT","PLANNED_OUTPUT",
+      "ACTUAL_OUTPUT","DELAY_HOURS","DELAY_REASON","COST_RATE",
+      "PLANNED_ADVANCE","ACTUAL_ADVANCE","IDLE_HOURS",
+      "PRODUCTION_RATE","GEOTECH_CLEARANCE","SUPPORT_STATUS"
+    ]
+  },
+
+  EXPLORATION: {
+    aliases: [
+      "EXPLORATION",
+      "EXPLORATION_PROJECT",
+      "EXPLORATION_GEOTECHNICS"
+    ],
+    signals: [
+      "HOLE_ID","DRILLHOLE","DEPTH_FROM","DEPTH_TO","LITHOLOGY",
+      "ROCK_QUALITY","RECOVERY","SAMPLING","ASSAY","COORDINATES",
+      "DRILLING","SAMPLES","LAB_TURNAROUND"
+    ]
+  },
+
+  MINE_FINANCIAL_MODELLING: {
+    aliases: [
+      "MINE_FINANCIAL_MODELLING",
+      "FINANCIAL_MODELLING",
+      "FINANCIAL_MODEL",
+      "MINE_FINANCIAL_MODEL",
+      "ASSET_VALUATION"
+    ],
+    signals: [
+      "PERIOD","MONTH_INDEX","REVENUE","OPERATING_COST","OPEX",
+      "CAPITAL_COST","CAPEX","CASH_FLOW","PRODUCTION",
+      "COMMODITY_PRICE","DISCOUNT_RATE","TAX_RATE","NPV"
+    ]
+  }
+};
+
+const COLUMN_ALIASES = {
+  PROJECT_ID: [
+    "PROJECT_ID","PROJECTID","PROJECT","PROJECT_CODE","PROJECT_NUMBER"
   ],
-  EXPLORATION: [
-    "index","Project_ID","Project_Name","Project_Type","Commodity","Asset_Area","Record_ID","Record_Date",
-    "Planned_Advance_m_per_day","Actual_Advance_m_per_day","Planned_Project_Cost_R","Actual_Cost_R",
-    "Drilling_Meters_Planned","Drilling_Meters_Completed","Samples_Planned","Samples_Collected",
-    "Lab_Turnaround_Days","Data_Quality_Status"
+  PROJECT_TYPE: [
+    "PROJECT_TYPE","PROJECTTYPE","PROJECT_CATEGORY","PROJECT_CLASS"
   ],
-  FINANCIAL_MODELLING: [
-    "index","Project_ID","Project_Name","Project_Type","Commodity","Asset_Area","Record_ID","Period","Month_Index",
-    "Planned_Revenue_R","Actual_Revenue_R","Planned_Opex_R","Actual_Opex_R","Planned_Capex_R","Actual_Capex_R",
-    "Production_t","Commodity_Price_R_per_t","Discount_Rate_pct","Tax_Rate_pct","Data_Quality_Status"
+  RECORD_ID: [
+    "RECORD_ID","RECORDID","RECORD","ROW_ID","ID"
+  ],
+  RECORD_DATE: [
+    "RECORD_DATE","DATE","DATA_DATE","ENTRY_DATE","TRANSACTION_DATE"
+  ],
+  PERIOD: [
+    "PERIOD","MONTH","PERIOD_NAME","REPORTING_PERIOD"
   ]
 };
 
-const ALLOWED = {
-  Project_Type:["OPERATIONAL_MINE","EXPLORATION","FINANCIAL_MODELLING"],
-  Commodity:["PLATINUM"],
-  Geotech_Clearance_Status:["CLEAR","HOLD"],
-  Support_Status:["COMPLIANT","REVIEW"],
-  Schedule_Status:["ON TRACK","MINOR VARIANCE","RECOVERY REQUIRED"],
-  Data_Quality_Status:["VALID","REVIEW"]
+const CONTROL_VALUES = {
+  Project_Type: [
+    "OPERATIONAL_MINING",
+    "EXPLORATION",
+    "MINE_FINANCIAL_MODELLING"
+  ]
 };
+
+function normaliseName(v){
+  return String(v ?? "")
+    .trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9]+/g,"_")
+    .replace(/^_+|_+$/g,"");
+}
+
+function canonicalProjectType(value){
+  const v=normaliseName(value);
+
+  for(const [category,profile] of Object.entries(CATEGORY_PROFILES)){
+    if(profile.aliases.map(normaliseName).includes(v)) return category;
+  }
+
+  return "";
+}
+
+function aliasColumn(headers, aliases){
+  const wanted=aliases.map(normaliseName);
+  return headers.find(h=>wanted.includes(normaliseName(h))) || "";
+}
+
+function buildDynamicSchema(headers, data, category){
+  const profile=CATEGORY_PROFILES[category];
+  if(!profile) return null;
+
+  const recognised=[];
+  const dynamic=[];
+  const unknown=[];
+
+  headers.forEach(header=>{
+    const n=normaliseName(header);
+
+    const isControl=
+      Object.values(COLUMN_ALIASES)
+        .flat()
+        .map(normaliseName)
+        .includes(n);
+
+    const isSignal=profile.signals.map(normaliseName).some(signal=>{
+      return n===signal || n.includes(signal) || signal.includes(n);
+    });
+
+    if(isControl || isSignal){
+      recognised.push(header);
+    }else{
+      dynamic.push(header);
+    }
+  });
+
+  headers.forEach(header=>{
+    if(!recognised.includes(header) && !dynamic.includes(header)){
+      unknown.push(header);
+    }
+  });
+
+  return {
+    category,
+    columns:[...headers],
+    recognised,
+    dynamic,
+    unknown,
+    generatedAt:new Date().toISOString()
+  };
+}
+
+function scoreCategory(headers, data, category){
+  const profile=CATEGORY_PROFILES[category];
+  if(!profile) return 0;
+
+  const names=headers.map(normaliseName);
+  let score=0;
+
+  profile.signals.forEach(signal=>{
+    const s=normaliseName(signal);
+
+    if(names.some(n=>n===s)){
+      score+=3;
+    }else if(names.some(n=>n.includes(s)||s.includes(n))){
+      score+=1;
+    }
+  });
+
+  return score;
+}
+
+function inferProjectType(headers,data,submittedType){
+  const explicit=canonicalProjectType(submittedType);
+  if(explicit) return {category:explicit,confidence:100,source:"PROJECT_TYPE"};
+
+  const scores={};
+  Object.keys(CATEGORY_PROFILES).forEach(category=>{
+    scores[category]=scoreCategory(headers,data,category);
+  });
+
+  const ranked=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+
+  if(!ranked.length || ranked[0][1]===0){
+    return {category:"",confidence:0,source:"UNDEFINED"};
+  }
+
+  if(ranked.length>1 && ranked[0][1]===ranked[1][1]){
+    return {
+      category:"",
+      confidence:0,
+      source:"AMBIGUOUS",
+      scores
+    };
+  }
+
+  return {
+    category:ranked[0][0],
+    confidence:Math.min(99,50+ranked[0][1]*5),
+    source:"COLUMN_PATTERN",
+    scores
+  };
+}
 
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
@@ -283,19 +499,30 @@ function logNotification(channel,recipient,event,message){
   log.prepend(item);
 }
 
-function notifyEvent(event, projectId, fileName, passed, errors=[]){
-  const critical=["DUPLICATE","MISMATCH","CORRUPTED","UNDEFINED"];
-  const msg=passed?`Project ${projectId}: ${fileName} accepted — 5/5 validation tests passed.`:`Project ${projectId}: ${fileName} is ON HOLD — validation requires correction.`;
-  logNotification("DASHBOARD","IGPC",event,msg);
-  logNotification("EMAIL","IGPC",event,msg);
-  if(!passed && errors.some(e=>critical.some(k=>e.toUpperCase().includes(k)))) logNotification("SMS","IGPC",event,"Critical validation issue requires attention.");
-  if(passed){
-    logNotification("EMAIL","CLIENT",event,`Your project data has been received and successfully validated. Project: ${projectId}. Status: ACCEPTED.`);
-    logNotification("EMAIL","CLIENT","DATA RELEASED",`Accepted data for ${projectId} is ready to move to Project Files.`);
-  }else{
-    logNotification("EMAIL","CLIENT",event,`Your submission for ${projectId} is on hold. Please correct the source data and submit again.`);
-    if(errors.some(e=>critical.some(k=>e.toUpperCase().includes(k)))) logNotification("SMS","CLIENT",event,"IGPC Virtual Library: action required on your data submission.");
-  }
+function notifyEvent(event,projectId,fileName,passed,errors=[]){
+ const critical=['DUPLICATE','MISMATCH','CORRUPTED','UNDEFINED','BLANK'];
+ const now=new Date().toLocaleString();
+ const detail=errors.length?errors.join(' | '):'No validation errors.';
+ const msg=passed?'Project '+projectId+': '+fileName+' accepted - 5/5 validation tests passed.':'Project '+projectId+': '+fileName+' is ON HOLD - validation requires correction.';
+ logNotification('DASHBOARD','IGPC',event,msg+(detail==='No validation errors.'?'':' '+detail));
+ logNotification('EMAIL','IGPC',event,msg+(detail==='No validation errors.'?'':' Validation detail: '+detail));
+ if(!passed&&critical.some(k=>(event+' '+detail).toUpperCase().includes(k))){
+   logNotification('SMS','IGPC',event,'IGPC Virtual Library: validation error requires attention. '+detail);
+ }
+ if(passed){
+   logNotification('EMAIL','CLIENT',event,'Your project data has been received and successfully validated. Project: '+projectId+'. Status: ACCEPTED.');
+   logNotification('EMAIL','CLIENT','DATA RELEASED','Accepted data for '+projectId+' is ready to move to Project Files.');
+ }else{
+   logNotification('EMAIL','CLIENT',event,'Your submission for '+projectId+' is ON HOLD. Validation error: '+detail);
+   if(critical.some(k=>(event+' '+detail).toUpperCase().includes(k))){
+     logNotification('SMS','CLIENT',event,'IGPC Virtual Library: action required. '+detail);
+   }
+ }
+ const activity=document.getElementById('igpcNotifActivity'); if(activity){activity.innerHTML='<b>'+(passed?'DATA RELEASED':'DATA ON HOLD')+' &rarr; Project '+esc(projectId)+' &rarr; '+esc(fileName)+'<br>'+esc(now)+'<br>Status: <b>'+(passed?'ACCEPTED &rarr; RELEASED TO PROJECT FILES':'ON HOLD &rarr; VALIDATION ERRORS')+'</b>';}
+ const report=document.getElementById('validationReport');
+ if(report){
+   report.innerHTML='<div class="notice" style="border-color:#ef777f"><b>VALIDATION ERROR REPORT</b><br><br><b>Project:</b> '+esc(projectId)+'<br><b>File:</b> '+esc(fileName)+'<br><b>Event:</b> '+esc(event)+'<br><b>Status:</b> '+(passed?'ACCEPTED':'ON HOLD')+'<br><b>Time:</b> '+esc(now)+(errors.length?'<br><br><b>Exact validation finding:</b><ul class="errors">'+errors.map(e=>'<li>'+esc(e)+'</li>').join('')+'</ul>':'')+'<b>Action:</b> '+(passed?'No correction required.':'Correct the source data and upload the corrected file again. No release to Project Files has occurred.')+'</div>';
+ }
 }
 
 function showClientOutcome(passed, projectId, fileName, errors){
@@ -307,8 +534,8 @@ function showClientOutcome(passed, projectId, fileName, errors){
   }
 }
 
-async function submitFiles(){
-  const f=document.getElementById("files").files[0],s=document.getElementById("status");
+async function submitFiles(selectedFile=null){
+  const f=selectedFile || document.getElementById("files").files[0],s=document.getElementById("status");
   if(!f){s.innerHTML='<div class="notice" style="border-color:#e6b75b">Please select the exported CSV first.</div>';return;}
   document.getElementById("state").textContent="RECEIVED → PRESERVED → SORTING → VALIDATING";
   document.getElementById("fname").textContent=f.name;
@@ -336,110 +563,430 @@ async function submitFiles(){
 }
 
 function runValidation({headers,data},fileName,delimiter){
-  const projectIds=[...new Set(data.map(r=>(r.Project_ID||"").trim()).filter(Boolean))];
-  const types=[...new Set(data.map(r=>(r.Project_Type||"").trim()).filter(Boolean))];
-  const projectId=projectIds.length===1?projectIds[0]:projectIds.join(", ")||"UNDEFINED";
-  const type=types.length===1?types[0]:"UNDEFINED";
-  const schema=SCHEMAS[type]||[];
 
-  document.getElementById("projectId").textContent=projectId;
-  document.getElementById("detectedProject").textContent=projectId;
-  document.getElementById("projectType").textContent=type;
-  document.getElementById("projectDisplay").textContent=projectId;
-  document.getElementById("columns").textContent=headers.length;
-  document.getElementById("schema").textContent=headers.join("  |  ");
-  document.getElementById("sortingCard").classList.remove("hidden");
-  document.getElementById("sortingResult").innerHTML=
-    `<span class="badge info">SORTED / PARSED</span> &nbsp; ${esc(data.length)} rows organised into ${esc(headers.length)} detected columns. `+
-    `Project ID = <b>${esc(projectId)}</b> • Project Type = <b>${esc(type)}</b>`;
+  const cleanHeaders=headers.map(h=>String(h||"").trim());
+  const lowerHeaders=cleanHeaders.map(h=>h.toLowerCase());
+
+  const findHeader=(aliases)=>{
+    for(const alias of aliases){
+      const idx=lowerHeaders.indexOf(alias.toLowerCase());
+      if(idx>=0) return cleanHeaders[idx];
+    }
+    return null;
+  };
+
+  const projectIdField=findHeader([
+    "Project_ID","ProjectID","Project","Project_Code","Project_Number"
+  ]);
+
+  const projectTypeField=findHeader([
+    "Project_Type","ProjectType","Project_Category","Project_Class"
+  ]);
+
+  const recordIdField=findHeader([
+    "Record_ID","RecordID","Record","Row_ID","ID"
+  ]);
+
+  const recordDateField=findHeader([
+    "Record_Date","Date","Data_Date","Entry_Date","Transaction_Date"
+  ]);
+
+  const periodField=findHeader([
+    "Period","Month","Period_Name","Reporting_Period"
+  ]);
+
+  const valuesFor=(field)=>{
+    if(!field) return [];
+    const idx=cleanHeaders.indexOf(field);
+    if(idx<0) return [];
+    return data.map(row=>String(row[field]??"").trim());
+  };
+
+  const projectIds=valuesFor(projectIdField).filter(Boolean);
+  const projectId=projectIds.length ? projectIds[0] : "UNDEFINED";
+
+  let projectType="UNDEFINED";
+
+  if(projectTypeField){
+    const idx=cleanHeaders.indexOf(projectTypeField);
+    const explicit=data
+      .map(row=>String(row[projectTypeField]??"").trim())
+      .filter(Boolean);
+
+    if(explicit.length){
+      const raw=explicit[0].toUpperCase();
+
+      if([
+        "OPERATIONAL_MINING",
+        "OPERATIONAL_MINE",
+        "OPERATIONAL_MINE_PROJECT",
+        "MINING_OPERATIONS"
+      ].includes(raw)){
+        projectType="OPERATIONAL_MINING";
+      }
+      else if([
+        "EXPLORATION",
+        "EXPLORATION_PROJECT",
+        "EXPLORATION_GEOTECHNICS"
+      ].includes(raw)){
+        projectType="EXPLORATION";
+      }
+      else if([
+        "MINE_FINANCIAL_MODELLING",
+        "FINANCIAL_MODELLING",
+        "FINANCIAL_MODEL",
+        "MINE_FINANCIAL_MODEL",
+        "ASSET_VALUATION"
+      ].includes(raw)){
+        projectType="MINE_FINANCIAL_MODELLING";
+      }
+    }
+  }
+
+  if(projectType==="UNDEFINED"){
+
+    const h=lowerHeaders.join(" ");
+
+    const operational=[
+      "shift","location","activity","equipment",
+      "planned_output","actual_output","delay_hours",
+      "delay_reason","cost_rate","planned_advance",
+      "actual_advance","idle_hours","production_rate",
+      "geotech_clearance","support_status"
+    ];
+
+    const exploration=[
+      "hole_id","drillhole","depth_from","depth_to",
+      "lithology","rock_quality","recovery","sampling",
+      "assay","coordinates","drilling","samples",
+      "lab_turnaround"
+    ];
+
+    const financial=[
+      "period","month_index","revenue","operating_cost",
+      "opex","capital_cost","capex","cash_flow",
+      "production","commodity_price","discount_rate",
+      "tax_rate","npv"
+    ];
+
+    const score=(signals)=>
+      signals.reduce((n,s)=>n+(h.includes(s)?1:0),0);
+
+    const scores={
+      OPERATIONAL_MINING:score(operational),
+      EXPLORATION:score(exploration),
+      MINE_FINANCIAL_MODELLING:score(financial)
+    };
+
+    const sorted=Object.entries(scores)
+      .sort((a,b)=>b[1]-a[1]);
+
+    if(sorted[0][1]>0 && sorted[0][1]!==sorted[1][1]){
+      projectType=sorted[0][0];
+    }
+  }
 
   const errors=[];
 
-  // 1. Corrupted = unreadable/invalid structure, NOT "wrong project schema".
-  const corrupt=[];
-  if(!headers.length)corrupt.push("No header row detected.");
-  if(headers.some(h=>!h.trim()))corrupt.push("Blank column name detected.");
-  const dupHeaders=headers.filter((h,i)=>headers.indexOf(h)!==i);
-  if(dupHeaders.length)corrupt.push("Duplicate column name(s): "+[...new Set(dupHeaders)].join(", "));
-  document.getElementById("test-corrupt").innerHTML=resultBox("1. Corrupted Data",corrupt.length?"FAILED":"PASSED",
-    corrupt.length?"CSV structure is not acceptable.":`File is readable and delimiter "${delimiter==="\t"?"TAB":delimiter}" was detected.`,corrupt);
-  if(corrupt.length)errors.push(...corrupt.map(x=>"Corrupted: "+x));
+  // TEST 1 ? CORRUPTED DATA
+  let corruptErrors=[];
 
-  // 2. Duplicate Record IDs
-  const seen=new Map(),dups=[];
-  data.forEach(r=>{
-    const id=(r.Record_ID||"").trim();if(!id)return;
-    if(seen.has(id))dups.push(`Record ID ${id}: rows ${seen.get(id)} and ${r.__row}`);
-    else seen.set(id,r.__row);
-  });
-  document.getElementById("test-duplicate").innerHTML=resultBox("2. Duplicate Data",dups.length?"REVIEW":"PASSED",
-    dups.length?`${dups.length} duplicate Record ID occurrence(s) detected.`:`No duplicate Record IDs detected across ${data.length} data rows.`,dups);
-  if(dups.length)errors.push(...dups.map(x=>"Duplicate: "+x));
-
-  // 3. Mismatch — Project ID must be consistent within the uploaded file.
-  const mismatch=[];
-  if(projectIds.length!==1) mismatch.push(`File contains multiple or undefined Project IDs: ${projectIds.join(", ")||"NONE"}`);
-  data.forEach(r=>{
-    const pid=(r.Project_ID||"").trim();
-    if(pid!==projectId && projectId!=="UNDEFINED")
-      mismatch.push(`Row ${r.__row} / Record ${r.Record_ID||"—"}: expected ${projectId}, received ${pid||"BLANK"}`);
-  });
-  document.getElementById("test-mismatch").innerHTML=resultBox("3. Mismatched Data",mismatch.length?"FAILED":"PASSED",
-    mismatch.length?`${mismatch.length} project-identity problem(s) detected.`:`All rows belong to Project ID ${projectId}.`,mismatch);
-  if(mismatch.length)errors.push(...mismatch.map(x=>"Mismatch: "+x));
-
-  // 4. Blank rows / required fields
-  const blank=[];
-  const required=["Project_ID","Record_ID"];
-  if(type==="FINANCIAL_MODELLING")required.push("Period");
-  else required.push("Record_Date");
-  data.forEach(r=>{
-    const miss=required.filter(c=>!(r[c]??"").trim());
-    if(miss.length)blank.push(`Row ${r.__row} / Record ${r.Record_ID||"—"}: blank required field(s): ${miss.join(", ")}`);
-  });
-  document.getElementById("test-blank").innerHTML=resultBox("4. Blank Rows",blank.length?"REVIEW":"PASSED",
-    blank.length?`${blank.length} row(s) contain blank required data.`:`No blank required fields detected in ${data.length} data rows.`,blank);
-  if(blank.length)errors.push(...blank.map(x=>"Blank: "+x));
-
-  // 5. Undefined — schema and approved categorical values are selected by Project Type.
-  const undef=[];
-  if(!schema.length)undef.push(`Project Type "${type}" is not defined in the Virtual Library schema.`);
-  else{
-    const extra=headers.filter(c=>!schema.includes(c));
-    const missing=schema.filter(c=>!headers.includes(c));
-    extra.forEach(c=>undef.push(`Column ${c}: not defined for ${type}.`));
-    missing.forEach(c=>undef.push(`Required column missing for ${type}: ${c}`));
-    data.forEach(r=>{
-      Object.keys(ALLOWED).forEach(col=>{
-        if(headers.includes(col)){
-          const v=(r[col]??"").trim();
-          if(v && !ALLOWED[col].includes(v))undef.push(`Row ${r.__row} / Column ${col}: received "${v}" — expected ${ALLOWED[col].join(" / ")}`);
-        }
-      });
-    });
+  if(!headers.length){
+    corruptErrors.push("No column headers detected.");
   }
-  document.getElementById("test-undefined").innerHTML=resultBox("5. Undefined Data",undef.length?"REVIEW":"PASSED",
-    undef.length?`${undef.length} undefined/unapproved field or value issue(s) detected.`:`Columns and checked categorical values match the detected ${type} schema.`,undef);
-  if(undef.length)errors.push(...undef.map(x=>"Undefined: "+x));
+
+  if(!data.length){
+    corruptErrors.push("No data rows detected.");
+  }
+
+  const corrupted=corruptErrors.length===0;
+
+  document.getElementById("test-corrupt").innerHTML=
+    resultBox(
+      "1. Corrupted Data",
+      corrupted ? "PASSED" : "FAILED",
+      corrupted
+        ? "File structure can be read."
+        : "The file could not be read as a usable dataset.",
+      corruptErrors
+    );
+
+  if(!corrupted) errors.push(...corruptErrors);
+
+  // TEST 2 ? DUPLICATE DATA
+  const seen=new Set();
+  const duplicates=[];
+
+  data.forEach((row,i)=>{
+    const key=JSON.stringify(row);
+
+    if(seen.has(key)){
+      duplicates.push("Duplicate row detected at data row "+(i+2)+".");
+    }
+
+    seen.add(key);
+  });
+
+  const duplicatePassed=duplicates.length===0;
+
+  document.getElementById("test-duplicate").innerHTML=
+    resultBox(
+      "2. Duplicate Data",
+      duplicatePassed ? "PASSED" : "FAILED",
+      duplicatePassed
+        ? "No duplicate rows detected."
+        : "Duplicate records were detected.",
+      duplicates
+    );
+
+  if(!duplicatePassed) errors.push(...duplicates);
+
+  // TEST 3 ? MISMATCHED DATA
+  const mismatchErrors=[];
+
+  if(!projectIdField){
+    mismatchErrors.push(
+      "Project ID column could not be identified."
+    );
+  }
+
+  if(projectIds.length===0){
+    mismatchErrors.push(
+      "No Project ID value was detected."
+    );
+  }
+
+  const uniqueProjects=[...new Set(projectIds)];
+
+  if(uniqueProjects.length>1){
+    mismatchErrors.push(
+      "Multiple Project IDs detected: "+uniqueProjects.join(", ")+"."
+    );
+  }
+
+  if(projectType==="UNDEFINED"){
+    mismatchErrors.push(
+      "Project Type could not be identified from the incoming CSV."
+    );
+  }
+
+  const mismatchPassed=mismatchErrors.length===0;
+
+  document.getElementById("test-mismatch").innerHTML=
+    resultBox(
+      "3. Mismatched Data",
+      mismatchPassed ? "PASSED" : "FAILED",
+      mismatchPassed
+        ? "Project identity and Project Type are consistent."
+        : "The project identity or type could not be verified.",
+      mismatchErrors
+    );
+
+  if(!mismatchPassed) errors.push(...mismatchErrors);
+
+  // TEST 4 ? BLANK REQUIRED DATA
+  const blankErrors=[];
+
+  if(!projectIdField){
+    blankErrors.push("Required Project ID field is missing.");
+  }
+  else{
+    const blanks=valuesFor(projectIdField)
+      .map((v,i)=>!v ? i+2 : null)
+      .filter(Boolean);
+
+    if(blanks.length){
+      blankErrors.push(
+        "Blank Project ID at row(s): "+blanks.join(", ")+"."
+      );
+    }
+  }
+
+  if(!recordIdField){
+    blankErrors.push("Required Record ID field is missing.");
+  }
+  else{
+    const blanks=valuesFor(recordIdField)
+      .map((v,i)=>!v ? i+2 : null)
+      .filter(Boolean);
+
+    if(blanks.length){
+      blankErrors.push(
+        "Blank Record ID at row(s): "+blanks.join(", ")+"."
+      );
+    }
+  }
+
+  if(projectType==="MINE_FINANCIAL_MODELLING"){
+
+    if(!periodField && !recordDateField){
+      blankErrors.push(
+        "Financial modelling requires Period or Record Date."
+      );
+    }
+
+  }
+  else if(!recordDateField){
+
+    blankErrors.push(
+      "Required Record Date field is missing."
+    );
+  }
+
+  const blankPassed=blankErrors.length===0;
+
+  document.getElementById("test-blank").innerHTML=
+    resultBox(
+      "4. Blank Rows / Required Data",
+      blankPassed ? "PASSED" : "FAILED",
+      blankPassed
+        ? "Required identity and control fields are populated."
+        : "Required data is missing.",
+      blankErrors
+    );
+
+  if(!blankPassed) errors.push(...blankErrors);
+
+  // TEST 5 ? UNDEFINED DATA
+  const undefinedErrors=[];
+
+  if(projectType==="UNDEFINED"){
+    undefinedErrors.push(
+      "The incoming CSV could not be classified into an IGPC Project Type."
+    );
+  }
+
+  if(projectTypeField){
+
+    const idx=cleanHeaders.indexOf(projectTypeField);
+
+    const explicit=data
+      .map(row=>String(row[projectTypeField]??"").trim())
+      .filter(Boolean);
+
+    if(explicit.length){
+
+      const allowed=[
+        "OPERATIONAL_MINING",
+        "OPERATIONAL_MINE",
+        "OPERATIONAL_MINE_PROJECT",
+        "MINING_OPERATIONS",
+        "EXPLORATION",
+        "EXPLORATION_PROJECT",
+        "EXPLORATION_GEOTECHNICS",
+        "MINE_FINANCIAL_MODELLING",
+        "FINANCIAL_MODELLING",
+        "FINANCIAL_MODEL",
+        "MINE_FINANCIAL_MODEL",
+        "ASSET_VALUATION"
+      ];
+
+      if(!allowed.includes(explicit[0].toUpperCase())){
+        undefinedErrors.push(
+          "Unrecognized Project Type: "+explicit[0]+"."
+        );
+      }
+    }
+  }
+
+  if(cleanHeaders.length===0){
+    undefinedErrors.push("No usable data columns detected.");
+  }
+
+  const undefinedPassed=undefinedErrors.length===0;
+
+  document.getElementById("test-undefined").innerHTML=
+    resultBox(
+      "5. Undefined Data",
+      undefinedPassed ? "PASSED" : "FAILED",
+      undefinedPassed
+        ? "All incoming columns are retained within the generated schema."
+        : "The dataset contains information that cannot be classified safely.",
+      undefinedErrors
+    );
+
+  if(!undefinedPassed) errors.push(...undefinedErrors);
+
+  // DYNAMIC SCHEMA
+  const schema={
+    projectType:projectType,
+    projectIdField:projectIdField,
+    recordIdField:recordIdField,
+    recordDateField:recordDateField,
+    periodField:periodField,
+    columns:cleanHeaders,
+    generatedFromIncomingCSV:true,
+    generatedAt:new Date().toISOString()
+  };
+
+  window.IGPC_DYNAMIC_SCHEMA=schema;
+
+  document.getElementById("columns").textContent=
+    cleanHeaders.length+" columns";
+
+  document.getElementById("columns").textContent=cleanHeaders.length+" columns | Project ID: "+(projectId||"UNDEFINED");
+
+  document.getElementById("status").innerHTML=
+    errors.length===0
+      ? '<div class="notice"><b>5/5 PASSED.</b> Dynamic schema generated from the incoming CSV.</div>'
+      : '<div class="notice" style="border-color:#ef777f"><b>VALIDATION FAILED.</b> Submission remains ON HOLD.</div>';
 
   document.getElementById("rows").textContent=data.length;
   document.getElementById("errorCount").textContent=errors.length;
-  const finalPassed=corrupt.length===0&&dups.length===0&&mismatch.length===0&&blank.length===0&&undef.length===0;
-  document.getElementById("finalResult").textContent=finalPassed?"PASSED":"ON HOLD";
-  document.getElementById("finalResult").className=finalPassed?"pass":"fail";
+  document.getElementById("detectedProject").textContent=projectId||"UNDEFINED";
+  document.getElementById("projectType").textContent=projectType||"UNDEFINED";
 
-  if(finalPassed){
-    document.getElementById("state").textContent="PASSED — RELEASED TO PROJECT FILES";
-    document.getElementById("status").innerHTML='<div class="notice" style="border-color:#59d49b"><b>VALIDATION PASSED.</b> The accepted dataset is ready to move toward Project Files.</div>';
-    showClientOutcome(true,projectId,fileName,errors);
-    notifyEvent("DATA PASSED",projectId,fileName,true,errors);
-  }else{
-    document.getElementById("state").textContent="ON HOLD — VALIDATION ERRORS";
-    document.getElementById("status").innerHTML='<div class="notice" style="border-color:#ef777f"><b>DATA ON HOLD.</b> The original submission remains unchanged. Correct the source data and submit again.</div>';
-    showClientOutcome(false,projectId,fileName,errors);
-    const event = corrupt.length ? "CORRUPTED" : dups.length ? "DUPLICATE" : mismatch.length ? "MISMATCH" : blank.length ? "BLANK REQUIRED DATA" : "UNDEFINED";
-    notifyEvent(event,projectId,fileName,false,errors);
+  const passed=errors.length===0;
+
+  document.getElementById("projectId").textContent=projectId||"UNDEFINED";
+  document.getElementById("finalResult").textContent=passed?"PASSED":"ON HOLD";
+
+  if(passed){
+
+    document.getElementById("state").textContent=
+      "PASSED → RELEASED TO PROJECT FILES";
+
+    logNotification(
+      "DASHBOARD",
+      "IGPC",
+      "DATA PASSED",
+      "Project "+projectId+" passed all 5 validation tests."
+    );
+
+    logNotification(
+      "EMAIL",
+      "CLIENT",
+      "DATA PASSED",
+      "Your data has passed IGPC Virtual Library validation."
+    );
+
+    logNotification(
+      "EMAIL",
+      "IGPC",
+      "RELEASED",
+      "Project "+projectId+" released toward Project Files."
+    );
+
   }
+  else{
+
+    document.getElementById("state").textContent=
+      "ON HOLD → VALIDATION ERRORS";
+
+    logNotification(
+      "DASHBOARD",
+      "IGPC",
+      "VALIDATION ERROR",
+      "Project "+projectId+" remains on hold."
+    );
+  }
+
+  showClientOutcome(
+    passed,
+    projectId,
+    fileName,
+    errors
+  );
 }
 </script>
 
@@ -466,7 +1013,7 @@ function runValidation({headers,data},fileName,delimiter){
 </div>
 <div style="margin-top:20px">
 <h3>Notification Activity</h3>
-<div id="igpcNotifActivity" style="padding:18px;border:1px solid #ddd;border-radius:10px">No notification events yet.</div>
+<div id="igpcNotifActivity" style="padding:18px;border:1px solid #ddd;border-radius:10px">Notification activity will appear here when a CSV is received, validated, and released.</div>
 <br>
 <button onclick="igpcNotifTest('EMAIL')">Test Email</button>
 <button onclick="igpcNotifTest('SMS')">Test SMS</button>
@@ -495,58 +1042,78 @@ function igpcGenerateLink(){
 }
 function igpcOpenPortal(){document.getElementById('igpcFiles').focus();}
 function igpcUploadFiles(){
- const f=document.getElementById('igpcFiles').files,s=document.getElementById('igpcUploadStatus');
- if(!f.length){s.textContent='Select one or more CSV / TXT files first.';return;}
- if(f.length>20){s.textContent='Maximum 20 files per submission.';return;}
- s.textContent=f.length+' file(s) received. Proceeding to validation.';
+
+    const input = document.getElementById('igpcFiles');
+    const status = document.getElementById('igpcUploadStatus');
+    const files = Array.from((input && input.files) || []);
+
+    if(!files.length){
+        status.textContent = 'Select one or more CSV / TXT files first.';
+        return;
+    }
+
+    if(files.length > 20){
+        status.textContent = 'Maximum 20 files per submission.';
+        return;
+    }
+
+    const file = files[0];
+
+    status.textContent =
+        files.length + ' file(s) received. Starting Virtual Library intake...';
+
+    console.log('IGPC CLIENT PORTAL:', file.name);
+
+    try {
+        submitFiles(file);
+    }
+    catch(error) {
+
+        console.error('IGPC intake error:', error);
+
+        status.textContent =
+            'Upload received, but validation could not start: ' +
+            (error && error.message ? error.message : error);
+    }
 }
 </script>
 
+
 <script>
-(function(){
-const KEY="igpc_project_files_release_v1";
-window.igpcGenerateLink=function(){
- const p=(document.getElementById("igpcProject")||{}).value||"";
- const st=document.getElementById("igpcLinkStatus");
- const pp=document.getElementById("igpcPortalProject");
- if(!p.trim()){if(st)st.textContent="Project ID required.";return;}
- if(pp)pp.textContent=p.trim(); if(st)st.textContent="Project link generated.";
-};
-window.igpcOpenPortal=function(){const f=document.getElementById("igpcFiles");if(f)f.click();};
-window.igpcUploadFiles=function(){
- const input=document.getElementById("igpcFiles"),st=document.getElementById("igpcUploadStatus");
- const files=Array.from((input&&input.files)||[]);
- if(!files.length){st.textContent="Select CSV / TXT file(s).";return;}
- if(files.length>20){st.textContent="Maximum 20 files per submission.";return;}
- const client=((document.getElementById("igpcClient")||{}).value||"").trim();
- const project=((document.getElementById("igpcProject")||{}).value||"").trim();
- const old=JSON.parse(localStorage.getItem(KEY)||"[]");
- let pending=files.length;
- files.forEach(file=>{
-   const r=new FileReader();
-   r.onload=function(){
-     const text=String(r.result||"");
-     const lines=text.split(/\r?\n/).filter(x=>x.trim());
-     const header=lines[0]||"";
-     const delims=[",",";","\t","|"];
-     const delim=delims.reduce((a,b)=>(header.split(b).length>header.split(a).length?b:a),",");
-     const rows=Math.max(0,lines.length-1);
-     const projectCol=header.split(delim).findIndex(x=>x.replace(/"/g,"").trim().toLowerCase()==="project_id");
-     let detected=project;
-     if(projectCol>=0 && lines[1]){
-       const vals=lines[1].split(delim);
-       detected=(vals[projectCol]||"").replace(/^"|"$/g,"").trim()||project;
-     }
-     old.push({client,project_id:detected,file_name:file.name,rows,status:"RELEASED_TO_PROJECT_FILES",received_at:new Date().toISOString()});
-     pending--; if(!pending){
-       localStorage.setItem(KEY,JSON.stringify(old));
-       st.textContent=files.length+" file(s) received and released to Project Files.";
-     }
-   };
-   r.readAsText(file);
- });
-};
-})();
+window.addEventListener('error', function(e){
+
+    console.error('IGPC Virtual Library error:', e.error || e.message);
+
+    const status = document.getElementById('igpcUploadStatus');
+
+    if(status){
+        status.textContent =
+            'Validation error: ' +
+            (e.message || 'Unknown browser error');
+    }
+});
+
+window.addEventListener('unhandledrejection', function(e){
+
+    console.error('IGPC Virtual Library promise error:', e.reason);
+
+    const status = document.getElementById('igpcUploadStatus');
+
+    if(status){
+        status.textContent =
+            'Validation error: ' +
+            (e.reason && e.reason.message
+                ? e.reason.message
+                : e.reason);
+    }
+});
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
