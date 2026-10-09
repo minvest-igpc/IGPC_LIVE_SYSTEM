@@ -1,12 +1,13 @@
-
+﻿
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>IGPC Virtual Library — Build 03 Notification Module</title>
+<title>IGPC Virtual Library â€” Build 03 Notification Module</title>
 <style>
 body{margin:0;background:#1D1815;color:#FFFFFF;font-family:Arial,sans-serif;padding:28px}
+body{margin:0;background:#1D1815;color:#FFFFFF;font-family:Inter,Arial,sans-serif;padding:28px}
 .wrap{max-width:1120px;margin:auto}
 .card{background:#2C2E37;border:1px solid rgba(242,166,90,.35);border-radius:14px;padding:22px;margin-bottom:18px}
 h1{margin:0 0 6px}h2{margin-top:0}.muted,.small{color:#FFD29B;font-size:13px}.pid{font-size:22px;font-weight:bold;margin-top:7px}
@@ -78,6 +79,7 @@ h1,h2,h3,h4,p,label,span{
   color:#1D1815!important;
 }
 </style>
+<link rel="stylesheet" href="/igpc-typography.css?v=1">
 </head>
 <body>
 <style>
@@ -96,7 +98,7 @@ h1,h2,h3,h4,p,label,span{
 
 <section class="igpc-two-panel" id="client-link-portal">
 <div class="igpc-panel">
-<h2>IGPC — Client Link</h2>
+<h2>IGPC â€” Client Link</h2>
 <label for="igpcClient">Client</label><input id="igpcClient" value="Northam">
 <label for="igpcProject">Project ID</label><input id="igpcProject" value="Northam_3Shaft">
 <label for="igpcEmail">Client Email</label><input id="igpcEmail" value="data@client.example">
@@ -112,7 +114,7 @@ h1,h2,h3,h4,p,label,span{
 <h2>Client Portal</h2>
 <div class="igpc-note">Project-specific upload page. No copy/paste required.</div>
 <div class="igpc-project" id="igpcPortalProject">Northam_3Shaft</div>
-<div class="igpc-note">CSV / TXT files — up to 20 files per submission</div>
+<div class="igpc-note">CSV / TXT files â€” up to 20 files per submission</div>
 <div style="margin-top:10px"><input id="igpcFiles" type="file" accept=".csv,.txt" multiple></div>
 <div class="igpc-actions"><button type="button" onclick="igpcUploadFiles()">Upload File(s)</button></div>
 <div class="igpc-status" id="igpcUploadStatus">Waiting for client upload.</div>
@@ -123,13 +125,13 @@ h1,h2,h3,h4,p,label,span{
 
 <div class="card">
 <h1>IGPC Virtual Library</h1>
-<div class="muted">Build 03 — Client Project Upload Portal • CSV Intake, Validation & Notifications</div>
+<div class="muted">Build 03 â€” Client Project Upload Portal â€¢ CSV Intake, Validation & Notifications</div>
 </div>
 
 <div class="card">
 <div class="muted">PROJECT LINK</div>
 <div class="pid" id="projectDisplay">Waiting for CSV</div>
-<div class="muted" id="projectNameDisplay">The Project ID is read from the uploaded data — it is not hard-coded.</div>
+<div class="muted" id="projectNameDisplay">The Project ID is read from the uploaded data â€” it is not hard-coded.</div>
 </div>
 
 <div class="card">
@@ -154,7 +156,7 @@ h1,h2,h3,h4,p,label,span{
     <b>Client notifications</b>
     <div class="notify-row"><span>Email</span><span id="clientEmailState" class="on">ON</span></div>
     <div class="notify-row"><span>SMS</span><span id="clientSmsState" class="on">ON</span></div>
-    <div class="small" style="margin-top:10px">Success: Email • Errors: Email + SMS for critical errors</div>
+    <div class="small" style="margin-top:10px">Success: Email â€¢ Errors: Email + SMS for critical errors</div>
   </div>
   <div class="notify-card">
     <b>IGPC notifications</b>
@@ -175,20 +177,20 @@ h1,h2,h3,h4,p,label,span{
     <tr><td>Released to Project Files</td><td>Email</td><td>Dashboard + Email</td></tr>
   </table>
 </div>
-<div style="margin-top:14px"><b>Notification event log</b><div id="validationReport"></div><div id="notificationLog" class="log" style="margin-top:8px"><div class="small">Waiting for an intake event…</div></div></div>
+<div style="margin-top:14px"><b>Notification event log</b><div id="validationReport"></div><div id="notificationLog" class="log" style="margin-top:8px"><div class="small">Waiting for an intake eventâ€¦</div></div></div>
 </div>
 
 <div class="card">
 <h2>Submission record</h2>
 <table>
 <tr><th>Field</th><th>Value</th></tr>
-<tr><td>Project ID</td><td id="projectId">—</td></tr>
+<tr><td>Project ID</td><td id="projectId">â€”</td></tr>
 <tr><td>Version</td><td id="version">001</td></tr>
 <tr><td>Status</td><td id="state">READY</td></tr>
-<tr><td>File</td><td id="fname">—</td></tr>
-<tr><td>Delimiter detected</td><td id="delimiter">—</td></tr>
-<tr><td>Columns detected</td><td id="columns">—</td></tr>
-<tr><td>Received</td><td id="received">—</td></tr>
+<tr><td>File</td><td id="fname">â€”</td></tr>
+<tr><td>Delimiter detected</td><td id="delimiter">â€”</td></tr>
+<tr><td>Columns detected</td><td id="columns">â€”</td></tr>
+<tr><td>Received</td><td id="received">â€”</td></tr>
 </table>
 </div>
 
@@ -200,7 +202,7 @@ h1,h2,h3,h4,p,label,span{
 </div>
 
 <div class="card">
-<h2>Step 7 — Five Validation Tests</h2>
+<h2>Step 7 â€” Five Validation Tests</h2>
 <div class="small">The system identifies the Project Type and generates the validation schema from the incoming CSV. Client-specific columns are retained and do not require a pre-defined schema.</div>
 <div id="validation" class="hidden">
 <div id="test-corrupt" class="test"></div>
@@ -211,9 +213,9 @@ h1,h2,h3,h4,p,label,span{
 <div class="summary">
 <div class="metric">Rows checked<b id="rows">0</b></div>
 <div class="metric">Errors<b id="errorCount">0</b></div>
-<div class="metric">Project ID<b id="detectedProject">—</b></div>
-<div class="metric">Project Type<b id="projectType">—</b></div>
-<div class="metric">Final result<b id="finalResult">—</b></div>
+<div class="metric">Project ID<b id="detectedProject">â€”</b></div>
+<div class="metric">Project Type<b id="projectType">â€”</b></div>
+<div class="metric">Final result<b id="finalResult">â€”</b></div>
 </div>
 </div>
 </div>
@@ -486,7 +488,7 @@ function parseDelimited(text,delimiter){
 function resultBox(name,status,details,errors=[]){
   const cls=status==="PASSED"?"pass":status==="REVIEW"?"review":"fail";
   return `<div><b>${name}</b></div><div><span class="badge ${cls}">${status}</span></div><div class="details">${esc(details)}
-  ${errors.length?`<ul class="errors">${errors.slice(0,30).map(e=>`<li>${esc(e)}</li>`).join("")}${errors.length>30?`<li>…and ${errors.length-30} more</li>`:""}</ul>`:""}</div>`;
+  ${errors.length?`<ul class="errors">${errors.slice(0,30).map(e=>`<li>${esc(e)}</li>`).join("")}${errors.length>30?`<li>â€¦and ${errors.length-30} more</li>`:""}</ul>`:""}</div>`;
 }
 
 function logNotification(channel,recipient,event,message){
@@ -495,7 +497,7 @@ function logNotification(channel,recipient,event,message){
   const now=new Date().toLocaleTimeString();
   const item=document.createElement("div");
   item.className="logitem";
-  item.innerHTML=`<span class="channel">${esc(channel)}</span><b>${esc(event)}</b> → ${esc(recipient)}<br><span class="small">${esc(now)} • ${esc(message)}</span>`;
+  item.innerHTML=`<span class="channel">${esc(channel)}</span><b>${esc(event)}</b> â†’ ${esc(recipient)}<br><span class="small">${esc(now)} â€¢ ${esc(message)}</span>`;
   log.prepend(item);
 }
 
@@ -528,16 +530,16 @@ function notifyEvent(event,projectId,fileName,passed,errors=[]){
 function showClientOutcome(passed, projectId, fileName, errors){
   const box=document.getElementById("clientOutcome");
   if(passed){
-    box.innerHTML=`<div class="success-screen"><div style="font-size:20px;font-weight:bold">✅ DONE — DATA RECEIVED AND ACCEPTED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>5/5 PASSED</b><br>Status: <b>ACCEPTED</b></div><div class="small" style="margin-top:10px">A confirmation email has been queued for the client and IGPC has been notified. No further action is required.</div></div>`;
+    box.innerHTML=`<div class="success-screen"><div style="font-size:20px;font-weight:bold">âœ… DONE â€” DATA RECEIVED AND ACCEPTED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>5/5 PASSED</b><br>Status: <b>ACCEPTED</b></div><div class="small" style="margin-top:10px">A confirmation email has been queued for the client and IGPC has been notified. No further action is required.</div></div>`;
   }else{
-    box.innerHTML=`<div class="hold-screen"><div style="font-size:20px;font-weight:bold">❌ DATA ON HOLD — ACTION REQUIRED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>NOT PASSED</b></div><div class="small" style="margin-top:10px">The client is notified to correct the source data and export/upload again. The original submission remains unchanged.</div></div>`;
+    box.innerHTML=`<div class="hold-screen"><div style="font-size:20px;font-weight:bold">âŒ DATA ON HOLD â€” ACTION REQUIRED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>NOT PASSED</b></div><div class="small" style="margin-top:10px">The client is notified to correct the source data and export/upload again. The original submission remains unchanged.</div></div>`;
   }
 }
 
 async function submitFiles(selectedFile=null){
   const f=selectedFile || document.getElementById("files").files[0],s=document.getElementById("status");
   if(!f){s.innerHTML='<div class="notice" style="border-color:#e6b75b">Please select the exported CSV first.</div>';return;}
-  document.getElementById("state").textContent="RECEIVED → PRESERVED → SORTING → VALIDATING";
+  document.getElementById("state").textContent="RECEIVED â†’ PRESERVED â†’ SORTING â†’ VALIDATING";
   document.getElementById("fname").textContent=f.name;
   document.getElementById("received").textContent=new Date().toLocaleString();
   document.getElementById("validation").classList.remove("hidden");
@@ -551,14 +553,14 @@ async function submitFiles(selectedFile=null){
     runValidation(parsed,f.name,delimiter);
   }catch(err){
     document.getElementById("test-corrupt").innerHTML=resultBox("1. Corrupted Data","FAILED","The file could not be read as a valid delimited dataset.",[err.message]);
-    document.getElementById("state").textContent="REJECTED — CORRUPTED";
+    document.getElementById("state").textContent="REJECTED â€” CORRUPTED";
     logNotification("DASHBOARD","IGPC","CORRUPTED",`File ${f.name} could not be parsed.`);
     logNotification("EMAIL","IGPC","CORRUPTED",`Corrupted submission requires attention: ${f.name}.`);
     logNotification("SMS","IGPC","CORRUPTED","Critical corrupted-data event requires attention.");
     logNotification("EMAIL","CLIENT","CORRUPTED","Your file could not be read. Correct the source export and submit again.");
     logNotification("SMS","CLIENT","CORRUPTED","IGPC Virtual Library: action required on your data file.");
     showClientOutcome(false,"UNDEFINED",f.name,["CORRUPTED"]);
-    s.innerHTML='<div class="notice" style="border-color:#ef777f"><b>DATA ON HOLD</b> — The raw file could not be parsed.</div>';
+    s.innerHTML='<div class="notice" style="border-color:#ef777f"><b>DATA ON HOLD</b> â€” The raw file could not be parsed.</div>';
   }
 }
 
@@ -944,7 +946,7 @@ function runValidation({headers,data},fileName,delimiter){
   if(passed){
 
     document.getElementById("state").textContent=
-      "PASSED → RELEASED TO PROJECT FILES";
+      "PASSED â†’ RELEASED TO PROJECT FILES";
 
     logNotification(
       "DASHBOARD",
@@ -971,7 +973,7 @@ function runValidation({headers,data},fileName,delimiter){
   else{
 
     document.getElementById("state").textContent=
-      "ON HOLD → VALIDATION ERRORS";
+      "ON HOLD â†’ VALIDATION ERRORS";
 
     logNotification(
       "DASHBOARD",
@@ -990,8 +992,8 @@ function runValidation({headers,data},fileName,delimiter){
 }
 </script>
 
-<section style="margin:28px 0;padding:24px;border:1px solid #d9dee7;border-radius:16px;background:#fff;font-family:Arial,sans-serif">
-<h2>Virtual Library — Email + SMS Notifications</h2>
+<section style="margin:28px 0;padding:24px;border:1px solid #d9dee7;border-radius:16px;background:#fff;font-family:Inter,Arial,sans-serif">
+<h2>Virtual Library â€” Email + SMS Notifications</h2>
 <p style="color:#64748b">Both channels use the same notification engine. Providers can be connected later.</p>
 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px">
 <div style="padding:18px;border:1px solid #ddd;border-radius:12px"><b>EMAIL</b><h3>READY</h3><span>Client + IGPC</span><br>Provider: Not connected</div>
@@ -1000,15 +1002,15 @@ function runValidation({headers,data},fileName,delimiter){
 </div>
 <div style="margin-top:20px;padding:18px;background:#f8fafc;border-radius:12px">
 <th>Email</th><th>SMS</th></tr>
-<tr><td>Data received</td><td>✓</td><td>—</td></tr>
-<tr><td>5/5 validation passed</td><td>✓</td><td>—</td></tr>
-<tr><td>Duplicate detected</td><td>✓</td><td>✓</td></tr>
-<tr><td>Project mismatch</td><td>✓</td><td>✓</td></tr>
-<tr><td>Corrupted data</td><td>✓</td><td>✓</td></tr>
-<tr><td>Undefined data</td><td>✓</td><td>✓</td></tr>
-<tr><td>Blank required data</td><td>✓</td><td>—</td></tr>
-<tr><td>Corrected file received</td><td>✓</td><td>—</td></tr>
-<tr><td>Released to Project Files</td><td>✓</td><td>—</td></tr>
+<tr><td>Data received</td><td>âœ“</td><td>â€”</td></tr>
+<tr><td>5/5 validation passed</td><td>âœ“</td><td>â€”</td></tr>
+<tr><td>Duplicate detected</td><td>âœ“</td><td>âœ“</td></tr>
+<tr><td>Project mismatch</td><td>âœ“</td><td>âœ“</td></tr>
+<tr><td>Corrupted data</td><td>âœ“</td><td>âœ“</td></tr>
+<tr><td>Undefined data</td><td>âœ“</td><td>âœ“</td></tr>
+<tr><td>Blank required data</td><td>âœ“</td><td>â€”</td></tr>
+<tr><td>Corrected file received</td><td>âœ“</td><td>â€”</td></tr>
+<tr><td>Released to Project Files</td><td>âœ“</td><td>â€”</td></tr>
 </table>
 </div>
 <div style="margin-top:20px">
@@ -1025,9 +1027,9 @@ function runValidation({headers,data},fileName,delimiter){
 function igpcNotifTest(channel){
  const box=document.getElementById('igpcNotifActivity');
  const now=new Date().toLocaleString();
- box.innerHTML='<b>TEST EVENT</b> — Northam_3Shaft — '+now+
- '<br>Email: '+((channel==='EMAIL'||channel==='BOTH')?'READY':'—')+
- '<br>SMS: '+((channel==='SMS'||channel==='BOTH')?'READY':'—')+
+ box.innerHTML='<b>TEST EVENT</b> â€” Northam_3Shaft â€” '+now+
+ '<br>Email: '+((channel==='EMAIL'||channel==='BOTH')?'READY':'â€”')+
+ '<br>SMS: '+((channel==='SMS'||channel==='BOTH')?'READY':'â€”')+
  '<br><small>Provider delivery is pending until the secure backend is connected.</small>';
 }
 </script>
@@ -1126,6 +1128,7 @@ td,th,.test,.notify-row,.logitem{border-color:rgba(242,166,90,.25)!important}
 
 </body>
 </html>
+
 
 
 
