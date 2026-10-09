@@ -1,0 +1,20 @@
+/* IGPC UNIFIED MAIN PAGE THEME */
+:root{--ink:#FFFFFF;--muted:#BCAAA3;--line:rgba(242,166,90,.35);--bg:#1D1815;--white:#2C2E37;--blue:#F2A65A;--navy:#1D1815;--orange:#F2A65A;--orange2:#30241F;--purple:#FFD29B;--teal:#F2A65A}
+body{background:radial-gradient(circle at 15% 5%,rgba(242,166,90,.13),transparent 30%),linear-gradient(145deg,#2C2E37,#1D1815,#171A1F)!important;color:#fff!important}
+.header,.module,.kpi,.card,.arch-box,.footer,.layer,.layerbtn,.flow-node,.widget,.pcv,.workspace,.analytics-scope .header,.analytics-scope .workspace,.analytics-scope .layerbtn,.analytics-scope .flow-node,.analytics-scope .widget,.analytics-scope .pcv,.analytics-scope .kpi,.analytics-scope .card{background:linear-gradient(145deg,#2C2E37,#211B19)!important;color:#fff!important;border-color:rgba(242,166,90,.38)!important}
+.module h3,.module p,.arch-box h3,.arch-box p,.arch-box li,.card h3,.card h4,.card p,.kpi label,.kpi small,.section-sub,.title h1,.title p,.workspace-head h2,.workspace-head p{color:#E9DDD6!important}
+.section-title{background:linear-gradient(145deg,#2C2E37,#1D1815)!important;color:#FFD29B!important;border:1px solid rgba(242,166,90,.4)!important}
+.nav button.active,.nav button:hover,.back,.subtab,.analytics-scope .nav button.active,.analytics-scope .nav button:hover{background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;color:#1D1815!important;border-color:#FFD29B!important}
+.module:hover,.card:hover,.arch-box:hover{border-color:#F2A65A!important;box-shadow:0 8px 24px rgba(0,0,0,.22)!important}
+.kpi strong,.metric,.pill,.tag,.widget .wn,.breadcrumb b{color:#FFD29B!important}
+th,.analytics-scope .table th{background:#30241F!important;color:#FFD29B!important;border-color:rgba(242,166,90,.3)!important}
+td,.analytics-scope .table td{background:#211B19!important;color:#F7F1EC!important;border-color:rgba(242,166,90,.25)!important}
+.bar,.formula,.info,.tag,.analytics-scope .info,.analytics-scope .formula{background:#30241F!important;color:#FFD29B!important;border-color:rgba(242,166,90,.4)!important}
+.bar i{background:linear-gradient(90deg,#F2A65A,#FFD29B)!important}
+.layer.l1,.layer.l2,.layer.l3,.layer.l4,.layer.f08{background:linear-gradient(145deg,#2C2E37,#1D1815)!important;border:1px solid rgba(242,166,90,.5)!important;border-top:4px solid #F2A65A!important;color:#fff!important}
+.analytics-scope .title h1,.analytics-scope .title p,.analytics-scope .breadcrumb,.analytics-scope .workspace-head h2,.analytics-scope .workspace-head p,.analytics-scope .card h3,.analytics-scope .card h4,.analytics-scope .card p,.analytics-scope .layerbtn p,.analytics-scope .widget .wt,.analytics-scope .kpi label,.analytics-scope .kpi small,.analytics-scope .pcv span{color:#E9DDD6!important}
+.analytics-scope .nav button.active,.analytics-scope .layerbtn.active,.analytics-scope .widget.active,.analytics-scope .widget:hover,.analytics-scope .pcv.active,.analytics-scope .pcv:hover{background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;color:#1D1815!important;border-color:#FFD29B!important}
+.analytics-scope .widget .wn,.analytics-scope .metric,.analytics-scope .kpi strong{color:#FFD29B!important}
+.analytics-scope .section-title{background:linear-gradient(145deg,#2C2E37,#1D1815)!important;color:#FFD29B!important}
+.analytics-scope .tag,.analytics-scope .formula{background:#30241F!important;color:#FFD29B!important}
+button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;outline-offset:2px}
