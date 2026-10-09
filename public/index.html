@@ -1,10 +1,10 @@
-﻿
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>IGPC â€” Main Dashboard</title>
+<title>IGPC — Main Dashboard</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#142654}
@@ -124,7 +124,7 @@ button:focus{outline:2px solid #7db4ff;outline-offset:1px} .analytics-scope .app
 .embedded-analytics-content .logo{display:none!important}
 
 
-/* PASS 4 FIX â€” show the actual Project Files dashboard inside the Main Dashboard */
+/* PASS 4 FIX — show the actual Project Files dashboard inside the Main Dashboard */
 .projectfiles-host{width:100%;margin:0;padding:0;background:#07111f;border:1px solid #18314f;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(4,20,40,.16)}
 .projectfiles-frame{display:block;width:100%;height:calc(100vh - 150px);min-height:720px;border:0;background:#07111f}
 @media(max-width:900px){.projectfiles-frame{height:900px;min-height:900px}}
@@ -137,12 +137,12 @@ button:focus{outline:2px solid #7db4ff;outline-offset:1px} .analytics-scope .app
 :root{
   --igpc-chocolate:#1D1815;
   --igpc-chocolate-light:#BCAAA3;
-  --igpc-graphite:#3A2923;
-  --igpc-graphite-deep:#1D1815;
+  --igpc-graphite:#2C2E37;
+  --igpc-graphite-deep:#171A1F;
   --igpc-bg:#F7F7F7;
   --igpc-white:#FFFFFF;
-  --igpc-orange:#6B4F45;
-  --igpc-orange-light:#D8C5BC;
+  --igpc-orange:#F2A65A;
+  --igpc-orange-light:#FFD29B;
 }
 
 body{
@@ -153,7 +153,7 @@ body{
 }
 
 .sidebar{
-  background:linear-gradient(160deg,#1D1815 0%,#3A2923 55%,#1D1815 100%);
+  background:linear-gradient(160deg,#171A1F 0%,#2C2E37 55%,#1D1815 100%);
   box-shadow:8px 0 30px rgba(29,24,21,.18);
   border-right:1px solid rgba(255,255,255,.08);
 }
@@ -174,7 +174,7 @@ body{
 .hero{
   background:
     radial-gradient(circle at 75% 20%,rgba(255,210,155,.22),transparent 25%),
-    linear-gradient(135deg,#1D1815 0%,#3A2923 58%,#1D1815 100%);
+    linear-gradient(135deg,#1D1815 0%,#2C2E37 58%,#171A1F 100%);
   color:#FFFFFF;
   box-shadow:0 14px 40px rgba(29,24,21,.20);
   position:relative;
@@ -182,7 +182,7 @@ body{
 }
 
 .info-strip{
-  background:linear-gradient(135deg,#3A2923,#1D1815);
+  background:linear-gradient(135deg,#2C2E37,#1D1815);
   color:#FFFFFF;
   border:1px solid rgba(242,166,90,.30);
   box-shadow:0 8px 25px rgba(29,24,21,.14);
@@ -192,7 +192,7 @@ body{
   background:
     linear-gradient(145deg,#FFFFFF 0%,#FFFFFF 58%,#BCAAA3 100%);
   border:1px solid rgba(188,170,163,.55);
-  border-top:3px solid #6B4F45;
+  border-top:3px solid #F2A65A;
   color:#1D1815;
   box-shadow:
     0 10px 30px rgba(29,24,21,.10),
@@ -210,7 +210,7 @@ body{
 }
 
 .module .num{
-  background:linear-gradient(145deg,#3A2923,#1D1815);
+  background:linear-gradient(145deg,#2C2E37,#1D1815);
   color:#FFFFFF;
   border:1px solid rgba(242,166,90,.60);
   box-shadow:0 5px 14px rgba(29,24,21,.20);
@@ -230,13 +230,13 @@ body{
 }
 
 .projectfiles-host{
-  background:linear-gradient(135deg,#1D1815,#3A2923,#1D1815)!important;
+  background:linear-gradient(135deg,#1D1815,#2C2E37,#171A1F)!important;
   border:1px solid rgba(242,166,90,.35)!important;
   box-shadow:0 14px 38px rgba(29,24,21,.22)!important;
 }
 
 .projectfiles-frame{
-  background:#1D1815!important;
+  background:#171A1F!important;
 }
 
 .module-frame{
@@ -245,8 +245,8 @@ body{
 }
 
 .arch-box{
-  background:linear-gradient(145deg,#3A2923,#1D1815)!important;
-  color:#D8C5BC!important;
+  background:linear-gradient(145deg,#2C2E37,#171A1F)!important;
+  color:#FFD29B!important;
   border-color:rgba(242,166,90,.45)!important;
   box-shadow:0 10px 28px rgba(29,24,21,.18);
 }
@@ -264,12 +264,12 @@ body{
 .bar,
 .progress,
 .fill{
-  background:linear-gradient(90deg,#1D1815,#3A2923,#6B4F45)!important;
+  background:linear-gradient(90deg,#1D1815,#2C2E37,#F2A65A)!important;
 }
 
 .pill,
 .badge{
-  background:linear-gradient(145deg,#3A2923,#1D1815)!important;
+  background:linear-gradient(145deg,#2C2E37,#1D1815)!important;
   color:#FFFFFF!important;
   border:1px solid rgba(242,166,90,.45)!important;
 }
@@ -289,22 +289,22 @@ body{
 }
 
 ::-webkit-scrollbar-thumb{
-  background:linear-gradient(#BCAAA3,#3A2923);
+  background:linear-gradient(#BCAAA3,#2C2E37);
   border-radius:10px;
 }
 
 ::-webkit-scrollbar-thumb:hover{
-  background:linear-gradient(#6B4F45,#1D1815);
+  background:linear-gradient(#F2A65A,#1D1815);
 }
 /* =========================================================
-   IGPC â€” REMOVE WHITE / WARM GLOSS FINISH
+   IGPC — REMOVE WHITE / WARM GLOSS FINISH
    ========================================================= */
 
 body{
   background:
     radial-gradient(circle at 15% 5%,rgba(242,166,90,.16),transparent 25%),
     radial-gradient(circle at 85% 10%,rgba(188,170,163,.14),transparent 28%),
-    linear-gradient(135deg,#3A2923 0%,#1D1815 55%,#1D1815 100%);
+    linear-gradient(135deg,#2C2E37 0%,#1D1815 55%,#171A1F 100%);
 }
 
 /* Main content surfaces */
@@ -349,9 +349,9 @@ section{
 
 /* Numbers */
 .module .num{
-  background:linear-gradient(145deg,#6B4F45,#BCAAA3)!important;
+  background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;
   color:#1D1815!important;
-  border-color:#D8C5BC!important;
+  border-color:#FFD29B!important;
 }
 
 /* Internal analytics/project areas */
@@ -359,20 +359,20 @@ section{
 .projectfiles-host,
 .projectfiles-frame{
   background:
-    linear-gradient(145deg,#3A2923,#1D1815,#1D1815)!important;
+    linear-gradient(145deg,#2C2E37,#1D1815,#171A1F)!important;
 }
 
 /* Frames */
 .module-frame{
   background:
-    linear-gradient(145deg,#3A2923,#1D1815)!important;
+    linear-gradient(145deg,#2C2E37,#1D1815)!important;
 }
 
 /* Architecture / process boxes */
 .arch-box,
 .step{
   background:
-    linear-gradient(145deg,#3A2923,#1D1815)!important;
+    linear-gradient(145deg,#2C2E37,#1D1815)!important;
   color:#FFFFFF!important;
   border-color:rgba(242,166,90,.45)!important;
 }
@@ -381,7 +381,7 @@ section{
 .info-strip,
 .support{
   background:
-    linear-gradient(145deg,#3A2923,#1D1815)!important;
+    linear-gradient(145deg,#2C2E37,#1D1815)!important;
   color:#FFFFFF!important;
   border-color:rgba(242,166,90,.35)!important;
 }
@@ -391,7 +391,7 @@ section{
 .badge,
 button{
   background:
-    linear-gradient(145deg,#3A2923,#1D1815)!important;
+    linear-gradient(145deg,#2C2E37,#1D1815)!important;
   color:#FFFFFF!important;
   border-color:rgba(242,166,90,.45)!important;
 }
@@ -399,7 +399,7 @@ button{
 /* Orange highlight */
 a:hover,
 button:hover{
-  border-color:#6B4F45!important;
+  border-color:#F2A65A!important;
 }
 
 /* Gloss reflection */
@@ -419,23 +419,61 @@ button:hover{
   );
   pointer-events:none;
 }
+/* IGPC LAYER AND PCV FINAL OVERRIDE */
+html body .layerbar > button.layerbtn,
+html body .pcvbar > button.pcv {
+  background: linear-gradient(145deg,#2C2E37,#211B19) !important;
+  color: #E9DDD6 !important;
+  border: 1px solid rgba(242,166,90,.45) !important;
+}
+html body .layerbar > button.layerbtn.active,
+html body .pcvbar > button.pcv.active,
+html body .layerbar > button.layerbtn:hover,
+html body .pcvbar > button.pcv:hover {
+  background: linear-gradient(145deg,#F2A65A,#BCAAA3) !important;
+  color: #1D1815 !important;
+  border-color: #FFD29B !important;
+}
+
 </style>
 <script src="config.js"></script><script>
 const IGPC_API=window.IGPC_API_BASE||'';
-async function igpcLiveRefresh(){try{const r=await fetch(IGPC_API+'/api/projects');if(!r.ok)return;const ps=await r.json();const latest=ps[0];if(latest){document.querySelectorAll('.project strong').forEach(e=>e.textContent='Project ID: '+latest.project_id);const live=document.querySelector('.live');if(live)live.textContent='â— LIVE / '+latest.status;}}catch(e){}}
+async function igpcLiveRefresh(){try{const r=await fetch(IGPC_API+'/api/projects');if(!r.ok)return;const ps=await r.json();const latest=ps[0];if(latest){document.querySelectorAll('.project strong').forEach(e=>e.textContent='Project ID: '+latest.project_id);const live=document.querySelector('.live');if(live)live.textContent='● LIVE / '+latest.status;}}catch(e){}}
 window.addEventListener('message',e=>{if(e.data?.type==='igpc-data-released'){igpcLiveRefresh();}});igpcLiveRefresh();setInterval(igpcLiveRefresh,10000);
-</script><link rel="stylesheet" href="unified-theme.css"></head>
+</script><link rel="stylesheet" href="unified-theme.css"><style id="igpc-main-final-theme">
+/* IGPC UNIFIED MAIN PAGE THEME */
+:root{--ink:#FFFFFF;--muted:#BCAAA3;--line:rgba(242,166,90,.35);--bg:#1D1815;--white:#2C2E37;--blue:#F2A65A;--navy:#1D1815;--orange:#F2A65A;--orange2:#30241F;--purple:#FFD29B;--teal:#F2A65A}
+body{background:radial-gradient(circle at 15% 5%,rgba(242,166,90,.13),transparent 30%),linear-gradient(145deg,#2C2E37,#1D1815,#171A1F)!important;color:#fff!important}
+.header,.module,.kpi,.card,.arch-box,.footer,.layer,.layerbtn,.flow-node,.widget,.pcv,.workspace,.analytics-scope .header,.analytics-scope .workspace,.analytics-scope .layerbtn,.analytics-scope .flow-node,.analytics-scope .widget,.analytics-scope .pcv,.analytics-scope .kpi,.analytics-scope .card{background:linear-gradient(145deg,#2C2E37,#211B19)!important;color:#fff!important;border-color:rgba(242,166,90,.38)!important}
+.module h3,.module p,.arch-box h3,.arch-box p,.arch-box li,.card h3,.card h4,.card p,.kpi label,.kpi small,.section-sub,.title h1,.title p,.workspace-head h2,.workspace-head p{color:#E9DDD6!important}
+.section-title{background:linear-gradient(145deg,#2C2E37,#1D1815)!important;color:#FFD29B!important;border:1px solid rgba(242,166,90,.4)!important}
+.nav button.active,.nav button:hover,.back,.subtab,.analytics-scope .nav button.active,.analytics-scope .nav button:hover{background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;color:#1D1815!important;border-color:#FFD29B!important}
+.module:hover,.card:hover,.arch-box:hover{border-color:#F2A65A!important;box-shadow:0 8px 24px rgba(0,0,0,.22)!important}
+.kpi strong,.metric,.pill,.tag,.widget .wn,.breadcrumb b{color:#FFD29B!important}
+th,.analytics-scope .table th{background:#30241F!important;color:#FFD29B!important;border-color:rgba(242,166,90,.3)!important}
+td,.analytics-scope .table td{background:#211B19!important;color:#F7F1EC!important;border-color:rgba(242,166,90,.25)!important}
+.bar,.formula,.info,.tag,.analytics-scope .info,.analytics-scope .formula{background:#30241F!important;color:#FFD29B!important;border-color:rgba(242,166,90,.4)!important}
+.bar i{background:linear-gradient(90deg,#F2A65A,#FFD29B)!important}
+.layer.l1,.layer.l2,.layer.l3,.layer.l4,.layer.f08{background:linear-gradient(145deg,#2C2E37,#1D1815)!important;border:1px solid rgba(242,166,90,.5)!important;border-top:4px solid #F2A65A!important;color:#fff!important}
+.analytics-scope .title h1,.analytics-scope .title p,.analytics-scope .breadcrumb,.analytics-scope .workspace-head h2,.analytics-scope .workspace-head p,.analytics-scope .card h3,.analytics-scope .card h4,.analytics-scope .card p,.analytics-scope .layerbtn p,.analytics-scope .widget .wt,.analytics-scope .kpi label,.analytics-scope .kpi small,.analytics-scope .pcv span{color:#E9DDD6!important}
+.analytics-scope .nav button.active,.analytics-scope .layerbtn.active,.analytics-scope .widget.active,.analytics-scope .widget:hover,.analytics-scope .pcv.active,.analytics-scope .pcv:hover{background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;color:#1D1815!important;border-color:#FFD29B!important}
+.analytics-scope .widget .wn,.analytics-scope .metric,.analytics-scope .kpi strong{color:#FFD29B!important}
+.analytics-scope .section-title{background:linear-gradient(145deg,#2C2E37,#1D1815)!important;color:#FFD29B!important}
+.analytics-scope .tag,.analytics-scope .formula{background:#30241F!important;color:#FFD29B!important}
+button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;outline-offset:2px}
+
+</style>\n</head>
 <body>
 <div class="app">
 <aside class="sidebar">
 <div class="logo"><div class="logo-main">IGPC</div><div class="logo-sub">INTEGRATED GEOTECHNICAL<br>PROJECT CONTROLS</div></div>
 <nav class="nav">
-<button class="active" data-view="home">âŒ‚ &nbsp; MAIN DASHBOARD</button>
-<button data-view="library">â—‰ &nbsp; VIRTUAL LIBRARY</button>
-<button data-view="projectfiles">â—ˆ &nbsp; PROJECT FILES</button>
-<button data-view="analytics">â–¥ &nbsp; ANALYTICS</button>
-<button data-view="diagnostics">â—« &nbsp; DIAGNOSTICS</button>
-<button data-view="reports">â–§ &nbsp; REPORTS</button>
+<button class="active" data-view="home">⌂ &nbsp; MAIN DASHBOARD</button>
+<button data-view="library">◉ &nbsp; VIRTUAL LIBRARY</button>
+<button data-view="projectfiles">◈ &nbsp; PROJECT FILES</button>
+<button data-view="analytics">▥ &nbsp; ANALYTICS</button>
+<button data-view="diagnostics">◫ &nbsp; DIAGNOSTICS</button>
+<button data-view="reports">▧ &nbsp; REPORTS</button>
 </nav>
 <div class="support"><strong>Need Help?</strong><br>IGPC Support</div>
 </aside>
@@ -447,72 +485,72 @@ window.addEventListener('message',e=>{if(e.data?.type==='igpc-data-released'){ig
 
 <div id="home" class="view active">
 <div class="hero"><h2>IGPC PROJECT CONTROL SYSTEM</h2><p>One main dashboard connecting the five operating areas. Select a module below to enter its dedicated dashboard. The architecture remains connected rather than becoming five separate systems.</p></div>
-<div class="info">PROJECT FILES â†’ VIRTUAL LIBRARY â†’ ANALYTICS â†’ DIAGNOSTICS â†’ F08 SPECIALIST INTELLIGENCE â†’ VERIFICATION / LEARNING â†’ REPORTS</div><div class="card" style="margin-bottom:16px">
+<div class="info">PROJECT FILES → VIRTUAL LIBRARY → ANALYTICS → DIAGNOSTICS → F08 SPECIALIST INTELLIGENCE → VERIFICATION / LEARNING → REPORTS</div><div class="card" style="margin-bottom:16px">
 <h3>SYSTEM STATUS</h3>
 <div class="grid3">
-<div><strong style="font-size:11px">DATA</strong><div class="bar"><i style="width:98%"></i></div><span class="pill">â— LIVE / 98% COMPLETE</span></div>
-<div><strong style="font-size:11px">VIRTUAL LIBRARY</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">â— READY / VALIDATED</span></div>
-<div><strong style="font-size:11px">ANALYTICS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">â— ACTIVE</span></div>
-<div><strong style="font-size:11px">DIAGNOSTICS</strong><div class="bar"><i style="width:82%"></i></div><span class="pill warn">â— 4 OPEN / 2 HIGH</span></div>
-<div><strong style="font-size:11px">F08</strong><div class="bar"><i style="width:72%"></i></div><span class="pill">â— ACTIVE / 72% CONFIDENCE</span></div>
-<div><strong style="font-size:11px">REPORTS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">â— READY</span></div>
+<div><strong style="font-size:11px">DATA</strong><div class="bar"><i style="width:98%"></i></div><span class="pill">● LIVE / 98% COMPLETE</span></div>
+<div><strong style="font-size:11px">VIRTUAL LIBRARY</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">● READY / VALIDATED</span></div>
+<div><strong style="font-size:11px">ANALYTICS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">● ACTIVE</span></div>
+<div><strong style="font-size:11px">DIAGNOSTICS</strong><div class="bar"><i style="width:82%"></i></div><span class="pill warn">● 4 OPEN / 2 HIGH</span></div>
+<div><strong style="font-size:11px">F08</strong><div class="bar"><i style="width:72%"></i></div><span class="pill">● ACTIVE / 72% CONFIDENCE</span></div>
+<div><strong style="font-size:11px">REPORTS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">● READY</span></div>
 </div>
 </div>
 
 <div class="modules">
-<div class="module library" onclick="openView('library')"><div class="num">01</div><h3>VIRTUAL LIBRARY</h3><p>Secure bridge between client information and IGPC project intelligence, without touching the client's server.</p><div class="go">OPEN VIRTUAL LIBRARY â†’</div></div>
-<div class="module files" onclick="openView('projectfiles')"><div class="num">02</div><h3>PROJECT FILES</h3><p>Master project entry point with the three IGPC core operational boxes and the structured project architecture.</p><div class="go">OPEN PROJECT FILES â†’</div></div>
-<div class="module analytics" onclick="openView('analytics')"><div class="num">03</div><h3>ANALYTICS</h3><p>W1-W10, Layers 1-4, F08 and PCV1-PCV4. This is the integrated analytics dashboard already built.</p><div class="go">OPEN ANALYTICS â†’</div></div>
-<div class="module diagnostics" onclick="openView('diagnostics')"><div class="num">04</div><h3>DIAGNOSTICS</h3><p>Moves from an identified problem or deviation to the most likely causes, probabilities and diagnostic evidence.</p><div class="go">OPEN DIAGNOSTICS â†’</div></div>
-<div class="module reports" onclick="openView('reports')"><div class="num">05</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS â†’</div></div>
+<div class="module library" onclick="openView('library')"><div class="num">01</div><h3>VIRTUAL LIBRARY</h3><p>Secure bridge between client information and IGPC project intelligence, without touching the client's server.</p><div class="go">OPEN VIRTUAL LIBRARY →</div></div>
+<div class="module files" onclick="openView('projectfiles')"><div class="num">02</div><h3>PROJECT FILES</h3><p>Master project entry point with the three IGPC core operational boxes and the structured project architecture.</p><div class="go">OPEN PROJECT FILES →</div></div>
+<div class="module analytics" onclick="openView('analytics')"><div class="num">03</div><h3>ANALYTICS</h3><p>W1-W10, Layers 1-4, F08 and PCV1-PCV4. This is the integrated analytics dashboard already built.</p><div class="go">OPEN ANALYTICS →</div></div>
+<div class="module diagnostics" onclick="openView('diagnostics')"><div class="num">04</div><h3>DIAGNOSTICS</h3><p>Moves from an identified problem or deviation to the most likely causes, probabilities and diagnostic evidence.</p><div class="go">OPEN DIAGNOSTICS →</div></div>
+<div class="module reports" onclick="openView('reports')"><div class="num">05</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS →</div></div>
 </div>
 <div class="card">
-<h3>PROJECT ID â€” SYSTEM ANCHOR</h3>
+<h3>PROJECT ID — SYSTEM ANCHOR</h3>
 <div class="grid3">
 <div class="arch-box"><h3>PROJECT</h3><p><strong>EXPL-001</strong><br>Exploration Drilling<br>PGM</p></div>
-<div class="arch-box"><h3>DATA PATH</h3><p>Project ID follows the information through Virtual Library â†’ Analytics â†’ Diagnostics â†’ F08 â†’ Reports.</p></div>
+<div class="arch-box"><h3>DATA PATH</h3><p>Project ID follows the information through Virtual Library → Analytics → Diagnostics → F08 → Reports.</p></div>
 <div class="arch-box"><h3>CONTROL PRINCIPLE</h3><p>No dashboard creates a problem independently. Findings are driven by controlled project information.</p></div>
 </div>
 </div>
 <div class="card" style="margin-top:16px">
 <h3>LOCKED IGPC CONTROL ARCHITECTURE</h3>
 <div class="flow">
-<div class="step">PROJECT FILES<br><small>Project context / Project ID</small></div><div class="arrow">â†’</div>
-<div class="step">VIRTUAL LIBRARY<br><small>Receive / Sort / Validate / Control</small></div><div class="arrow">â†’</div>
-<div class="step">ANALYTICS<br><small>What is happening?</small></div><div class="arrow">â†’</div>
-<div class="step">DIAGNOSTICS<br><small>Why is it happening?</small></div><div class="arrow">â†’</div>
-<div class="step">F08<br><small>Specialist Intelligence</small></div><div class="arrow">â†’</div>
-<div class="step">LAYER 4<br><small>Decision / Action</small></div><div class="arrow">â†’</div>
-<div class="step">INTERVENTION<br><small>Apply action</small></div><div class="arrow">â†’</div>
-<div class="step">VERIFICATION<br><small>Did it work?</small></div><div class="arrow">â†’</div>
-<div class="step">LEARNING<br><small>What have we learned?</small></div><div class="arrow">â†’</div>
+<div class="step">PROJECT FILES<br><small>Project context / Project ID</small></div><div class="arrow">→</div>
+<div class="step">VIRTUAL LIBRARY<br><small>Receive / Sort / Validate / Control</small></div><div class="arrow">→</div>
+<div class="step">ANALYTICS<br><small>What is happening?</small></div><div class="arrow">→</div>
+<div class="step">DIAGNOSTICS<br><small>Why is it happening?</small></div><div class="arrow">→</div>
+<div class="step">F08<br><small>Specialist Intelligence</small></div><div class="arrow">→</div>
+<div class="step">LAYER 4<br><small>Decision / Action</small></div><div class="arrow">→</div>
+<div class="step">INTERVENTION<br><small>Apply action</small></div><div class="arrow">→</div>
+<div class="step">VERIFICATION<br><small>Did it work?</small></div><div class="arrow">→</div>
+<div class="step">LEARNING<br><small>What have we learned?</small></div><div class="arrow">→</div>
 <div class="step">REPORTS<br><small>Controlled output</small></div>
 </div>
 </div>
 <div class="card">
 <h3>INTERVENTION & LEARNING LOOP</h3>
 <div class="flow">
-<div class="step">ANALYTICS<br><small>Identify gap / constraint</small></div><div class="arrow">â†’</div>
-<div class="step">DIAGNOSTICS<br><small>Rank likely causes</small></div><div class="arrow">â†’</div>
-<div class="step">F08<br><small>Specialist judgement</small></div><div class="arrow">â†’</div>
-<div class="step">LAYER 4<br><small>Decision / Action</small></div><div class="arrow">â†’</div>
-<div class="step">INTERVENTION</div><div class="arrow">â†’</div>
-<div class="step">W9<br><small>Did it work?</small></div><div class="arrow">â†’</div>
-<div class="step">W10<br><small>What have we learned?</small></div><div class="arrow">â†º</div>
+<div class="step">ANALYTICS<br><small>Identify gap / constraint</small></div><div class="arrow">→</div>
+<div class="step">DIAGNOSTICS<br><small>Rank likely causes</small></div><div class="arrow">→</div>
+<div class="step">F08<br><small>Specialist judgement</small></div><div class="arrow">→</div>
+<div class="step">LAYER 4<br><small>Decision / Action</small></div><div class="arrow">→</div>
+<div class="step">INTERVENTION</div><div class="arrow">→</div>
+<div class="step">W9<br><small>Did it work?</small></div><div class="arrow">→</div>
+<div class="step">W10<br><small>What have we learned?</small></div><div class="arrow">↺</div>
 <div class="step">ANALYTICS</div>
 </div>
 </div>
 </div>
 
 <div class="card">
-<h3>REPORTS â€” OUTPUT OF THE IGPC CONTROL CHAIN</h3>
+<h3>REPORTS — OUTPUT OF THE IGPC CONTROL CHAIN</h3>
 <p>Reports draw controlled information from Project Files, the Virtual Library, Analytics, Diagnostics, F08 specialist intelligence, verification and learning.</p>
 <div class="flow">
-<div class="step">PROJECT FILES</div><div class="arrow">â†’</div>
-<div class="step">VIRTUAL LIBRARY</div><div class="arrow">â†’</div>
-<div class="step">ANALYTICS</div><div class="arrow">â†’</div>
-<div class="step">DIAGNOSTICS / F08</div><div class="arrow">â†’</div>
-<div class="step">VERIFICATION / LEARNING</div><div class="arrow">â†’</div>
+<div class="step">PROJECT FILES</div><div class="arrow">→</div>
+<div class="step">VIRTUAL LIBRARY</div><div class="arrow">→</div>
+<div class="step">ANALYTICS</div><div class="arrow">→</div>
+<div class="step">DIAGNOSTICS / F08</div><div class="arrow">→</div>
+<div class="step">VERIFICATION / LEARNING</div><div class="arrow">→</div>
 <div class="step">REPORTS</div>
 </div>
 </div>
@@ -521,9 +559,9 @@ window.addEventListener('message',e=>{if(e.data?.type==='igpc-data-released'){ig
 <div class="top-actions">
   <div>
     <div class="section-title">ANALYTICS DASHBOARD</div>
-    <div class="section-sub">W1â€“W10 Â· Layers 1â€“4 Â· F08 Â· PCV1â€“PCV4</div>
+    <div class="section-sub">W1–W10 · Layers 1–4 · F08 · PCV1–PCV4</div>
   </div>
-  <button class="back" onclick="openView('home')">â† Main Dashboard</button>
+  <button class="back" onclick="openView('home')">← Main Dashboard</button>
 </div>
 <div class="embedded-analytics-content">
   
@@ -531,25 +569,25 @@ window.addEventListener('message',e=>{if(e.data?.type==='igpc-data-released'){ig
 
 
 <section class="content">
-  <div class="info">â“˜ &nbsp; The dashboard is data-driven: demonstration values are replaceable. The analytical formulas and chart logic remain in place when the real project CSV/data source is loaded.</div>
+  <div class="info">ⓘ &nbsp; The dashboard is data-driven: demonstration values are replaceable. The analytical formulas and chart logic remain in place when the real project CSV/data source is loaded.</div>
 
   <section class="layerbar" id="layerbar">
-    <button class="layerbtn l1" data-view="L1"><h3>LAYER 1 â€” DATA / SOURCE</h3><p>Raw client data, source records, validation and lineage.</p></button>
-    <button class="layerbtn l2" data-view="L2"><h3>LAYER 2 â€” ANALYTICS / INTERPRETATION</h3><p>What is happening, the gap, constraint, impact and recovery.</p></button>
-    <button class="layerbtn l3" data-view="L3"><h3>LAYER 3 â€” EVIDENCE / CONTROL</h3><p>Evidence, validation, causation, intervention and verification.</p></button>
-    <button class="layerbtn l4" data-view="L4"><h3>LAYER 4 â€” DECISION / ACTION</h3><p>Priority, options, recommendation, implementation and outcome.</p></button>
-    <button class="layerbtn f08" data-view="F08"><h3>F08 â€” SPECIALIST INTELLIGENCE</h3><p>Target â†’ observation â†’ judgement â†’ confidence â†’ recommendation.</p></button>
+    <button class="layerbtn l1" data-view="L1"><h3>LAYER 1 — DATA / SOURCE</h3><p>Raw client data, source records, validation and lineage.</p></button>
+    <button class="layerbtn l2" data-view="L2"><h3>LAYER 2 — ANALYTICS / INTERPRETATION</h3><p>What is happening, the gap, constraint, impact and recovery.</p></button>
+    <button class="layerbtn l3" data-view="L3"><h3>LAYER 3 — EVIDENCE / CONTROL</h3><p>Evidence, validation, causation, intervention and verification.</p></button>
+    <button class="layerbtn l4" data-view="L4"><h3>LAYER 4 — DECISION / ACTION</h3><p>Priority, options, recommendation, implementation and outcome.</p></button>
+    <button class="layerbtn f08" data-view="F08"><h3>F08 — SPECIALIST INTELLIGENCE</h3><p>Target → observation → judgement → confidence → recommendation.</p></button>
   </section>
 
   <div class="flowbar">
-    <div class="flow-node">LAYER 1<br>DATA / SOURCE</div><div class="flow-arrow">â†’</div>
-    <div class="flow-node">LAYER 2<br>ANALYTICS / INTERPRETATION</div><div class="flow-arrow">â†’</div>
-    <div class="flow-node">LAYER 3<br>EVIDENCE / CONTROL</div><div class="flow-arrow">â†’</div>
-    <div class="flow-node">LAYER 4<br>DECISION / ACTION</div><div class="flow-arrow">â†’</div>
+    <div class="flow-node">LAYER 1<br>DATA / SOURCE</div><div class="flow-arrow">→</div>
+    <div class="flow-node">LAYER 2<br>ANALYTICS / INTERPRETATION</div><div class="flow-arrow">→</div>
+    <div class="flow-node">LAYER 3<br>EVIDENCE / CONTROL</div><div class="flow-arrow">→</div>
+    <div class="flow-node">LAYER 4<br>DECISION / ACTION</div><div class="flow-arrow">→</div>
     <div class="flow-node">F08<br>SPECIALIST INTELLIGENCE</div>
   </div>
 
-  <div class="section-title">W1â€“W10 INTELLIGENCE CHAIN <span>Click any widget to open its active workspace</span></div>
+  <div class="section-title">W1–W10 INTELLIGENCE CHAIN <span>Click any widget to open its active workspace</span></div>
   <section class="widgets" id="widgets">
     <button class="widget" data-widget="W1"><span class="wn">W1</span><span class="wt">ANALYTICS CHAIN</span></button>
     <button class="widget" data-widget="W2"><span class="wn">W2</span><span class="wt">PROJECT / PROBLEM CONTEXT</span></button>
@@ -563,12 +601,12 @@ window.addEventListener('message',e=>{if(e.data?.type==='igpc-data-released'){ig
     <button class="widget" data-widget="W10"><span class="wn">W10</span><span class="wt">WHAT HAVE WE LEARNED?</span></button>
   </section>
 
-  <div class="section-title">PCV1â€“PCV4 â€” PROJECT CONTROL & VALUE <span>PCV tabs are connected to the relevant W widgets</span></div>
+  <div class="section-title">PCV1–PCV4 — PROJECT CONTROL & VALUE <span>PCV tabs are connected to the relevant W widgets</span></div>
   <section class="pcvbar" id="pcvbar">
-    <button class="pcv" data-pcv="PCV1"><b>PCV.1 â€” CURRENT</b><span>Where We Are Now</span></button>
-    <button class="pcv" data-pcv="PCV2"><b>PCV.2 â€” FORECAST</b><span>What Is Likely to Happen</span></button>
-    <button class="pcv" data-pcv="PCV3"><b>PCV.3 â€” PROJECTION</b><span>What Could Happen</span></button>
-    <button class="pcv" data-pcv="PCV4"><b>PCV.4 â€” INTERVENTION VALUE</b><span>What Should We Do</span></button>
+    <button class="pcv" data-pcv="PCV1"><b>PCV.1 — CURRENT</b><span>Where We Are Now</span></button>
+    <button class="pcv" data-pcv="PCV2"><b>PCV.2 — FORECAST</b><span>What Is Likely to Happen</span></button>
+    <button class="pcv" data-pcv="PCV3"><b>PCV.3 — PROJECTION</b><span>What Could Happen</span></button>
+    <button class="pcv" data-pcv="PCV4"><b>PCV.4 — INTERVENTION VALUE</b><span>What Should We Do</span></button>
   </section>
 
   <main class="workspace" id="workspace"></main>
@@ -652,7 +690,7 @@ const DATA = {
 };
 
 /* ============================================================
-   FORMULA ENGINE â€” preserve original formulas
+   FORMULA ENGINE — preserve original formulas
 ============================================================ */
 
 const F = {
@@ -710,7 +748,7 @@ const F = {
 };
 
 /* ============================================================
-   DERIVED ANALYTICS â€” every visual should use these values
+   DERIVED ANALYTICS — every visual should use these values
 ============================================================ */
 
 function derived(){
@@ -839,7 +877,7 @@ function topKpis(){
 const layerViews={
 
 L1:()=>head(
- "LAYER 1 â€” DATA / SOURCE",
+ "LAYER 1 — DATA / SOURCE",
  "What information entered IGPC?",
  "LAYER 1"
 )+topKpis()+`
@@ -863,28 +901,28 @@ L1:()=>head(
  ${card("DATA LINEAGE",`<p>Every analytical result can be traced back through the source and validation path.</p>${button("OPEN LINEAGE","LINEAGE")}`)}
 </div>
 <div class="card" style="margin-top:12px"><h4>DATA FLOW</h4>
- <div class="flow"><span>Raw CSV</span><i>â†’</i><span>Project ID</span><i>â†’</i><span>Validation</span><i>â†’</i><span>Structured Project Data</span><i>â†’</i><span>Layer 2</span></div>
+ <div class="flow"><span>Raw CSV</span><i>→</i><span>Project ID</span><i>→</i><span>Validation</span><i>→</i><span>Structured Project Data</span><i>→</i><span>Layer 2</span></div>
 </div>`,
 
 L2:()=>head(
- "LAYER 2 â€” ANALYTICS / INTERPRETATION",
+ "LAYER 2 — ANALYTICS / INTERPRETATION",
  "What does the information tell us?",
  "LAYER 2"
 )+topKpis()+`
 <div class="grid3">
- ${card("W1 â€” ANALYTICS CHAIN",`<p>Tracks what changed, where it is developing and where the consequence chain leads.</p>${button("OPEN W1","W1")}`)}
- ${card("W2 â€” PROJECT / PROBLEM CONTEXT",`<p>Defines the project, problem context and the analytical frame.</p>${button("OPEN W2","W2")}`)}
- ${card("W3 â€” WHAT IS THE CONSTRAINT?",`<p>Identifies the factor currently limiting progress and value.</p>${button("OPEN W3","W3")}`)}
- ${card("W4 â€” HAS THE CONSTRAINT SHIFTED?",`<p>Tracks whether the controlling constraint has changed over time.</p>${button("OPEN W4","W4")}`)}
- ${card("W5 â€” CONSEQUENCE / IMPACT",`<p>Connects the constraint to time, output and cost consequences.</p>${button("OPEN W5","W5")}`)}
- ${card("W7 â€” RECOVERY GAP",`<p>Determines what performance is required to recover toward the required baseline.</p>${button("OPEN W7","W7")}`)}
+ ${card("W1 — ANALYTICS CHAIN",`<p>Tracks what changed, where it is developing and where the consequence chain leads.</p>${button("OPEN W1","W1")}`)}
+ ${card("W2 — PROJECT / PROBLEM CONTEXT",`<p>Defines the project, problem context and the analytical frame.</p>${button("OPEN W2","W2")}`)}
+ ${card("W3 — WHAT IS THE CONSTRAINT?",`<p>Identifies the factor currently limiting progress and value.</p>${button("OPEN W3","W3")}`)}
+ ${card("W4 — HAS THE CONSTRAINT SHIFTED?",`<p>Tracks whether the controlling constraint has changed over time.</p>${button("OPEN W4","W4")}`)}
+ ${card("W5 — CONSEQUENCE / IMPACT",`<p>Connects the constraint to time, output and cost consequences.</p>${button("OPEN W5","W5")}`)}
+ ${card("W7 — RECOVERY GAP",`<p>Determines what performance is required to recover toward the required baseline.</p>${button("OPEN W7","W7")}`)}
 </div>
 <div class="card" style="margin-top:12px"><h4>ANALYTICS CHAIN</h4>
- <div class="flow"><span>Change</span><i>â†’</i><span>Context</span><i>â†’</i><span>Constraint</span><i>â†’</i><span>Shift</span><i>â†’</i><span>Impact</span><i>â†’</i><span>Cost</span><i>â†’</i><span>Recovery</span><i>â†’</i><span>Intervention</span><i>â†’</i><span>Verification</span><i>â†’</i><span>Learning</span></div>
+ <div class="flow"><span>Change</span><i>→</i><span>Context</span><i>→</i><span>Constraint</span><i>→</i><span>Shift</span><i>→</i><span>Impact</span><i>→</i><span>Cost</span><i>→</i><span>Recovery</span><i>→</i><span>Intervention</span><i>→</i><span>Verification</span><i>→</i><span>Learning</span></div>
 </div>`,
 
 L3:()=>head(
- "LAYER 3 â€” EVIDENCE / CONTROL",
+ "LAYER 3 — EVIDENCE / CONTROL",
  "Can we prove the analytical conclusion?",
  "LAYER 3"
 )+`
@@ -895,7 +933,7 @@ L3:()=>head(
 <div id="l3content">${l3View("L3.1")}</div>`,
 
 L4:()=>head(
- "LAYER 4 â€” DECISION / ACTION",
+ "LAYER 4 — DECISION / ACTION",
  "What should the project do?",
  "LAYER 4"
 )+`
@@ -915,11 +953,11 @@ L4:()=>head(
  ${card("OUTCOME",`<p>Measure actual intervention results against the expected outcome.</p>${button("OPEN W9","W9")}`)}
 </div>
 <div class="card" style="margin-top:12px"><h4>DECISION FLOW</h4>
- <div class="flow"><span>Problem</span><i>â†’</i><span>Evidence</span><i>â†’</i><span>Priority</span><i>â†’</i><span>Options</span><i>â†’</i><span>Recommendation</span><i>â†’</i><span>Implementation</span><i>â†’</i><span>Outcome</span></div>
+ <div class="flow"><span>Problem</span><i>→</i><span>Evidence</span><i>→</i><span>Priority</span><i>→</i><span>Options</span><i>→</i><span>Recommendation</span><i>→</i><span>Implementation</span><i>→</i><span>Outcome</span></div>
 </div>`,
 
 F08:()=>head(
- "F08 â€” SPECIALIST INTELLIGENCE",
+ "F08 — SPECIALIST INTELLIGENCE",
  "What does specialist judgement conclude?",
  "F08"
 )+`
@@ -929,7 +967,7 @@ F08:()=>head(
  ${card("RECOMMENDATION",`<p>The recommendation is reconciled against evidence and project value.</p>${button("OPEN RECOMMENDATION","F08_RECOMMEND")}`)}
 </div>
 <div class="card" style="margin-top:12px"><h4>F08 INTELLIGENCE PATH</h4>
- <div class="flow"><span>Target</span><i>â†’</i><span>Observation</span><i>â†’</i><span>Verification</span><i>â†’</i><span>Experience</span><i>â†’</i><span>Interpretation</span><i>â†’</i><span>Judgement</span><i>â†’</i><span>Assumptions</span><i>â†’</i><span>Expectation</span><i>â†’</i><span>Confidence</span><i>â†’</i><span>Recommendation</span><i>â†’</i><span>Reconciliation</span></div>
+ <div class="flow"><span>Target</span><i>→</i><span>Observation</span><i>→</i><span>Verification</span><i>→</i><span>Experience</span><i>→</i><span>Interpretation</span><i>→</i><span>Judgement</span><i>→</i><span>Assumptions</span><i>→</i><span>Expectation</span><i>→</i><span>Confidence</span><i>→</i><span>Recommendation</span><i>→</i><span>Reconciliation</span></div>
 </div>
 <div class="card" style="margin-top:12px"><h4>TOP 5 DIAGNOSTIC INPUTS</h4>
 <table class="table"><thead><tr><th>Rank</th><th>Possible Cause</th><th>Probability</th><th>Impact</th><th>F08</th></tr></thead>
@@ -943,44 +981,44 @@ F08:()=>head(
 
 function l3View(key){
  const views={
- "L3.1":head("L3.1 â€” SOURCE EVIDENCE","Can we show where the information came from?","L3.1")+`
+ "L3.1":head("L3.1 — SOURCE EVIDENCE","Can we show where the information came from?","L3.1")+`
  <div class="grid2">
  ${card("SOURCE TRACE",`<table class="table"><tr><th>Evidence</th><th>Source</th><th>Status</th></tr>
  <tr><td>Project progress</td><td>Client project CSV</td><td><span class="badge green">SUPPORTED</span></td></tr>
  <tr><td>Advance rate</td><td>Daily production record</td><td><span class="badge green">SUPPORTED</span></td></tr>
  <tr><td>Cost</td><td>Cost record</td><td><span class="badge green">SUPPORTED</span></td></tr></table>`)}
- ${card("LINEAGE",`<p>Source information remains traceable through validation and analytical interpretation.</p><div class="flow"><span>Source</span><i>â†’</i><span>Validated</span><i>â†’</i><span>Analytics</span><i>â†’</i><span>Evidence</span></div>`)}
+ ${card("LINEAGE",`<p>Source information remains traceable through validation and analytical interpretation.</p><div class="flow"><span>Source</span><i>→</i><span>Validated</span><i>→</i><span>Analytics</span><i>→</i><span>Evidence</span></div>`)}
  </div>`,
- "L3.2":head("L3.2 â€” VALIDATION & CORRECTION","Is the information valid and internally consistent?","L3.2")+`
+ "L3.2":head("L3.2 — VALIDATION & CORRECTION","Is the information valid and internally consistent?","L3.2")+`
  <div class="grid3">
  ${card("COMPLETENESS",`<div class="metric good">98%</div><p>Required fields available in the demonstration dataset.</p>`)}
  ${card("DUPLICATES",`<div class="metric good">0</div><p>No duplicate project records in the demonstration dataset.</p>`)}
  ${card("MISSING / ANOMALIES",`<div class="metric warn">3</div><p>Items requiring review before final project data acceptance.</p>`)}
  </div>
  <div class="card" style="margin-top:12px"><h4>VALIDATION RULES</h4><table class="table"><tr><th>Rule</th><th>Result</th></tr><tr><td>Project ID consistency</td><td><span class="badge green">PASS</span></td></tr><tr><td>Numeric range checks</td><td><span class="badge green">PASS</span></td></tr><tr><td>Duplicate record check</td><td><span class="badge green">PASS</span></td></tr><tr><td>Missing value review</td><td><span class="badge orange">REVIEW</span></td></tr></table></div>`,
- "L3.3":head("L3.3 â€” OBSERVATION & EVIDENCE","What was observed, and what evidence supports it?","L3.3")+`
+ "L3.3":head("L3.3 — OBSERVATION & EVIDENCE","What was observed, and what evidence supports it?","L3.3")+`
  <div class="grid2">
  ${card("OBSERVATION",`<p>Advance rate has fallen from the planned baseline while downtime and project impacts are being monitored.</p>`)}
  ${card("SUPPORTING EVIDENCE",`<table class="table"><tr><th>Observation</th><th>Evidence</th></tr><tr><td>Reduced advance</td><td>Production records</td></tr><tr><td>Downtime</td><td>Equipment records</td></tr><tr><td>Lab delay</td><td>Laboratory turnaround records</td></tr></table>`)}
  </div>`,
- "L3.4":head("L3.4 â€” RELATIONSHIP & CAUSATION EVIDENCE","Does the proposed cause explain the measured consequence?","L3.4")+`
- <div class="card"><div class="formula">Eáµ¢ â†’ Aâ±¼ â†’ Aâ‚– â†’ Mâ‚—</div><p>Event â†’ activity â†’ dependent activity â†’ measurable outcome. Causation is not declared solely from a correlation; supporting evidence is required.</p>
- <div class="flow"><span>Ground / operational event</span><i>â†’</i><span>Drilling activity</span><i>â†’</i><span>Reduced output</span><i>â†’</i><span>Time impact</span><i>â†’</i><span>Cost exposure</span></div></div>`,
- "L3.5":head("L3.5 â€” SPECIALIST INTELLIGENCE","Where specialist interpretation is required.","L3.5")+`
+ "L3.4":head("L3.4 — RELATIONSHIP & CAUSATION EVIDENCE","Does the proposed cause explain the measured consequence?","L3.4")+`
+ <div class="card"><div class="formula">Eᵢ → Aⱼ → Aₖ → Mₗ</div><p>Event → activity → dependent activity → measurable outcome. Causation is not declared solely from a correlation; supporting evidence is required.</p>
+ <div class="flow"><span>Ground / operational event</span><i>→</i><span>Drilling activity</span><i>→</i><span>Reduced output</span><i>→</i><span>Time impact</span><i>→</i><span>Cost exposure</span></div></div>`,
+ "L3.5":head("L3.5 — SPECIALIST INTELLIGENCE","Where specialist interpretation is required.","L3.5")+`
  <div class="grid2">${card("SPECIALIST INPUT",`<p>Specialist judgement is applied to evidence-backed observations rather than replacing the evidence.</p>`)}
  ${card("F08 LINK",`<p>Deep specialist interpretation continues through F08.</p>${button("OPEN F08","F08","green")}`)}</div>`,
- "L3.6":head("L3.6 â€” RECONCILIATION","Do the independent records agree?","L3.6")+`
+ "L3.6":head("L3.6 — RECONCILIATION","Do the independent records agree?","L3.6")+`
  <div class="card"><table class="table"><tr><th>Measure</th><th>Source A</th><th>Source B</th><th>Result</th></tr>
  <tr><td>Advance</td><td>68.0</td><td>68.0</td><td><span class="badge green">MATCH</span></td></tr>
  <tr><td>Cost to date</td><td>R9.8m</td><td>R9.8m</td><td><span class="badge green">MATCH</span></td></tr>
  <tr><td>Project ID</td><td>EXPL-001</td><td>EXPL-001</td><td><span class="badge green">MATCH</span></td></tr></table></div>`,
- "L3.7":head("L3.7 â€” INTERVENTION EVIDENCE","What evidence exists after intervention?","L3.7")+`
+ "L3.7":head("L3.7 — INTERVENTION EVIDENCE","What evidence exists after intervention?","L3.7")+`
  <div class="grid3">
  ${card("EXPECTED RATE",`<div class="metric">${num(DATA.intervention.scenarioRate)} m/day</div>`)}
  ${card("ACTUAL RATE",`<div class="metric good">${num(DATA.intervention.actualRate)} m/day</div>`)}
  ${card("RESULT",`<span class="badge green">TARGET EXCEEDED</span><p style="margin-top:8px">Actual result is compared with the expected intervention result.</p>`)}
  </div>`,
- "L3.8":head("L3.8 â€” VERIFICATION & LEARNING","Did the intervention work, and what did we learn?","L3.8")+`
+ "L3.8":head("L3.8 — VERIFICATION & LEARNING","Did the intervention work, and what did we learn?","L3.8")+`
  <div class="grid3">
  ${card("VERIFICATION",`<div class="metric good">${num(DATA.intervention.actualRate)} m/day</div><p>Measured actual intervention result.</p>`)}
  ${card("EXPECTED",`<div class="metric">${num(DATA.intervention.scenarioRate)} m/day</div><p>Expected intervention result.</p>`)}
@@ -996,19 +1034,19 @@ function l3View(key){
 
 const widgetViews={
 
-W1:()=>head("W1 â€” ANALYTICS CHAIN","How the problem is developing and where it leads.","ANALYTICS CHAIN")+topKpis()+`
+W1:()=>head("W1 — ANALYTICS CHAIN","How the problem is developing and where it leads.","ANALYTICS CHAIN")+topKpis()+`
 <div class="grid2">
  ${card("CHANGE DETECTION",`
    ${svgLine(DATA.trend,{labels:["T-4","T-3","T-2","T-1","Current"],min:60,max:90,color:"#075bd5"})}
    <p>Small fluctuations are retained rather than discarded.</p>`)}
  ${card("CHAIN TO CONTROL",`
-   <div class="flow"><span>Change</span><i>â†’</i><span>Constraint</span><i>â†’</i><span>Impact</span><i>â†’</i><span>Cost</span><i>â†’</i><span>Recovery</span><i>â†’</i><span>Intervention</span></div>
+   <div class="flow"><span>Change</span><i>→</i><span>Constraint</span><i>→</i><span>Impact</span><i>→</i><span>Cost</span><i>→</i><span>Recovery</span><i>→</i><span>Intervention</span></div>
    <div class="formula">Exposure = Current Consequence + Expected Future Consequence</div>
    ${button("OPEN PCV.1 CURRENT","PCV1")}`)}
 </div>
-<div class="card" style="margin-top:12px"><h4>W1 â†’ PCV CONNECTION</h4><p>W1 establishes the current analytical reality that feeds PCV.1 CURRENT. PCV.1 then becomes the verified starting position for PCV.2 FORECAST.</p></div>`,
+<div class="card" style="margin-top:12px"><h4>W1 → PCV CONNECTION</h4><p>W1 establishes the current analytical reality that feeds PCV.1 CURRENT. PCV.1 then becomes the verified starting position for PCV.2 FORECAST.</p></div>`,
 
-W2:()=>head("W2 â€” PROJECT / PROBLEM CONTEXT","What this project is about and the key background.","CONTEXT")+`
+W2:()=>head("W2 — PROJECT / PROBLEM CONTEXT","What this project is about and the key background.","CONTEXT")+`
 <div class="grid3">
  ${card("PROJECT",`<div class="metric">${esc(DATA.projectId)}</div><p>${esc(DATA.projectName)}</p>`)}
  ${card("PLAN",`<div class="metric">${num(DATA.plannedAdvance)} m/day</div><p>Planned advance baseline</p>`)}
@@ -1016,57 +1054,57 @@ W2:()=>head("W2 â€” PROJECT / PROBLEM CONTEXT","What this project is about 
 </div>
 <div class="grid2" style="margin-top:12px">
  ${card("PROJECT CONTROL FRAME",`<table class="table"><tr><td>Planned duration</td><td>${DATA.plannedDuration} days</td></tr><tr><td>Project value / cost</td><td>${money(DATA.projectCost)}</td></tr><tr><td>Samples planned</td><td>${DATA.samplesPlanned.toLocaleString()}</td></tr><tr><td>Lab turnaround baseline</td><td>${DATA.labTurnaroundPlanned} days</td></tr></table>`)}
- ${card("CONTEXT â†’ CURRENT",`<p>The context defines the baseline against which W3, W4, W5, W6 and W7 interpret the project.</p>${button("OPEN PCV.1","PCV1")}`)}
+ ${card("CONTEXT → CURRENT",`<p>The context defines the baseline against which W3, W4, W5, W6 and W7 interpret the project.</p>${button("OPEN PCV.1","PCV1")}`)}
 </div>`,
 
-W3:()=>head("W3 â€” WHAT IS THE CONSTRAINT?","What is currently limiting progress and value?","CONSTRAINT")+`
+W3:()=>head("W3 — WHAT IS THE CONSTRAINT?","What is currently limiting progress and value?","CONSTRAINT")+`
 <div class="grid2">
  ${card("LEADING DIAGNOSTIC CANDIDATE",`
    <div class="metric">Ground Conditions</div>
    <p>Diagnostic probability: <b>38%</b>. This is a candidate conclusion, not an automatic declaration of fact.</p>
-   <div class="formula">PCCSáµ¢ = wCÂ·Cáµ¢ + wTÂ·Táµ¢ + wOÂ·Oáµ¢ + wDÂ·Dáµ¢ + wRÂ·Ráµ¢ + wFÂ·Fáµ¢</div>
+   <div class="formula">PCCSᵢ = wC·Cᵢ + wT·Tᵢ + wO·Oᵢ + wD·Dᵢ + wR·Rᵢ + wF·Fᵢ</div>
    ${button("OPEN F08 ASSESSMENT","F08")}`)}
  ${card("TOP 5 POSSIBLE CAUSES",`
    <table class="table"><tr><th>Cause</th><th>Probability</th><th>Impact</th></tr>
    ${DATA.causes.map(c=>`<tr><td>${esc(c.name)}</td><td>${c.prob}%</td><td>${c.impact}</td></tr>`).join("")}</table>`)}
 </div>
-<div class="card" style="margin-top:12px"><h4>W3 â†’ EVIDENCE â†’ F08</h4><div class="flow"><span>Possible Constraint</span><i>â†’</i><span>L3.3 Observation</span><i>â†’</i><span>L3.4 Causation</span><i>â†’</i><span>F08 Judgement</span></div></div>`,
+<div class="card" style="margin-top:12px"><h4>W3 → EVIDENCE → F08</h4><div class="flow"><span>Possible Constraint</span><i>→</i><span>L3.3 Observation</span><i>→</i><span>L3.4 Causation</span><i>→</i><span>F08 Judgement</span></div></div>`,
 
-W4:()=>head("W4 â€” HAS THE CONSTRAINT SHIFTED?","How the constraint is changing and what it means.","CONSTRAINT SHIFT")+`
+W4:()=>head("W4 — HAS THE CONSTRAINT SHIFTED?","How the constraint is changing and what it means.","CONSTRAINT SHIFT")+`
 <div class="grid2">
  ${card("CONSTRAINT HISTORY",`
    <table class="table"><tr><th>Period</th><th>Constraint</th><th>Probability</th><th>Status</th></tr>
    ${DATA.constraintHistory.map((r,i)=>`<tr><td>${r.period}</td><td>${r.cause}</td><td>${r.prob}%</td><td><span class="badge ${i===DATA.constraintHistory.length-1?"orange":"blue"}">${i===DATA.constraintHistory.length-1?"CURRENT":"PREVIOUS"}</span></td></tr>`).join("")}</table>`)}
  ${card("WHAT THE SHIFT MEANS",`
-   <div class="metric warn">Equipment â†’ Ground</div>
+   <div class="metric warn">Equipment → Ground</div>
    <p>The controlling constraint is monitored over time rather than assumed to remain fixed.</p>
    ${button("OPEN PCV.2 FORECAST","PCV2")}`)}
 </div>
 <div class="card" style="margin-top:12px"><h4>SHIFT DETECTION</h4>${svgLine(DATA.constraintHistory.map(x=>x.prob),{labels:DATA.constraintHistory.map(x=>x.period),min:20,max:45,color:"#df8b32"})}</div>`,
 
-W5:()=>head("W5 â€” CONSEQUENCE / IMPACT","What the problem is costing in time, cost and output.","IMPACT")+`
+W5:()=>head("W5 — CONSEQUENCE / IMPACT","What the problem is costing in time, cost and output.","IMPACT")+`
 <div class="grid3">
  ${card("OUTPUT GAP",`<div class="metric bad">${num(F.gap())} m/day</div><p>Current rate below baseline.</p>`)}
  ${card("TIME CONSEQUENCE",`<div class="metric warn">${num(DATA.daysRemaining)} days</div><p>Remaining time window used in the recovery logic.</p>`)}
  ${card("COST CONSEQUENCE",`<div class="metric">${money(F.exposure(DATA.consequences.current,DATA.consequences.expectedFuture))}</div><p>Demo current + expected future consequence.</p>`)}
 </div>
-<div class="card" style="margin-top:12px"><h4>IMPACT CHAIN</h4><div class="flow"><span>Event Eáµ¢</span><i>â†’</i><span>Activity Aâ±¼</span><i>â†’</i><span>Activity Aâ‚–</span><i>â†’</i><span>Measure Mâ‚—</span><i>â†’</i><span>Output Lost</span><i>â†’</i><span>Time Impact</span><i>â†’</i><span>Cost</span></div>
-<div class="formula">Output_lost = Idle Time Ã— Planned Output Rate</div>
+<div class="card" style="margin-top:12px"><h4>IMPACT CHAIN</h4><div class="flow"><span>Event Eᵢ</span><i>→</i><span>Activity Aⱼ</span><i>→</i><span>Activity Aₖ</span><i>→</i><span>Measure Mₗ</span><i>→</i><span>Output Lost</span><i>→</i><span>Time Impact</span><i>→</i><span>Cost</span></div>
+<div class="formula">Output_lost = Idle Time × Planned Output Rate</div>
 <div class="formula">Time_impact = Effective Output Rate / Output_lost</div>
 ${button("OPEN PCV.2","PCV2")}</div>`,
 
-W6:()=>head("W6 â€” COST OF THE PROBLEM","The financial and operational cost of not solving the problem.","COST")+`
+W6:()=>head("W6 — COST OF THE PROBLEM","The financial and operational cost of not solving the problem.","COST")+`
 <div class="kpis">
- ${kpi("DIRECT COST",money(F.directCostConsequence(10,150000)),"Duration Ã— Rate")}
+ ${kpi("DIRECT COST",money(F.directCostConsequence(10,150000)),"Duration × Rate")}
  ${kpi("AVOIDED CONSEQUENCE",money(F.avoidedConsequence()),"PCV4 avoided consequence","good")}
  ${kpi("CURRENT EXPOSURE",money(F.exposure(DATA.consequences.current,DATA.consequences.expectedFuture)),"Current + expected future","warn")}
  ${kpi("INTERVENTION COST",money(F.interventionCost()),"PCV4 intervention cost")}
- ${kpi("NET INTERVENTION VALUE",money(F.niv(),2),"AC âˆ’ IC","good")}
+ ${kpi("NET INTERVENTION VALUE",money(F.niv(),2),"AC − IC","good")}
 </div>
 <div class="grid2">
  ${card("ORIGINAL CONSEQUENCE FORMULAS",`
-   <div class="formula">C_direct = Duration Ã— Rate</div>
-   <div class="formula">C_recurring = C_event Ã— Expected Recurrence</div>
+   <div class="formula">C_direct = Duration × Rate</div>
+   <div class="formula">C_recurring = C_event × Expected Recurrence</div>
    <div class="formula">Exposure = Current Consequence + Expected Future Consequence</div>`)}
  ${card("COST BUILD-UP",`
    <table class="table"><tr><th>Component</th><th>Value</th></tr>
@@ -1075,29 +1113,29 @@ W6:()=>head("W6 â€” COST OF THE PROBLEM","The financial and operational cos
    ${button("OPEN PCV.4 INTERVENTION VALUE","PCV4","green")}`)}
 </div>`,
 
-W7:()=>head("W7 â€” RECOVERY GAP","What we need to achieve to get back on track.","RECOVERY")+`
+W7:()=>head("W7 — RECOVERY GAP","What we need to achieve to get back on track.","RECOVERY")+`
 <div class="kpis">
  ${kpi("CURRENT RATE",num(DATA.currentAdvance)+" m/day","Today","bad")}
  ${kpi("BASELINE",num(DATA.plannedAdvance)+" m/day","Required normal performance")}
  ${kpi("RECOVERY TARGET",num(DATA.recoveryTarget)+" m/day","Calculated recovery requirement","good")}
- ${kpi("RECOVERY GAP",num(F.recoveryGap())+" m/day","Target âˆ’ current","warn")}
+ ${kpi("RECOVERY GAP",num(F.recoveryGap())+" m/day","Target − current","warn")}
  ${kpi("RECOVERY PERIOD",DATA.recoveryDays+" days","Demo recovery window")}
 </div>
 <div class="grid2">
  ${card("RECOVERY LOGIC",`
    <p>The recovery requirement is calculated from remaining work and remaining time. This demonstration uses the current project position and recovery period.</p>
    <div class="formula">Recovery Rate = Remaining Work / Remaining Recovery Time</div>
-   <div class="formula">Required Recovery Rate â‰ˆ ${num(DATA.recoveryTarget)} m/day</div>`)}
+   <div class="formula">Required Recovery Rate ≈ ${num(DATA.recoveryTarget)} m/day</div>`)}
  ${card("RECOVERY PATH",`
    ${svgLine([68,75,82,88,92],{labels:["Current","Day 7","Day 14","Day 21","Day 30"],min:60,max:100,color:"#df8b32"})}
    ${button("OPEN PCV.3 PROJECTION","PCV3","orange")}`)}
 </div>`,
 
-W8:()=>head("W8 â€” WHAT HAPPENS IF WE INTERVENE?","What could change if we take action â€” options and value.","INTERVENTION")+`
+W8:()=>head("W8 — WHAT HAPPENS IF WE INTERVENE?","What could change if we take action — options and value.","INTERVENTION")+`
 <div class="grid3">
  ${card("CURRENT",`<div class="metric bad">${num(DATA.currentAdvance)} m/day</div><p>Current position.</p>`)}
  ${card("INTERVENTION SCENARIO",`<div class="metric">${num(DATA.intervention.scenarioRate)} m/day</div><p>Scenario performance.</p>`)}
- ${card("EXPECTED IMPROVEMENT",`<div class="metric good">+${num(F.scenarioImprovement())} m/day</div><p>Scenario âˆ’ current.</p>`)}
+ ${card("EXPECTED IMPROVEMENT",`<div class="metric good">+${num(F.scenarioImprovement())} m/day</div><p>Scenario − current.</p>`)}
 </div>
 <div class="grid2" style="margin-top:12px">
  ${card("SCENARIO TEST",`
@@ -1109,26 +1147,26 @@ W8:()=>head("W8 â€” WHAT HAPPENS IF WE INTERVENE?","What could change if we
    <div class="legend"><span>Current path</span><span>Intervention scenario</span><span>Plan</span></div>`)}
  ${card("PCV4 VALUE CONNECTION",`
    <p>W8 supplies the intervention scenario to PCV4, where avoided consequence, intervention cost, confidence and net value are calculated.</p>
-   <div class="formula">NIV = AC âˆ’ IC</div>
+   <div class="formula">NIV = AC − IC</div>
    ${button("OPEN PCV.4","PCV4","green")}`)}
 </div>`,
 
-W9:()=>head("W9 â€” DID THE INTERVENTION WORK?","What happened after we intervened â€” results and verification.","VERIFICATION")+`
+W9:()=>head("W9 — DID THE INTERVENTION WORK?","What happened after we intervened — results and verification.","VERIFICATION")+`
 <div class="grid3">
  ${card("EXPECTED",`<div class="metric">${num(DATA.intervention.scenarioRate)} m/day</div>`)}
  ${card("ACTUAL",`<div class="metric good">${num(DATA.intervention.actualRate)} m/day</div>`)}
  ${card("RESULT",`<span class="badge green">TARGET EXCEEDED</span><p style="margin-top:8px">Verified result: ${num(F.verifiedImprovement())} m/day improvement from current.</p>`)}
 </div>
-<div class="card" style="margin-top:12px"><h4>VERIFICATION CHAIN</h4><div class="flow"><span>W8 Scenario</span><i>â†’</i><span>Intervention</span><i>â†’</i><span>Actual Result</span><i>â†’</i><span>L3.7 Evidence</span><i>â†’</i><span>L3.8 Verification</span><i>â†’</i><span>W10 Learning</span></div>
+<div class="card" style="margin-top:12px"><h4>VERIFICATION CHAIN</h4><div class="flow"><span>W8 Scenario</span><i>→</i><span>Intervention</span><i>→</i><span>Actual Result</span><i>→</i><span>L3.7 Evidence</span><i>→</i><span>L3.8 Verification</span><i>→</i><span>W10 Learning</span></div>
 ${button("OPEN L3.8","L3.8","green")} ${button("OPEN PCV.4","PCV4")}</div>`,
 
-W10:()=>head("W10 â€” WHAT HAVE WE LEARNED?","Key insights and lessons for better outcomes in future.","LEARNING")+`
+W10:()=>head("W10 — WHAT HAVE WE LEARNED?","Key insights and lessons for better outcomes in future.","LEARNING")+`
 <div class="grid3">
  ${card("VERIFIED LEARNING",`<p>Intervention performance is compared with the expected result and captured as verified learning.</p>`)}
  ${card("CONTROL LEARNING",`<p>Constraint response becomes measurable and can inform future project control.</p>`)}
  ${card("REUSE",`<p>Learning feeds future projects and specialist intelligence.</p>`)}
 </div>
-<div class="card" style="margin-top:12px"><h4>LEARNING LOOP</h4><div class="flow"><span>Finding</span><i>â†’</i><span>Intervention</span><i>â†’</i><span>Verification</span><i>â†’</i><span>Learning</span><i>â†’</i><span>Future Control</span></div>
+<div class="card" style="margin-top:12px"><h4>LEARNING LOOP</h4><div class="flow"><span>Finding</span><i>→</i><span>Intervention</span><i>→</i><span>Verification</span><i>→</i><span>Learning</span><i>→</i><span>Future Control</span></div>
 ${button("OPEN F08","F08","green")} ${button("OPEN L3.8","L3.8")}</div>`
 };
 
@@ -1138,8 +1176,8 @@ ${button("OPEN F08","F08","green")} ${button("OPEN L3.8","L3.8")}</div>`
 
 const pcvViews={
 
-PCV1:()=>head("PCV.1 â€” CURRENT","Where We Are Now â€” The Verified Current Position","PCV.1")+`
-<div class="info">â“˜ PCV.1 establishes the current project-control and value position from live / validated information.</div>
+PCV1:()=>head("PCV.1 — CURRENT","Where We Are Now — The Verified Current Position","PCV.1")+`
+<div class="info">ⓘ PCV.1 establishes the current project-control and value position from live / validated information.</div>
 <div class="kpis">
  ${kpi("PLANNED ADVANCE",num(DATA.plannedAdvance)+" m/day","Baseline Plan")}
  ${kpi("ACTUAL ADVANCE",num(DATA.currentAdvance)+" m/day","Current Performance","bad")}
@@ -1162,11 +1200,11 @@ PCV1:()=>head("PCV.1 â€” CURRENT","Where We Are Now â€” The Verified C
 <div class="grid3" style="margin-top:12px">
  ${card("W1 INPUT",`<p>Current change and trend.</p>${button("OPEN W1","W1")}`)}
  ${card("W2 INPUT",`<p>Project / problem context.</p>${button("OPEN W2","W2")}`)}
- ${card("NEXT â†’ PCV.2",`<p>PCV.1 becomes the verified starting position for forecasting.</p>${button("OPEN PCV.2","PCV2")}`)}
+ ${card("NEXT → PCV.2",`<p>PCV.1 becomes the verified starting position for forecasting.</p>${button("OPEN PCV.2","PCV2")}`)}
 </div>`,
 
-PCV2:()=>head("PCV.2 â€” FORECAST","What Is Likely to Happen â€” Based on Current Trends and Validated Intelligence","PCV.2")+`
-<div class="info">â“˜ PCV.2 uses current performance, trends and validated intelligence to forecast what is likely to happen if no further action is taken.</div>
+PCV2:()=>head("PCV.2 — FORECAST","What Is Likely to Happen — Based on Current Trends and Validated Intelligence","PCV.2")+`
+<div class="info">ⓘ PCV.2 uses current performance, trends and validated intelligence to forecast what is likely to happen if no further action is taken.</div>
 <div class="kpis">
  ${kpi("FORECAST ADVANCE","78.5 m/day","vs planned 83.3","bad")}
  ${kpi("FORECAST COMPLETION","12 Dec 2026","+12 days","bad")}
@@ -1175,7 +1213,7 @@ PCV2:()=>head("PCV.2 â€” FORECAST","What Is Likely to Happen â€” Based
  ${kpi("LAB TURNAROUND","10 days","+3 days vs plan","bad")}
 </div>
 <div class="grid2">
- ${card("FORECAST VS PLAN â€” KEY METRICS",`
+ ${card("FORECAST VS PLAN — KEY METRICS",`
  <div class="legend"><span>Planned Advance</span><span>Forecast Advance</span><span>Planned Cost/day</span><span>Forecast Cost/day</span></div>
  ${svgMulti([
    {values:[83.3,83.3,83.3,83.3,83.3],color:"#075bd5",dash:true},
@@ -1189,13 +1227,13 @@ PCV2:()=>head("PCV.2 â€” FORECAST","What Is Likely to Happen â€” Based
  <tr><td>EAC (End Cost)</td><td>R19.4m</td><td>+12%</td><td><span class="badge orange">WATCH</span></td></tr>
  <tr><td>Completion</td><td>08 Dec 2026</td><td>+6 days</td><td><span class="badge orange">WATCH</span></td></tr>
  <tr><td>Production</td><td>R1.9m/day</td><td>-6%</td><td><span class="badge red">AT RISK</span></td></tr>
- <tr><td>Zone 3 Mapping</td><td>15 May</td><td>â€”</td><td><span class="badge orange">WATCH</span></td></tr></table>
+ <tr><td>Zone 3 Mapping</td><td>15 May</td><td>—</td><td><span class="badge orange">WATCH</span></td></tr></table>
  <h4 style="margin-top:12px">Forecast Confidence</h4><div class="progress"><span style="width:78%"></span></div><p style="text-align:right;margin-top:5px"><b>78%</b></p>`)}
 </div>
-<div class="card" style="margin-top:12px"><h4>PCV.2 CONNECTIONS</h4><div class="flow"><span>PCV.1 Current</span><i>â†’</i><span>W4 Constraint Shift</span><i>â†’</i><span>W5 Impact</span><i>â†’</i><span>W6 Cost</span><i>â†’</i><span>PCV.2 Forecast</span><i>â†’</i><span>PCV.3 Projection</span></div></div>`,
+<div class="card" style="margin-top:12px"><h4>PCV.2 CONNECTIONS</h4><div class="flow"><span>PCV.1 Current</span><i>→</i><span>W4 Constraint Shift</span><i>→</i><span>W5 Impact</span><i>→</i><span>W6 Cost</span><i>→</i><span>PCV.2 Forecast</span><i>→</i><span>PCV.3 Projection</span></div></div>`,
 
-PCV3:()=>head("PCV.3 â€” PROJECTION","What Could Happen â€” Scenario-based future outcomes","PCV.3")+`
-<div class="info">â“˜ PCV.3 tests credible future outcomes rather than assuming a single deterministic future.</div>
+PCV3:()=>head("PCV.3 — PROJECTION","What Could Happen — Scenario-based future outcomes","PCV.3")+`
+<div class="info">ⓘ PCV.3 tests credible future outcomes rather than assuming a single deterministic future.</div>
 <div class="grid2">
  ${card("SCENARIO ANALYSIS",`
  <div class="legend"><span>Best / Upside</span><span>Base</span><span>Worst / Downside</span></div>
@@ -1217,31 +1255,31 @@ PCV3:()=>head("PCV.3 â€” PROJECTION","What Could Happen â€” Scenario-b
  </div>
  <p>Probability weights remain data-driven and can be replaced from the project risk / uncertainty model.</p>`)}
 </div>
-<div class="card" style="margin-top:12px"><h4>PCV.3 CONNECTIONS</h4><div class="flow"><span>PCV.2 Forecast</span><i>â†’</i><span>W7 Recovery Gap</span><i>â†’</i><span>W8 Intervention Scenario</span><i>â†’</i><span>PCV.3 Projection</span><i>â†’</i><span>PCV.4 Value</span></div></div>`,
+<div class="card" style="margin-top:12px"><h4>PCV.3 CONNECTIONS</h4><div class="flow"><span>PCV.2 Forecast</span><i>→</i><span>W7 Recovery Gap</span><i>→</i><span>W8 Intervention Scenario</span><i>→</i><span>PCV.3 Projection</span><i>→</i><span>PCV.4 Value</span></div></div>`,
 
-PCV4:()=>head("PCV.4 â€” INTERVENTION VALUE","What Should We Do â€” The Value of Acting Now","PCV.4")+`
-<div class="info">â“˜ PCV.4 quantifies the value of taking action by comparing the cost of intervention against the expected cost of doing nothing.</div>
+PCV4:()=>head("PCV.4 — INTERVENTION VALUE","What Should We Do — The Value of Acting Now","PCV.4")+`
+<div class="info">ⓘ PCV.4 quantifies the value of taking action by comparing the cost of intervention against the expected cost of doing nothing.</div>
 <div class="kpis">
  ${kpi("INTERVENTION COST (IC)",money(F.interventionCost(),2),"Estimated cost to implement")}
  ${kpi("AVOIDED CONSEQUENCE (AC)",money(F.avoidedConsequence(),2),"Expected cost avoided","bad")}
- ${kpi("NET INTERVENTION VALUE (NIV)",money(F.niv(),2),"NIV = AC âˆ’ IC","good")}
+ ${kpi("NET INTERVENTION VALUE (NIV)",money(F.niv(),2),"NIV = AC − IC","good")}
  ${kpi("NIV RATIO",num(F.nivRatio(),2)+"x","Value multiple","purple")}
  ${kpi("CONFIDENCE",num(DATA.intervention.confidence*100,0)+"%","Confidence in NIV estimate")}
 </div>
 <div class="grid2">
  ${card("FORMULAS",`
- <div class="formula">NIV = AC âˆ’ IC</div>
+ <div class="formula">NIV = AC − IC</div>
  <div class="formula">NIV Ratio = AC / IC</div>
- <div class="formula">Expected NIV = (AC Ã— Confidence) âˆ’ IC</div>
+ <div class="formula">Expected NIV = (AC × Confidence) − IC</div>
  <div class="formula">Expected NIV Ratio = Expected NIV / IC</div>
  <div class="formula">Exposure = Current Consequence + Expected Future Consequence</div>`)}
- ${card("NIV SENSITIVITY â€” CONFIDENCE",`
+ ${card("NIV SENSITIVITY — CONFIDENCE",`
  <div class="legend"><span>NIV (R'm)</span><span>Breakeven NIV = 0</span></div>
  ${svgMulti([
    {values:[20,40,60,80,100].map(c=>F.nivAtConfidence(c/100)),color:"#075bd5"},
    {values:[0,0,0,0,0],color:"#17345e",dash:true}
  ],["20%","40%","60%","80%","100%"],-10,30)}
- <p class="side-note">The sensitivity curve is formula-driven: Expected NIV = (AC Ã— Confidence) âˆ’ IC.</p>`)}
+ <p class="side-note">The sensitivity curve is formula-driven: Expected NIV = (AC × Confidence) − IC.</p>`)}
 </div>
 <div class="grid3" style="margin-top:12px">
  ${card("INTERVENTION COMPONENTS",`
@@ -1253,14 +1291,14 @@ PCV4:()=>head("PCV.4 â€” INTERVENTION VALUE","What Should We Do â€” Th
  ${card("EXPECTED PROBABILITY-WEIGHTED VALUE",`
  <div class="metric good">${money(F.expectedNiv(),2)}</div>
  <p>Expected NIV at ${num(DATA.intervention.confidence*100,0)}% confidence.</p>
- <div class="formula">Expected NIV = (AC Ã— Confidence) âˆ’ IC</div>`)}
+ <div class="formula">Expected NIV = (AC × Confidence) − IC</div>`)}
  ${card("INTERVENTION DECISION",`
  <div class="metric good">INTERVENE</div>
- <p>Demo decision rule: intervene if NIV Ratio â‰¥ 1.5x and Confidence â‰¥ 50%.</p>
+ <p>Demo decision rule: intervene if NIV Ratio ≥ 1.5x and Confidence ≥ 50%.</p>
  <p><b>Current:</b> ${num(F.nivRatio(),2)}x and ${num(DATA.intervention.confidence*100,0)}%</p>`)}
 </div>
 <div class="grid2" style="margin-top:12px">
- ${card("PCV4 CONNECTIONS",`<div class="flow"><span>W6 Cost</span><i>â†’</i><span>W8 Intervention Scenario</span><i>â†’</i><span>PCV.4</span><i>â†’</i><span>W9 Verification</span><i>â†’</i><span>W10 Learning</span></div>`)}
+ ${card("PCV4 CONNECTIONS",`<div class="flow"><span>W6 Cost</span><i>→</i><span>W8 Intervention Scenario</span><i>→</i><span>PCV.4</span><i>→</i><span>W9 Verification</span><i>→</i><span>W10 Learning</span></div>`)}
  ${card("KEY RISKS TO NIV",`<table class="table"><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr>
  <tr><td>Ground conditions worse than expected</td><td><span class="badge red">HIGH</span></td><td>Increase support</td></tr>
  <tr><td>Equipment breakdown</td><td><span class="badge orange">MEDIUM</span></td><td>Spare availability</td></tr>
@@ -1381,7 +1419,7 @@ function showModule(name){
  };
  ws.innerHTML=head(labels[name]||name,"Module navigation","MODULE")+`
  <div class="card"><h3>${labels[name]||name}</h3>
- <p>This module is active. Analytics returns to the integrated W1â€“W10, Layer 1â€“4, F08 and PCV1â€“PCV4 workspace.</p>
+ <p>This module is active. Analytics returns to the integrated W1–W10, Layer 1–4, F08 and PCV1–PCV4 workspace.</p>
  ${button("RETURN TO ANALYTICS","RETURN_ANALYTICS","green")}</div>`;
  bindWorkspaceActions();
 }
@@ -1441,10 +1479,10 @@ renderLayer("L2");
 </div>
 </div>
 
-<div id="library" class="view"><div class="top-actions"><div><div class="section-title">VIRTUAL LIBRARY</div><div class="section-sub">Client â†’ Client Link â†’ Client Portal â†’ Virtual Library â†’ Validation Gate â†’ Release â†’ Existing Project Files</div></div><button class="back" onclick="openView('home')">â† Main Dashboard</button></div><iframe class="module-frame" src="virtual-library.html" title="IGPC Virtual Library"></iframe></div>
+<div id="library" class="view"><div class="top-actions"><div><div class="section-title">VIRTUAL LIBRARY</div><div class="section-sub">Client → Client Link → Client Portal → Virtual Library → Validation Gate → Release → Existing Project Files</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div><iframe class="module-frame" src="virtual-library.html" title="IGPC Virtual Library"></iframe></div>
 
 <div id="reports" class="view">
-<div class="top-actions"><div><div class="section-title">REPORTS DASHBOARD</div><div class="section-sub">From raw project information to clear, reliable and actionable reports.</div></div><button class="back" onclick="openView('home')">â† Main Dashboard</button></div>
+<div class="top-actions"><div><div class="section-title">REPORTS DASHBOARD</div><div class="section-sub">From raw project information to clear, reliable and actionable reports.</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div>
 <div class="kpis">
 <div class="kpi"><label>PROJECT STATUS</label><strong class="green">CONTROLLED</strong></div>
 <div class="kpi"><label>REPORTS READY</label><strong>12</strong></div>
@@ -1457,12 +1495,12 @@ renderLayer("L2");
 <div class="card"><h3>GEOTECHNICAL CONTROL REPORT</h3><p>Ground-control findings, evidence, risk position and specialist observations.</p><span class="pill">READY</span></div>
 <div class="card"><h3>PROJECT VALUE & CONTROL</h3><p>Current value, forecast, projection, exposure and intervention value.</p><span class="pill warn">REVIEW</span></div>
 </div>
-<div class="card"><h3>REPORT GENERATION CHAIN</h3><div class="flow"><div class="step">DATA</div><div class="arrow">â†’</div><div class="step">ANALYTICS</div><div class="arrow">â†’</div><div class="step">EVIDENCE</div><div class="arrow">â†’</div><div class="step">F08</div><div class="arrow">â†’</div><div class="step">REPORT</div></div></div>
+<div class="card"><h3>REPORT GENERATION CHAIN</h3><div class="flow"><div class="step">DATA</div><div class="arrow">→</div><div class="step">ANALYTICS</div><div class="arrow">→</div><div class="step">EVIDENCE</div><div class="arrow">→</div><div class="step">F08</div><div class="arrow">→</div><div class="step">REPORT</div></div></div>
 <div class="card"><h3>RECENT REPORTS</h3><table><tr><th>REPORT</th><th>DATE</th><th>STATUS</th></tr><tr><td>Operational Performance Report</td><td>30 Aug 2026</td><td><span class="pill">READY</span></td></tr><tr><td>Geotechnical Control Report</td><td>29 Aug 2026</td><td><span class="pill">READY</span></td></tr><tr><td>Project Value & Control Report</td><td>28 Aug 2026</td><td><span class="pill warn">REVIEW</span></td></tr></table></div>
 </div>
 
 <div id="diagnostics" class="view">
-<div class="top-actions"><div><div class="section-title">DIAGNOSTICS DASHBOARD</div><div class="section-sub">From analytics â†’ diagnosis â†’ F08 specialist intelligence â†’ action.</div></div><button class="back" onclick="openView('home')">â† Main Dashboard</button></div>
+<div class="top-actions"><div><div class="section-title">DIAGNOSTICS DASHBOARD</div><div class="section-sub">From analytics → diagnosis → F08 specialist intelligence → action.</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div>
 <div class="info">Diagnostics does not replace Analytics. Analytics identifies the problem, gap or deviation; Diagnostics investigates the likely causes; F08 converts the evidence into specialist intelligence; Layer 4 applies that intelligence to decision and action.</div>
 <div class="kpis">
 <div class="kpi"><label>OPEN DIAGNOSTICS</label><strong>4</strong></div>
@@ -1473,13 +1511,13 @@ renderLayer("L2");
 </div>
 <div class="grid">
 <div class="card"><h3>DIAGNOSTICS ENGINE</h3><p>Problem / gap / deviation analysis with the five most likely causes ranked by probability and impact.</p><table><tr><th>CAUSE</th><th>PROBABILITY</th><th>IMPACT</th></tr><tr><td>Ground condition</td><td>72%</td><td><span class="pill alert">HIGH</span></td></tr><tr><td>Equipment availability</td><td>48%</td><td><span class="pill warn">MEDIUM</span></td></tr><tr><td>Operational delay</td><td>35%</td><td><span class="pill warn">MEDIUM</span></td></tr><tr><td>Data / reporting</td><td>20%</td><td><span class="pill">LOW</span></td></tr><tr><td>External constraint</td><td>15%</td><td><span class="pill">LOW</span></td></tr></table></div>
-<div class="card"><h3>F08 â€” SPECIALIST INTELLIGENCE</h3><p>Target â†’ Observation â†’ Verification â†’ Experience â†’ Interpretation â†’ Judgement â†’ Assumptions â†’ Expectation â†’ Confidence â†’ Recommendation â†’ Reconciliation.</p><div class="bar"><i style="width:72%"></i></div><strong style="font-size:12px">Confidence / leading cause: 72%</strong></div>
+<div class="card"><h3>F08 — SPECIALIST INTELLIGENCE</h3><p>Target → Observation → Verification → Experience → Interpretation → Judgement → Assumptions → Expectation → Confidence → Recommendation → Reconciliation.</p><div class="bar"><i style="width:72%"></i></div><strong style="font-size:12px">Confidence / leading cause: 72%</strong></div>
 </div>
-<div class="card"><h3>DIAGNOSTICS TO ACTION</h3><div class="flow"><div class="step">ANALYTICS<br><small>What is happening?</small></div><div class="arrow">â†’</div><div class="step">DIAGNOSTICS<br><small>What is the real cause?</small></div><div class="arrow">â†’</div><div class="step">F08<br><small>What should we do?</small></div><div class="arrow">â†’</div><div class="step">VERIFICATION<br><small>Did it work?</small></div><div class="arrow">â†’</div><div class="step">LEARNING<br><small>What improves?</small></div></div></div>
+<div class="card"><h3>DIAGNOSTICS TO ACTION</h3><div class="flow"><div class="step">ANALYTICS<br><small>What is happening?</small></div><div class="arrow">→</div><div class="step">DIAGNOSTICS<br><small>What is the real cause?</small></div><div class="arrow">→</div><div class="step">F08<br><small>What should we do?</small></div><div class="arrow">→</div><div class="step">VERIFICATION<br><small>Did it work?</small></div><div class="arrow">→</div><div class="step">LEARNING<br><small>What improves?</small></div></div></div>
 </div>
 
 <div id="projectfiles" class="view">
-<div class="top-actions"><div><div class="section-title">PROJECT FILES</div><div class="section-sub">Actual Project Files dashboard â€” Steps 0â€“9</div></div><button class="back" onclick="openView('home')">â† Main Dashboard</button></div>
+<div class="top-actions"><div><div class="section-title">PROJECT FILES</div><div class="section-sub">Actual Project Files dashboard — Steps 0–9</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div>
 <div class="projectfiles-host">
   <iframe class="projectfiles-frame" title="Actual IGPC Project Files Dashboard" src="project-files.html"></iframe>
 </div>
@@ -1491,8 +1529,8 @@ renderLayer("L2");
 
 <script>
 const titles={
-home:["IGPC â€” MAIN DASHBOARD","One entry point to Analytics, Virtual Library, Reports, Diagnostics and Project Files."],
-analytics:["ANALYTICS","W1â€“W10 Â· Layers 1â€“4 Â· F08 Â· PCV1â€“PCV4"],
+home:["IGPC — MAIN DASHBOARD","One entry point to Analytics, Virtual Library, Reports, Diagnostics and Project Files."],
+analytics:["ANALYTICS","W1–W10 · Layers 1–4 · F08 · PCV1–PCV4"],
 library:["VIRTUAL LIBRARY","Secure bridge from client project information to structured IGPC intelligence."],
 reports:["REPORTS","Clear, reliable and actionable project reporting."],
 diagnostics:["DIAGNOSTICS","From problem or deviation to causes, probabilities and specialist intelligence."],
@@ -1510,4 +1548,3 @@ document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",(
 </script>
 </body>
 </html>
-
