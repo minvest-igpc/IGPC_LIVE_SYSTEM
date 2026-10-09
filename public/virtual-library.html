@@ -125,7 +125,7 @@ h1,h2,h3,h4,p,label,span{
 
 <div class="card">
 <h1>IGPC Virtual Library</h1>
-<div class="muted">Build 03 — Client Project Upload Portal â€¢ CSV Intake, Validation & Notifications</div>
+<div class="muted">Build 03 — Client Project Upload Portal • CSV Intake, Validation & Notifications</div>
 </div>
 
 <div class="card">
@@ -156,7 +156,7 @@ h1,h2,h3,h4,p,label,span{
     <b>Client notifications</b>
     <div class="notify-row"><span>Email</span><span id="clientEmailState" class="on">ON</span></div>
     <div class="notify-row"><span>SMS</span><span id="clientSmsState" class="on">ON</span></div>
-    <div class="small" style="margin-top:10px">Success: Email â€¢ Errors: Email + SMS for critical errors</div>
+    <div class="small" style="margin-top:10px">Success: Email • Errors: Email + SMS for critical errors</div>
   </div>
   <div class="notify-card">
     <b>IGPC notifications</b>
@@ -177,7 +177,7 @@ h1,h2,h3,h4,p,label,span{
     <tr><td>Released to Project Files</td><td>Email</td><td>Dashboard + Email</td></tr>
   </table>
 </div>
-<div style="margin-top:14px"><b>Notification event log</b><div id="validationReport"></div><div id="notificationLog" class="log" style="margin-top:8px"><div class="small">Waiting for an intake eventâ€¦</div></div></div>
+<div style="margin-top:14px"><b>Notification event log</b><div id="validationReport"></div><div id="notificationLog" class="log" style="margin-top:8px"><div class="small">Waiting for an intake event…</div></div></div>
 </div>
 
 <div class="card">
@@ -488,7 +488,7 @@ function parseDelimited(text,delimiter){
 function resultBox(name,status,details,errors=[]){
   const cls=status==="PASSED"?"pass":status==="REVIEW"?"review":"fail";
   return `<div><b>${name}</b></div><div><span class="badge ${cls}">${status}</span></div><div class="details">${esc(details)}
-  ${errors.length?`<ul class="errors">${errors.slice(0,30).map(e=>`<li>${esc(e)}</li>`).join("")}${errors.length>30?`<li>â€¦and ${errors.length-30} more</li>`:""}</ul>`:""}</div>`;
+  ${errors.length?`<ul class="errors">${errors.slice(0,30).map(e=>`<li>${esc(e)}</li>`).join("")}${errors.length>30?`<li>…and ${errors.length-30} more</li>`:""}</ul>`:""}</div>`;
 }
 
 function logNotification(channel,recipient,event,message){
@@ -497,7 +497,7 @@ function logNotification(channel,recipient,event,message){
   const now=new Date().toLocaleTimeString();
   const item=document.createElement("div");
   item.className="logitem";
-  item.innerHTML=`<span class="channel">${esc(channel)}</span><b>${esc(event)}</b> â†’ ${esc(recipient)}<br><span class="small">${esc(now)} â€¢ ${esc(message)}</span>`;
+  item.innerHTML=`<span class="channel">${esc(channel)}</span><b>${esc(event)}</b> → ${esc(recipient)}<br><span class="small">${esc(now)} • ${esc(message)}</span>`;
   log.prepend(item);
 }
 
@@ -530,16 +530,16 @@ function notifyEvent(event,projectId,fileName,passed,errors=[]){
 function showClientOutcome(passed, projectId, fileName, errors){
   const box=document.getElementById("clientOutcome");
   if(passed){
-    box.innerHTML=`<div class="success-screen"><div style="font-size:20px;font-weight:bold">âœ… DONE — DATA RECEIVED AND ACCEPTED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>5/5 PASSED</b><br>Status: <b>ACCEPTED</b></div><div class="small" style="margin-top:10px">A confirmation email has been queued for the client and IGPC has been notified. No further action is required.</div></div>`;
+    box.innerHTML=`<div class="success-screen"><div style="font-size:20px;font-weight:bold">✅ DONE — DATA RECEIVED AND ACCEPTED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>5/5 PASSED</b><br>Status: <b>ACCEPTED</b></div><div class="small" style="margin-top:10px">A confirmation email has been queued for the client and IGPC has been notified. No further action is required.</div></div>`;
   }else{
-    box.innerHTML=`<div class="hold-screen"><div style="font-size:20px;font-weight:bold">âŒ DATA ON HOLD — ACTION REQUIRED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>NOT PASSED</b></div><div class="small" style="margin-top:10px">The client is notified to correct the source data and export/upload again. The original submission remains unchanged.</div></div>`;
+    box.innerHTML=`<div class="hold-screen"><div style="font-size:20px;font-weight:bold">❌ DATA ON HOLD — ACTION REQUIRED</div><div style="margin-top:8px">Project: <b>${esc(projectId)}</b><br>File: <b>${esc(fileName)}</b><br>Validation: <b>NOT PASSED</b></div><div class="small" style="margin-top:10px">The client is notified to correct the source data and export/upload again. The original submission remains unchanged.</div></div>`;
   }
 }
 
 async function submitFiles(selectedFile=null){
   const f=selectedFile || document.getElementById("files").files[0],s=document.getElementById("status");
   if(!f){s.innerHTML='<div class="notice" style="border-color:#e6b75b">Please select the exported CSV first.</div>';return;}
-  document.getElementById("state").textContent="RECEIVED â†’ PRESERVED â†’ SORTING â†’ VALIDATING";
+  document.getElementById("state").textContent="RECEIVED → PRESERVED → SORTING → VALIDATING";
   document.getElementById("fname").textContent=f.name;
   document.getElementById("received").textContent=new Date().toLocaleString();
   document.getElementById("validation").classList.remove("hidden");
@@ -946,7 +946,7 @@ function runValidation({headers,data},fileName,delimiter){
   if(passed){
 
     document.getElementById("state").textContent=
-      "PASSED â†’ RELEASED TO PROJECT FILES";
+      "PASSED → RELEASED TO PROJECT FILES";
 
     logNotification(
       "DASHBOARD",
@@ -973,7 +973,7 @@ function runValidation({headers,data},fileName,delimiter){
   else{
 
     document.getElementById("state").textContent=
-      "ON HOLD â†’ VALIDATION ERRORS";
+      "ON HOLD → VALIDATION ERRORS";
 
     logNotification(
       "DASHBOARD",
@@ -1002,15 +1002,15 @@ function runValidation({headers,data},fileName,delimiter){
 </div>
 <div style="margin-top:20px;padding:18px;background:#f8fafc;border-radius:12px">
 <th>Email</th><th>SMS</th></tr>
-<tr><td>Data received</td><td>âœ“</td><td>—</td></tr>
-<tr><td>5/5 validation passed</td><td>âœ“</td><td>—</td></tr>
-<tr><td>Duplicate detected</td><td>âœ“</td><td>âœ“</td></tr>
-<tr><td>Project mismatch</td><td>âœ“</td><td>âœ“</td></tr>
-<tr><td>Corrupted data</td><td>âœ“</td><td>âœ“</td></tr>
-<tr><td>Undefined data</td><td>âœ“</td><td>âœ“</td></tr>
-<tr><td>Blank required data</td><td>âœ“</td><td>—</td></tr>
-<tr><td>Corrected file received</td><td>âœ“</td><td>—</td></tr>
-<tr><td>Released to Project Files</td><td>âœ“</td><td>—</td></tr>
+<tr><td>Data received</td><td>✓</td><td>—</td></tr>
+<tr><td>5/5 validation passed</td><td>✓</td><td>—</td></tr>
+<tr><td>Duplicate detected</td><td>✓</td><td>✓</td></tr>
+<tr><td>Project mismatch</td><td>✓</td><td>✓</td></tr>
+<tr><td>Corrupted data</td><td>✓</td><td>✓</td></tr>
+<tr><td>Undefined data</td><td>✓</td><td>✓</td></tr>
+<tr><td>Blank required data</td><td>✓</td><td>—</td></tr>
+<tr><td>Corrected file received</td><td>✓</td><td>—</td></tr>
+<tr><td>Released to Project Files</td><td>✓</td><td>—</td></tr>
 </table>
 </div>
 <div style="margin-top:20px">
