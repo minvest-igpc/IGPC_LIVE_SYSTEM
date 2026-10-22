@@ -874,16 +874,13 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 </div>
 
 <div class="modules">
-<div class="module library" onclick="openView('library')"><div class="num">01</div><h3>VIRTUAL LIBRARY</h3><p>Secure bridge between client information and IGPC project intelligence, without touching the client's server.</p><div class="go"><div class="go"><div class="go">OPEN VIRTUAL LIBRARY →</div></div>
-<div class="module files" onclick="openView('projectfiles')"><div class="num">02</div><h3>PROJECT FILES</h3><p>Master project entry point with the three IGPC core operational boxes and the structured project architecture.</p><div class="go"><div class="go"><div class="go">OPEN PROJECT FILES →</div></div>
-<div class="module analytics" onclick="openView('analytics')"><div class="num">03</div><h3>ANALYTICS</h3><p>W1-W10, Layers 1-4, F08 and PCV1-PCV4. This is the integrated analytics dashboard already built.</p><div class="go"><div class="go"><div class="go">OPEN ANALYTICS →</div></div>
-<div class="module diagnostics" onclick="openView('diagnostics')"><div class="num">04</div><h3>DIAGNOSTICS</h3><p>Moves from an identified problem or deviation to the most likely causes, probabilities and diagnostic evidence.</p><div class="go"><div class="go"><div class="go">OPEN DIAGNOSTICS →</div></div>
-<div class="module reports" onclick="openView('reports')"><div class="num">05</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS →</div></div><div class="module uov" onclick="window.open('/uov/', '_blank')"><div class="num">06</div><h3>UNIVERSAL OPERATIONAL VAULT (UOV)</h3><p>Project-level bottleneck and financial bleed analysis engine. Identifies what is causing the project to lose time and money.</p><div class="go">OPEN UOV →</div></div> 
+<div class="module library" onclick="openView('library')"><div class="num">01</div><h3>VIRTUAL LIBRARY</h3><p>Secure bridge between client information and IGPC project intelligence, without touching the client server.</p><div class="go">OPEN VIRTUAL LIBRARY →</div></div>
+<div class="module files" onclick="openView('projectfiles')"><div class="num">02</div><h3>PROJECT FILES</h3><p>Master project entry point with the three IGPC core operational boxes and the structured project architecture.</p><div class="go">OPEN PROJECT FILES →</div></div>
+<div class="module analytics" onclick="openView('analytics')"><div class="num">03</div><h3>ANALYTICS</h3><p>W1-W10, Layers 1-4, F08 and PCV1-PCV4. This is the integrated analytics dashboard already built.</p><div class="go">OPEN ANALYTICS →</div></div>
+<div class="module diagnostics" onclick="openView('diagnostics')"><div class="num">04</div><h3>DIAGNOSTICS</h3><p>Moves from an identified problem or deviation to the most likely causes, probabilities and diagnostic evidence.</p><div class="go">OPEN DIAGNOSTICS →</div></div>
+<div class="module reports" onclick="openView('reports')"><div class="num">05</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS →</div></div>
+<div class="module uov" onclick="window.open('/uov/', '_blank')"><div class="num">06</div><h3>UNIVERSAL OPERATIONAL VAULT (UOV)</h3><p>Project-level bottleneck and financial bleed analysis engine. Identifies what is causing the project to lose time and money.</p><div class="go">OPEN UOV →</div></div>
 </div>
-</div>
-<div class="card">
-<h3>PROJECT ID — SYSTEM ANCHOR</h3>
-<div class="grid3">
 <div class="arch-box"><h3>PROJECT</h3><p><strong>EXPL-001</strong><br>Exploration Drilling<br>PGM</p></div>
 <div class="arch-box"><h3>DATA PATH</h3><p>Project ID follows the information through Virtual Library → Analytics → Diagnostics → F08 → Reports.</p></div>
 <div class="arch-box"><h3>CONTROL PRINCIPLE</h3><p>No dashboard creates a problem independently. Findings are driven by controlled project information.</p></div>
@@ -936,7 +933,7 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 <div class="top-actions">
   <div>
     <div class="section-title">ANALYTICS DASHBOARD</div>
-    <div class="section-sub">W1—W10 Â· Layers 1—4 Â· F08 Â· PCV1—PCV4</div>
+    <div class="section-sub">W1—W10 · Layers 1—4 · F08 · PCV1—PCV4</div>
   </div>
   <button class="back" onclick="openView('home')">→ Main Dashboard</button>
 </div>
@@ -1437,7 +1434,7 @@ function l3View(key){
  ${card("SUPPORTING EVIDENCE",`<table class="table"><tr><th>Observation</th><th>Evidence</th></tr><tr><td>Reduced advance</td><td>Production records</td></tr><tr><td>Downtime</td><td>Equipment records</td></tr><tr><td>Lab delay</td><td>Laboratory turnaround records</td></tr></table>`)}
  </div>`,
  "L3.4":head("L3.4 — RELATIONSHIP & CAUSATION EVIDENCE","Does the proposed cause explain the measured consequence?","L3.4")+`
- <div class="card"><div class="formula">Eáµ¢ → Aâ±¼ → Aâ‚– → Mâ‚—</div><p>Event → activity → dependent activity → measurable outcome. Causation is not declared solely from a correlation; supporting evidence is required.</p>
+ <div class="card"><div class="formula">Eáµ¢ → A → Aâ‚– → Mâ‚—</div><p>Event → activity → dependent activity → measurable outcome. Causation is not declared solely from a correlation; supporting evidence is required.</p>
  <div class="flow"><span>Ground / operational event</span><i>→</i><span>Drilling activity</span><i>→</i><span>Reduced output</span><i>→</i><span>Time impact</span><i>→</i><span>Cost exposure</span></div></div>`,
  "L3.5":head("L3.5 — SPECIALIST INTELLIGENCE","Where specialist interpretation is required.","L3.5")+`
  <div class="grid2">${card("SPECIALIST INPUT",`<p>Specialist judgement is applied to evidence-backed observations rather than replacing the evidence.</p>`)}
@@ -2717,7 +2714,7 @@ renderLayer("L2");
 <script>
 const titles={
 home:["IGPC — MAIN DASHBOARD","One entry point to Analytics, Virtual Library, Reports, Diagnostics and Project Files."],
-analytics:["ANALYTICS","W1—W10 Â· Layers 1—4 Â· F08 Â· PCV1—PCV4"],
+analytics:["ANALYTICS","W1—W10 · Layers 1—4 · F08 · PCV1—PCV4"],
 library:["VIRTUAL LIBRARY","Secure bridge from client project information to structured IGPC intelligence."],
 reports:["REPORTS","Clear, reliable and actionable project reporting."],
 diagnostics:["DIAGNOSTICS","From problem or deviation to causes, probabilities and specialist intelligence."],
