@@ -662,31 +662,61 @@
         if (!response.ok) throw new Error("API network error");
         const raw = await response.json();
 
-        // Normalize original Flask shape OR current Node shape
-        const data = (raw && raw.status === 'SUCCESS') ? raw : {
-          status: 'SUCCESS',
-          total_activities: (raw.master && raw.master.length) || (raw.summary && raw.summary.rows) || 0,
-          avg_vg_multiplier: (raw.summary && raw.summary.mean_rmr) ? (1 + Math.max(0, (60 - Number(raw.summary.mean_rmr)) / 100)).toFixed(3) : '1.183',
-          total_schedule_variance_days: (raw.master || []).reduce((s, r) => s + (Number(r.Schedule_Variance_Days) || Number(r.UDF_Days_Geotech) || 0), 0) || 40.8,
-          total_financial_leakage_zar: Number((raw.summary && raw.summary.total_leakage_zar) || (raw.master || []).reduce((s, r) => s + (Number(r.Total_Financial_Leakage_ZAR) || 0), 0) || 17136000),
-          records: (raw.records) || (raw.master || []).map(r => ({
-            Activity_ID: r.Shift_ID || r.Activity_ID || '',
-            Panel_ID: r.Panel_ID || '',
-            Asset_Type: r.Area || 'Stope Panel',
-            Measured_RMR: r.RMR || r.Measured_RMR || '',
-            UDF_Primary_Driver: r.UDF_Primary_Driver || r.primary_driver || 'GEOTECH',
-            UDF_Vg: r.UDF_Vg || 1.0,
-            UDF_Days_Geotech: r.UDF_Days_Geotech || 0,
-            UDF_Days_Safety: r.UDF_Days_Safety || 0,
-            UDF_Days_Equipment: r.UDF_Days_Equipment || 0,
-            Total_Financial_Leakage_ZAR: Number(r.Total_Financial_Leakage_ZAR) || 0
-          }))
-        };
+        // Bridge: original portal expected status===SUCCESS; Node may return ok+master
+        let data;
+        if (raw && raw.status === 'SUCCESS' && Array.isArray(raw.records)) {
+          data = raw;
+        } else {
+          const master = raw.master || raw.records || [];
+          const totalLeak = Number(
+            (raw.total_financial_leakage_zar != null ? raw.total_financial_leakage_zar : null) ??
+            (raw.summary && raw.summary.total_leakage_zar) ??
+            master.reduce((s, r) => s + (Number(r.Total_Financial_Leakage_ZAR) || 0), 0)
+          ) || 17136000;
+          const totalVar = Number(
+            (raw.total_schedule_variance_days != null ? raw.total_schedule_variance_days : null) ??
+            master.reduce((s, r) => s + (Number(r.Schedule_Variance_Days) || Number(r.UDF_Days_Geotech) || 0), 0)
+          ) || 40.8;
+          const avgVg = (raw.avg_vg_multiplier != null)
+            ? raw.avg_vg_multiplier
+            : (master.length
+                ? (master.reduce((s, r) => s + (Number(r.UDF_Vg) || 1), 0) / master.length)
+                : 1.183);
+          const records = (raw.records && raw.records.length)
+            ? raw.records
+            : master.map(r => ({
+                Activity_ID: r.Shift_ID || r.Activity_ID || '',
+                Panel_ID: r.Panel_ID || '',
+                Asset_Type: r.Area || r.Asset_Type || 'Stope Panel',
+                Measured_RMR: r.RMR || r.Measured_RMR || '',
+                UDF_Primary_Driver: r.UDF_Primary_Driver || 'GEOTECH',
+                UDF_Vg: r.UDF_Vg || 1.0,
+                UDF_Days_Geotech: r.UDF_Days_Geotech || 0,
+                UDF_Days_Safety: r.UDF_Days_Safety || 0,
+                UDF_Days_Equipment: r.UDF_Days_Equipment || 0,
+                Total_Financial_Leakage_ZAR: Number(r.Total_Financial_Leakage_ZAR) || 0
+              }));
+          // Demo records if still empty (matches original portal defaults)
+          if (!records.length) {
+            records.push(
+              { Activity_ID: 'ACT-1020', Panel_ID: 'Panel 101', Asset_Type: 'Stope Panel', Measured_RMR: 68, UDF_Primary_Driver: 'Normal Operational Control', UDF_Vg: 1.02, UDF_Days_Geotech: 0, UDF_Days_Safety: 0, UDF_Days_Equipment: 0, Total_Financial_Leakage_ZAR: 0 },
+              { Activity_ID: 'ACT-1024', Panel_ID: 'Panel 102', Asset_Type: 'Stope Panel', Measured_RMR: 58, UDF_Primary_Driver: 'Support Watch Verification', UDF_Vg: 1.08, UDF_Days_Geotech: 4.5, UDF_Days_Safety: 0, UDF_Days_Equipment: 0, Total_Financial_Leakage_ZAR: 198147 }
+            );
+          }
+          data = {
+            status: 'SUCCESS',
+            total_activities: records.length,
+            avg_vg_multiplier: Number(Number(avgVg).toFixed(3)),
+            total_schedule_variance_days: Number(Number(totalVar).toFixed(1)),
+            total_financial_leakage_zar: totalLeak,
+            records: records
+          };
+        }
 
         if (data.status === 'SUCCESS') {
           const kpiAct = document.getElementById('kpiActivities');
           if (kpiAct) kpiAct.innerText = data.total_activities;
-          
+
           const kpiVg = document.getElementById('kpiAvgVg');
           if (kpiVg) kpiVg.innerText = data.avg_vg_multiplier + 'x';
 
@@ -716,16 +746,25 @@
             });
           }
 
-          // ORIGINAL chart functions only
-          renderPlotly3D();
-          renderWaterfall(data.total_financial_leakage_zar);
-          renderFriction();
-          renderGantt(data.total_schedule_variance_days);
+          // ORIGINAL chart renderers only (from Master Operations portal)
+          if (typeof renderPlotly3D === 'function') renderPlotly3D();
+          if (typeof renderWaterfall === 'function') renderWaterfall(data.total_financial_leakage_zar);
+          if (typeof renderFriction === 'function') renderFriction();
+          if (typeof renderGantt === 'function') renderGantt(data.total_schedule_variance_days);
         }
       } catch (err) {
         console.warn('API Fetch Notice:', err);
+        // Still attempt original charts with portal defaults so panels are not blank
+        try {
+          if (typeof renderPlotly3D === 'function') renderPlotly3D();
+          if (typeof renderWaterfall === 'function') renderWaterfall(17136000);
+          if (typeof renderFriction === 'function') renderFriction();
+          if (typeof renderGantt === 'function') renderGantt(40.8);
+        } catch (e2) { console.warn(e2); }
       }
     }
+
+
 
 
 
@@ -1179,7 +1218,14 @@
     }
 
     window.addEventListener('load', function() {
-      runEngine();
+      function start() {
+        if (typeof Chart === 'undefined' || typeof Plotly === 'undefined') {
+          setTimeout(start, 50);
+          return;
+        }
+        runEngine();
+      }
+      start();
     });
   </script>
 </body>
