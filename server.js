@@ -716,6 +716,32 @@ app.get('/api/uov/exports', (req, res) => {
 });
 
 
+
+/* =========================
+   UOV original portal API aliases
+========================= */
+app.get('/api/uov/get-delays', (req, res) => {
+  res.json({ delays: [], ok: true });
+});
+app.post('/api/uov/toggle-alert-opened', (req, res) => {
+  res.json({ ok: true });
+});
+app.post('/api/uov/log-delay', (req, res) => {
+  res.json({ ok: true });
+});
+app.post('/api/uov/signoff', (req, res) => {
+  res.json({ ok: true });
+});
+app.post('/api/uov/tarp-qc-release', (req, res) => {
+  res.json({ ok: true });
+});
+app.post('/api/uov/import-p6-file', (req, res) => {
+  res.json({ ok: true, message: 'P6 import accepted (demo)' });
+});
+app.get('/api/uov/export-p6', (req, res) => {
+  res.json({ ok: true, rows: [] });
+});
+
 /* =========================
    FRONT-END FALLBACK
    Express 5 compatible
