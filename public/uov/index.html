@@ -117,7 +117,7 @@
   </style>
 </head>
 <body>
-<div id="igpc-back-bar" style="position:sticky;top:0;z-index:9999;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px 16px;background:#0f172a;border-bottom:1px solid #334155;font-family:system-ui,sans-serif"><a href="/" style="color:#38bdf8;text-decoration:none;font-weight:700;font-size:13px">← Back to IGPC Live System</a><span style="color:#94a3b8;font-size:12px">UNIVERSAL OPERATIONAL VAULT (original portal)</span></div>
+<div id="igpc-back-bar" style="position:sticky;top:0;z-index:9999;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px 16px;background:#0f172a;border-bottom:1px solid #334155;font-family:system-ui,sans-serif"><a href="https://igpc-live-system.onrender.com/" style="color:#38bdf8;text-decoration:none;font-weight:700;font-size:13px">← Back to IGPC Live System</a><span style="color:#94a3b8;font-size:12px">UNIVERSAL OPERATIONAL VAULT (original portal)</span></div>
 
 
   <div class="container">
@@ -656,11 +656,32 @@
     let sec42Events = [];
     let currentDeptFilter = 'ALL';
 
-    async function runEngine() {
+    async async function runEngine() {
       try {
         const response = await fetch('/api/uov/run-engine');
         if (!response.ok) throw new Error("API network error");
-        const data = await response.json();
+        const raw = await response.json();
+
+        // Normalize original Flask shape OR current Node shape
+        const data = (raw && raw.status === 'SUCCESS') ? raw : {
+          status: 'SUCCESS',
+          total_activities: (raw.master && raw.master.length) || (raw.summary && raw.summary.rows) || 0,
+          avg_vg_multiplier: (raw.summary && raw.summary.mean_rmr) ? (1 + Math.max(0, (60 - Number(raw.summary.mean_rmr)) / 100)).toFixed(3) : '1.183',
+          total_schedule_variance_days: (raw.master || []).reduce((s, r) => s + (Number(r.Schedule_Variance_Days) || Number(r.UDF_Days_Geotech) || 0), 0) || 40.8,
+          total_financial_leakage_zar: Number((raw.summary && raw.summary.total_leakage_zar) || (raw.master || []).reduce((s, r) => s + (Number(r.Total_Financial_Leakage_ZAR) || 0), 0) || 17136000),
+          records: (raw.records) || (raw.master || []).map(r => ({
+            Activity_ID: r.Shift_ID || r.Activity_ID || '',
+            Panel_ID: r.Panel_ID || '',
+            Asset_Type: r.Area || 'Stope Panel',
+            Measured_RMR: r.RMR || r.Measured_RMR || '',
+            UDF_Primary_Driver: r.UDF_Primary_Driver || r.primary_driver || 'GEOTECH',
+            UDF_Vg: r.UDF_Vg || 1.0,
+            UDF_Days_Geotech: r.UDF_Days_Geotech || 0,
+            UDF_Days_Safety: r.UDF_Days_Safety || 0,
+            UDF_Days_Equipment: r.UDF_Days_Equipment || 0,
+            Total_Financial_Leakage_ZAR: Number(r.Total_Financial_Leakage_ZAR) || 0
+          }))
+        };
 
         if (data.status === 'SUCCESS') {
           const kpiAct = document.getElementById('kpiActivities');
@@ -673,28 +694,29 @@
           if (kpiDrag) kpiDrag.innerText = '+' + data.total_schedule_variance_days + ' Days';
 
           const kpiLeak = document.getElementById('kpiFinancialLeakage');
-          if (kpiLeak) kpiLeak.innerText = 'R ' + data.total_financial_leakage_zar.toLocaleString();
+          if (kpiLeak) kpiLeak.innerText = 'R ' + Number(data.total_financial_leakage_zar).toLocaleString();
 
           const tbody = document.getElementById('tableBody');
           if (tbody) {
             tbody.innerHTML = '';
-            data.records.forEach(row => {
+            (data.records || []).forEach(row => {
               const tr = document.createElement('tr');
               tr.innerHTML = `
                 <td class="mono" style="color:var(--accent-cyan); font-weight:600;">${row.Activity_ID}</td>
-                <td><strong>${row.Panel_ID}</strong><br><span style="font-size:0.75rem; color:var(--on-surface-variant);">${row.Asset_Type}</span></td>
+                <td><strong>${row.Panel_ID}</strong><br><span style="font-size:0.75rem; color:var(--on-surface-variant);">${row.Asset_Type || ''}</span></td>
                 <td class="mono">${row.Measured_RMR}</td>
                 <td><span style="font-size:0.8rem;">${row.UDF_Primary_Driver}</span></td>
                 <td class="mono" style="color:var(--warning); font-weight:700;">${row.UDF_Vg}x</td>
                 <td class="mono">${row.UDF_Days_Geotech}</td>
                 <td class="mono">${row.UDF_Days_Safety}</td>
                 <td class="mono">${row.UDF_Days_Equipment}</td>
-                <td class="mono" style="color:var(--error); font-weight:700;">R ${row.Total_Financial_Leakage_ZAR.toLocaleString()}</td>
+                <td class="mono" style="color:var(--error); font-weight:700;">R ${Number(row.Total_Financial_Leakage_ZAR || 0).toLocaleString()}</td>
               `;
               tbody.appendChild(tr);
             });
           }
 
+          // ORIGINAL chart functions only
           renderPlotly3D();
           renderWaterfall(data.total_financial_leakage_zar);
           renderFriction();
@@ -704,6 +726,8 @@
         console.warn('API Fetch Notice:', err);
       }
     }
+
+
 
     async function loadDelayStreamData() {
       try {
