@@ -438,7 +438,7 @@ html body .pcvbar > button.pcv:hover {
 </style>
 <script src="config.js"></script><script>
 const IGPC_API=window.IGPC_API_BASE||'';
-async function igpcLiveRefresh(){try{const r=await fetch(IGPC_API+'/api/projects');if(!r.ok)return;const ps=await r.json();const latest=ps[0];if(latest){document.querySelectorAll('.project strong').forEach(e=>e.textContent='Project ID: '+latest.project_id);const live=document.querySelector('.live');if(live)live.textContent='â— LIVE / '+latest.status;}}catch(e){}}
+async function igpcLiveRefresh(){try{const r=await fetch(IGPC_API+'/api/projects');if(!r.ok)return;const ps=await r.json();const latest=ps[0];if(latest){document.querySelectorAll('.project strong').forEach(e=>e.textContent='Project ID: '+latest.project_id);const live=document.querySelector('.live');if(live)live.textContent=' LIVE / '+latest.status;}}catch(e){}}
 window.addEventListener('message',e=>{if(e.data?.type==='igpc-data-released'){igpcLiveRefresh();}});igpcLiveRefresh();setInterval(igpcLiveRefresh,10000);
 </script><link rel="stylesheet" href="unified-theme.css"><style id="igpc-main-final-theme">
 /* IGPC UNIFIED MAIN PAGE THEME */
@@ -469,12 +469,12 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 <aside class="sidebar">
 <div class="logo"><div class="logo-main">IGPC</div><div class="logo-sub">INTEGRATED GEOTECHNICAL<br>PROJECT CONTROLS</div></div>
 <nav class="nav">
-<button class="active" data-view="home">âŒ‚ &nbsp; MAIN DASHBOARD</button>
-<button data-view="library">â—‰ &nbsp; VIRTUAL LIBRARY</button>
-<button data-view="projectfiles">â—ˆ &nbsp; PROJECT FILES</button>
-<button data-view="analytics">â–¥ &nbsp; ANALYTICS</button>
-<button data-view="diagnostics">â—« &nbsp; DIAGNOSTICS</button>
-<button data-view="reports">â–§ &nbsp; REPORTS</button>
+<button class="active" data-view="home"> &nbsp; MAIN DASHBOARD</button>
+<button data-view="library"> &nbsp; VIRTUAL LIBRARY</button>
+<button data-view="projectfiles"> &nbsp; PROJECT FILES</button>
+<button data-view="analytics"> &nbsp; ANALYTICS</button>
+<button data-view="diagnostics"> &nbsp; DIAGNOSTICS</button>
+<button data-view="reports"> &nbsp; REPORTS</button>
 </nav>
 <div class="support"><strong>Need Help?</strong><br>IGPC Support</div>
 </aside>
@@ -489,12 +489,12 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 <div class="info">PROJECT FILES → VIRTUAL LIBRARY → ANALYTICS → DIAGNOSTICS → F08 SPECIALIST INTELLIGENCE → VERIFICATION / LEARNING → REPORTS</div><div class="card" style="margin-bottom:16px">
 <h3>SYSTEM STATUS</h3>
 <div class="grid3">
-<div><strong style="font-size:11px">DATA</strong><div class="bar"><i style="width:98%"></i></div><span class="pill">â— LIVE / 98% COMPLETE</span></div>
-<div><strong style="font-size:11px">VIRTUAL LIBRARY</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">â— READY / VALIDATED</span></div>
-<div><strong style="font-size:11px">ANALYTICS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">â— ACTIVE</span></div>
-<div><strong style="font-size:11px">DIAGNOSTICS</strong><div class="bar"><i style="width:82%"></i></div><span class="pill warn">â— 4 OPEN / 2 HIGH</span></div>
-<div><strong style="font-size:11px">F08</strong><div class="bar"><i style="width:72%"></i></div><span class="pill">â— ACTIVE / 72% CONFIDENCE</span></div>
-<div><strong style="font-size:11px">REPORTS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">â— READY</span></div>
+<div><strong style="font-size:11px">DATA</strong><div class="bar"><i style="width:98%"></i></div><span class="pill"> LIVE / 98% COMPLETE</span></div>
+<div><strong style="font-size:11px">VIRTUAL LIBRARY</strong><div class="bar"><i style="width:100%"></i></div><span class="pill"> READY / VALIDATED</span></div>
+<div><strong style="font-size:11px">ANALYTICS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill"> ACTIVE</span></div>
+<div><strong style="font-size:11px">DIAGNOSTICS</strong><div class="bar"><i style="width:82%"></i></div><span class="pill warn"> 4 OPEN / 2 HIGH</span></div>
+<div><strong style="font-size:11px">F08</strong><div class="bar"><i style="width:72%"></i></div><span class="pill"> ACTIVE / 72% CONFIDENCE</span></div>
+<div><strong style="font-size:11px">REPORTS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill"> READY</span></div>
 </div>
 </div>
 
@@ -503,7 +503,8 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 <div class="module files" onclick="openView('projectfiles')"><div class="num">02</div><h3>PROJECT FILES</h3><p>Master project entry point with the three IGPC core operational boxes and the structured project architecture.</p><div class="go">OPEN PROJECT FILES →</div></div>
 <div class="module analytics" onclick="openView('analytics')"><div class="num">03</div><h3>ANALYTICS</h3><p>W1-W10, Layers 1-4, F08 and PCV1-PCV4. This is the integrated analytics dashboard already built.</p><div class="go">OPEN ANALYTICS →</div></div>
 <div class="module diagnostics" onclick="openView('diagnostics')"><div class="num">04</div><h3>DIAGNOSTICS</h3><p>Moves from an identified problem or deviation to the most likely causes, probabilities and diagnostic evidence.</p><div class="go">OPEN DIAGNOSTICS →</div></div>
-<div class="module reports" onclick="openView('reports')"><div class="num">05</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS →</div></div><div class="module uov" onclick="window.open('https://igpc-live-system.onrender.com/uov/','_blank')"><div class="num">06</div><h3>UNIVERSAL OPERATIONAL VAULT (UOV)</h3><p>Project-level bottleneck and financial bleed analysis engine. Identifies what is causing the project to lose time and money.</p><div class="go">OPEN UOV →</div></div> 
+<div class="module reports" onclick="openView('reports')"><div class="num">05</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS →</div></div>
+<div class="module uov" onclick="openView('uov')"><div class="num">06</div><h3>UNIVERSAL OPERATIONAL VAULT (UOV)</h3><p>Project-level bottleneck and financial bleed analysis engine. Identifies what is causing the project to lose time and money.</p><div class="go">OPEN UOV →</div></div> 
 </div>
 </div>
 <div class="card">
@@ -538,7 +539,7 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 <div class="step">LAYER 4<br><small>Decision / Action</small></div><div class="arrow">→</div>
 <div class="step">INTERVENTION</div><div class="arrow">→</div>
 <div class="step">W9<br><small>Did it work?</small></div><div class="arrow">→</div>
-<div class="step">W10<br><small>What have we learned?</small></div><div class="arrow">â†º</div>
+<div class="step">W10<br><small>What have we learned?</small></div><div class="arrow"></div>
 <div class="step">ANALYTICS</div>
 </div>
 </div>
@@ -558,11 +559,16 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 </div>
 
 <div id="analytics" class="view">
-<div class="top-actions"><div><div class="section-title">ANALYTICS DASHBOARD</div><div class="section-sub">W1—W10 · Layers 1—4 · F08 · PCV1—PCV4 · MINVEST IGPC SYSTEM</div></div>
+<div class="top-actions"><div><div class="section-title">ANALYTICS DASHBOARD</div><div class="section-sub">MINVEST IGPC SYSTEM — W1—W10 · Layers · F08 · PCV</div></div>
 <button class="back" onclick="openView('home')">← Main Dashboard</button></div>
 <iframe class="module-frame" src="/analytics.html" title="MINVEST IGPC Analytics"></iframe>
 </div>
-<div id="library" class="view"><div class="top-actions"><div><div class="section-title">VIRTUAL LIBRARY</div><div class="section-sub">Client → Client Link → Client Portal → Virtual Library → Validation Gate → Release → Existing Project Files</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div><iframe class="module-frame" src="virtual-library.html" title="IGPC Virtual Library"></iframe></div>
+<div id="uov" class="view">
+<div class="top-actions"><div><div class="section-title">UNIVERSAL OPERATIONAL VAULT</div><div class="section-sub">Bottleneck · financial bleed · RMR · SLA · UFE</div></div>
+<button class="back" onclick="openView('home')">← Main Dashboard</button></div>
+<iframe class="module-frame" src="/uov/" title="Universal Operational Vault"></iframe>
+</div>
+<div id="library" class="view"><div class="top-actions"><div><div class="section-title">VIRTUAL LIBRARY</div><div class="section-sub">Client → Client Link → Client Portal → Virtual Library → Validation Gate → Release → Existing Project Files</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div><iframe class="module-frame" src="/virtual-library.html" title="IGPC Virtual Library"></iframe></div>
 
 <div id="reports" class="view">
 <div class="top-actions"><div><div class="section-title">REPORTS DASHBOARD</div><div class="section-sub">From raw project information to clear, reliable and actionable reports.</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div>
@@ -600,9 +606,9 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 </div>
 
 <div id="projectfiles" class="view">
-<div class="top-actions"><div><div class="section-title">PROJECT FILES</div><div class="section-sub">Actual Project Files dashboard — Steps 0â€“9</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div>
+<div class="top-actions"><div><div class="section-title">PROJECT FILES</div><div class="section-sub">Actual Project Files dashboard — Steps 0–9</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div>
 <div class="projectfiles-host">
-  <iframe class="projectfiles-frame" title="Actual IGPC Project Files Dashboard" src="project-files.html"></iframe>
+  <iframe class="projectfiles-frame" title="Actual IGPC Project Files Dashboard" src="/project-files.html"></iframe>
 </div>
 </div></div>
 
@@ -612,8 +618,9 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 
 <script>
 const titles={
+  uov:["UNIVERSAL OPERATIONAL VAULT","Bottleneck and financial bleed analysis"],
 home:["IGPC — MAIN DASHBOARD","One entry point to Analytics, Virtual Library, Reports, Diagnostics and Project Files."],
-analytics:["ANALYTICS","W1â€“W10 Â· Layers 1â€“4 Â· F08 Â· PCV1â€“PCV4"],
+analytics:["ANALYTICS","W1–W10 · Layers 1–4 · F08 · PCV1–PCV4"],
 library:["VIRTUAL LIBRARY","Secure bridge from client project information to structured IGPC intelligence."],
 reports:["REPORTS","Clear, reliable and actionable project reporting."],
 diagnostics:["DIAGNOSTICS","From problem or deviation to causes, probabilities and specialist intelligence."],
