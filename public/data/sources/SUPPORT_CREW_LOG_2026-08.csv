@@ -1,0 +1,6 @@
+Date,Activity_Event,Rate_R_per_hr,Hours,Cost_R,Panel_ID,Shift
+2026-07-13,Support Crew Idle,5200,32,166400,PNL-101,Day
+2026-07-20,Support Crew Idle,5200,18,93600,PNL-102,Night
+2026-07-27,Support Crew Standby,5200,14,72800,PNL-101,Afternoon
+2026-08-04,Support Crew Idle,5200,20,104000,PNL-103,Day
+2026-08-10,Support Crew Idle,5200,10,52000,PNL-102,Night

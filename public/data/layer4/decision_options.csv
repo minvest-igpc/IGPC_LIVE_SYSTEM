@@ -1,0 +1,4 @@
+Option,Cost_to_Implement_Rm,Expected_Cost_Avoided_Rm,Net_Value_Rm,Time_to_Effect_Days,Risk,Score_out_of_10,Recommended
+A - Do Nothing,0,0,-2.934,N/A,High,2.1,No
+B - Targeted Idle-Time Reduction,0.42,1.86,1.44,7-14,Low-Medium,8.7,Yes
+C - Full Operational Reset,1.15,2.4,1.25,21-30,Medium,6.4,No

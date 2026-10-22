@@ -1,0 +1,5 @@
+Diag_ID,Title,Module,Severity,Status,Opened,Owner
+DG-001,Cost of problem R2.934m – idle dominant,W6 / Analytics,HIGH,OPEN,2026-08-13,Projects Manager
+DG-002,DM45 availability – 124 idle hours,Equipment,HIGH,OPEN,2026-08-08,Maintenance Lead
+DG-003,Advance gap 15.7 m/day,Production,MEDIUM,OPEN,2026-08-13,Mine Overseer
+DG-004,Evidence quality residual on intervention set,Layer 3,LOW,WATCH,2026-08-13,IGPC Analytics

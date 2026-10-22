@@ -1,0 +1,9 @@
+ID,Evidence_Description,Type,Source,Date,Validation_Status
+EV-001,Drill rig idle records (12-16 Jul),Source Data,DRILL_COST_LOG_2026-08.csv,2026-08-13,Valid
+EV-002,Shift change delays (12-16 Jul),Source Data,ACTIVITY_TIME_LOG_2026-08.csv,2026-08-13,Valid
+EV-003,Support crew standby records,Source Data,SUPPORT_CREW_LOG_2026-08.csv,2026-08-13,Valid
+EV-004,Weather downtime records,Source Data,WEATHER_DOWNTIME_2026-08.csv,2026-08-13,Valid
+EV-005,Drill rig maintenance delay,Observation,Maintenance Report 14-16 Jul,2026-07-16,Valid
+EV-006,Hole advance vs planned,Observation,Daily Drilling Reports,2026-07-16,Valid
+EV-007,Root cause - rig availability,Causation,RCA Report - Rig Utilisation,2026-07-17,Valid
+EV-008,Geotech comment on constraint,Specialist,Geotech Daily Log,2026-07-17,Valid

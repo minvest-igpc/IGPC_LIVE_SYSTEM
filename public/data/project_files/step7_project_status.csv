@@ -1,0 +1,7 @@
+Metric,Value,Unit,As_Of,Flag
+Overall Status,AMBER,-,2026-08-13,Watch
+Schedule Variance,-6.0,days,2026-08-13,Behind
+Data Parse Accuracy,98.5,%,2026-08-13,Good
+SLA Response Window,2h 45m remaining,-,2026-08-13,Open
+Open Constraints,3,count,2026-08-13,Active
+Cost of Problem,2.934,Rm,2026-08-13,High

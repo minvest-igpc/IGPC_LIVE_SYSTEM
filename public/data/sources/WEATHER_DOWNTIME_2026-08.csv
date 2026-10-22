@@ -1,0 +1,5 @@
+Date,Activity_Event,Hours,Cost_R,Weather_Type,Panel_ID
+2026-07-16,Weather Downtime,12,90000,Heavy rain,PNL-101
+2026-07-23,Weather Downtime,6,45000,Fog,PNL-102
+2026-08-05,Weather Downtime,8,60000,Storm,PNL-103
+2026-08-09,Weather Downtime,4,30000,Heavy rain,PNL-101

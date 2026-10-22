@@ -1,0 +1,6 @@
+Component,Formula_Basis,Input_Example,Result
+Idle Time,Planned - Actual Time,124 hrs,124 hrs
+Direct Cost,Idle Time x Direct Rate,124 x rates,R1.860m
+Indirect Cost,Idle Time x Indirect Rate,124 x rates,R0.812m
+Recurring / Exposure,Expected Recurrence x Cost,0.6 x R0.430m,R0.258m
+TOTAL COST OF PROBLEM,Sum,-,R2.934m

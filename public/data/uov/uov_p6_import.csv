@@ -1,0 +1,6 @@
+Activity_ID,UDF_Vg,Risk_Adjusted_Duration_Days,UDF_Primary_Driver,UDF_Days_Geotech,UDF_Days_Logistics,UDF_Days_Safety,UDF_Days_Ventilation,UDF_Days_HR,UDF_Days_Equipment
+ACT-1020,1.02,30.6,NORMAL,0.0,0.0,0.0,0.0,0.0,0.0
+ACT-1024,1.08,13.0,GEOTECH,0.6,0.0,0.0,0.0,0.0,0.0
+ACT-1030,1.15,20.7,EQUIPMENT,0.0,0.0,0.0,0.0,0.0,1.5
+ACT-1040,1.05,8.4,SCHEDULE,0.0,0.4,0.0,0.0,0.0,0.0
+ACT-1050,1.0,5.0,NORMAL,0.0,0.0,0.0,0.0,0.0,0.0

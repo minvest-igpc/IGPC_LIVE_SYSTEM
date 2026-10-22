@@ -1,0 +1,6 @@
+File,Description
+open_diagnostics.csv,Open / watch diagnostic register
+cause_ranking.csv,Five most likely causes by probability and impact
+gap_deviation.csv,Planned vs actual gaps
+diagnostic_chain.csv,Analytics → Diagnostics → F08 → Decision flow
+f08_link.csv,Specialist link to each open diagnostic

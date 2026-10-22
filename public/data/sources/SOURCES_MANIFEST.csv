@@ -1,0 +1,7 @@
+Source_Type,Source_Name_File,Record_Count,Date_From,Date_To,Status,Path
+Drilling Cost Log,DRILL_COST_LOG_2026-08.csv,8,2026-07-12,2026-08-12,Valid,data/sources/DRILL_COST_LOG_2026-08.csv
+Activity Time Log,ACTIVITY_TIME_LOG_2026-08.csv,7,2026-07-12,2026-08-11,Valid,data/sources/ACTIVITY_TIME_LOG_2026-08.csv
+Equipment Rate Table,EQUIPMENT_RATE_TABLE_2026.csv,5,2026-01-01,2026-12-31,Valid,data/sources/EQUIPMENT_RATE_TABLE_2026.csv
+Production Targets,PRODUCTION_TARGETS_v3.csv,4,2026-07-01,2026-08-31,Valid,data/sources/PRODUCTION_TARGETS_v3.csv
+Weather Downtime Log,WEATHER_DOWNTIME_2026-08.csv,4,2026-07-16,2026-08-09,Valid,data/sources/WEATHER_DOWNTIME_2026-08.csv
+Support Crew Log,SUPPORT_CREW_LOG_2026-08.csv,5,2026-07-13,2026-08-10,Valid,data/sources/SUPPORT_CREW_LOG_2026-08.csv

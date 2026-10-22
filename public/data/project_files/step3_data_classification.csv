@@ -1,0 +1,7 @@
+Class,Description,Example_Source,Status
+Operational,Shift / advance / idle time,ACTIVITY_TIME_LOG,Classified
+Cost,Rates and cost events,DRILL_COST_LOG,Classified
+Geotechnical,RMR / TARP / support,Geotech daily log,Classified
+Equipment,Rig / LHD availability,EQUIPMENT_RATE_TABLE,Classified
+Schedule,P6 activities / WBS,P6 export,Pending
+Commercial,Overheads / leakage,UFE outputs,Pending

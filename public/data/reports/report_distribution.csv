@@ -1,0 +1,7 @@
+Report_ID,Audience,Channel,Frequency,Last_Sent
+RPT-001,Production / Projects,Dashboard + PDF,Weekly,2026-08-30
+RPT-002,Rock Engineering / Geotech,Dashboard + PDF,Weekly,2026-08-29
+RPT-003,Finance / GM,Dashboard + PDF,Bi-weekly,2026-08-28
+RPT-004,Executive / Tech Services,Dashboard,On event,2026-08-13
+RPT-005,Production Manager / RE Lead,Dashboard + sign-off,On decision,2026-08-13
+RPT-006,Shift / Tech Services,SMS/Email + Dashboard,Real-time SLA,2026-08-13

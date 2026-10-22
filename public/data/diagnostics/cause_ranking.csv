@@ -1,0 +1,6 @@
+Rank,Cause,Probability_Pct,Impact,Linked_Diag_ID,Evidence_Strength
+1,Ground condition / geotech drift,72,HIGH,DG-001,High
+2,Equipment availability (DM45),48,HIGH,DG-002,High
+3,Operational delay / shift changeover,35,MEDIUM,DG-003,Medium
+4,Data / reporting lag,20,LOW,DG-004,Medium
+5,External constraint (weather),15,LOW,DG-001,Low

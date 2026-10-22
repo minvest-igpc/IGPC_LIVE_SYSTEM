@@ -1,0 +1,4 @@
+Date,Constraint_Active,Shift_Flag,Notes
+2026-07-12,Drill Rig Idle,Yes,First material idle cluster
+2026-07-15,Maintenance delay,Yes,Added to idle stack
+2026-08-01,Shift loss persistent,No,Same primary constraint

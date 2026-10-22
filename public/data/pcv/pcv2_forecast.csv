@@ -1,0 +1,4 @@
+Scenario,Advance_m_day,Cost_Rm_period,Idle_Hours,Probability_Pct
+Base (no intervention),67.6,2.934,124,40
+Option B recovery,75.0,1.07,75,45
+Option C aggressive,80.0,0.53,40,15

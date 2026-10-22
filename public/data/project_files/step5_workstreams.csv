@@ -1,0 +1,6 @@
+Workstream_ID,Name,Project_ID,Status,Priority
+WS-01,Shaft Deepening Geo-Control,Northam_3Shaft,ACTIVE,High
+WS-02,Support Standard Compliance,Northam_3Shaft,ACTIVE,High
+WS-03,Drill Rig Availability,Northam_3Shaft,ACTIVE,Critical
+WS-04,Seismic Monitoring Link,Northam_3Shaft,STANDBY,Medium
+WS-05,Schedule Recovery (P6),Northam_3Shaft,ACTIVE,High

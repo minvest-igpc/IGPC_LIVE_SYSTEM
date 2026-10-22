@@ -1,0 +1,8 @@
+Step,Name,Description,Status
+1,Client,Client identity registered,DONE
+2,Client Link,Secure bridge without client server access,DONE
+3,Client Portal,Portal status ACTIVE for Northam,DONE
+4,Virtual Library,Document inventory held,DONE
+5,Validation Gate,Schema and integrity checks,IN PROGRESS
+6,Release,Approved docs to Project Files / Analytics,PARTIAL
+7,Existing Project Files,Released set visible in Project Files,DONE

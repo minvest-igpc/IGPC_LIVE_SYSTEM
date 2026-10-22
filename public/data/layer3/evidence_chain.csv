@@ -1,0 +1,9 @@
+Stage,Evidence_Count,Pct_Valid,Status
+Source Evidence,23,95,Valid
+Validation,18,94,Valid
+Observation,16,94,Valid
+Causation,12,92,Valid
+Specialist Evidence,14,92,Valid
+Reconciliation,12,92,Valid
+Intervention Evidence,8,88,Review
+Verification / Learning,20,95,Valid

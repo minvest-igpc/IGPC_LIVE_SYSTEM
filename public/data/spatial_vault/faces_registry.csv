@@ -1,0 +1,5 @@
+Face_ID,Panel_ID,Level,Section,Working_Face_Name,Orientation,Status,Linked_Activity_ID
+FACE-101A,PNL-101,45 Level,Sector North,101A Advance,Strike,Active,ACT-1020
+FACE-102A,PNL-102,45 Level,Sector North,102A Support,Strike,Active,ACT-1024
+FACE-102B,PNL-102,45 Level,Sector North,102B Drill,Dip,Watch,ACT-1030
+FACE-103A,PNL-103,45 Level,Sector North,103A Advance,Strike,Active,ACT-1050

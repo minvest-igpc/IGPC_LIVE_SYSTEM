@@ -1,0 +1,8 @@
+Item,Amount_Rm,Type,Notes
+Problem cost (W6),2.934,Exposure,Total cost of problem
+Direct cost impact,1.864,Exposure,63.5% of total
+Indirect cost impact,0.812,Exposure,27.7% of total
+Recurring / exposure,0.258,Exposure,8.8% of total
+Intervention cost Option B,0.42,Investment,Targeted idle reduction
+Avoided consequence,1.86,Benefit,Expected recovery
+Net intervention value,1.44,Net benefit,NIV ratio 4.43x

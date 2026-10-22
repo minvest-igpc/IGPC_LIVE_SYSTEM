@@ -1,0 +1,4 @@
+Diag_ID,Specialist_Judgement,Confidence_Pct,Recommendation
+DG-001,"Constraint is operational, not primary rock failure",82,Endorse Option B
+DG-002,DM45 idle is highest leverage driver,86,Prioritise availability protocol
+DG-003,Advance recovery follows idle reduction,78,Verify at Day 14

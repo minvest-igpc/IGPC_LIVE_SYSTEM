@@ -1,0 +1,6 @@
+Metric,Value,Unit,As_Of,Status
+Verified Advance To Date,68.0,m,2026-08-13,Verified
+Verified Cost To Date,9.8,Rm,2026-08-13,Verified
+Schedule Variance,-6.0,days,2026-08-13,Open
+Primary Constraint,Drill Rig Idle DM45,-,2026-08-13,Active
+Data Quality,96,%,2026-08-13,Pass

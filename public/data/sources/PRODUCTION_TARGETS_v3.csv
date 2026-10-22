@@ -1,0 +1,5 @@
+Parameter,Value,Unit,Period,Notes
+Planned_Advance_Rate_Baseline,83.3,m/day,2026-07 to 2026-08,Layer 1
+Planned_Cost_Per_Day_Baseline,150000,ZAR/day,2026-07 to 2026-08,Layer 1
+Target_Metres_Period,2500,m,14 Jul - 13 Aug 2026,30-day window
+Target_Idle_Hours_Max,40,hrs,14 Jul - 13 Aug 2026,KPI ceiling

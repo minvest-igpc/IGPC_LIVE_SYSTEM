@@ -1,0 +1,5 @@
+Panel_ID,Face_ID,Measured_RMR,RQD_Pct,TARP_Level,Support_Status,As_Of,Comment
+PNL-101,FACE-101A,62,72,GREEN,Compliant,2026-10-02,Stable
+PNL-102,FACE-102A,58,65,GREEN,Compliant,2026-10-02,Watch dilution
+PNL-102,FACE-102B,48,50,AMBER,Supplemental bolting required,2026-08-08,Geotech drift
+PNL-103,FACE-103A,65,78,GREEN,Compliant,2026-10-02,Stable

@@ -1,0 +1,6 @@
+File,Description
+location_hierarchy.csv,Mine → Shaft → Level → Section → Panel tree
+faces_registry.csv,Working faces linked to panels and P6 activities
+levels_registry.csv,Level elevations and status
+spatial_to_activity.csv,Spatial node to schedule / Vg bridge
+spatial_rmr_snapshot.csv,Latest RMR/TARP by face

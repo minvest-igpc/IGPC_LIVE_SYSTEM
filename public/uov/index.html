@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IGPC — Universal Operational Vault (UOV)</title>
+  <style>
+    :root {
+      --bg: #0b0f19; --surface: #0f172a; --line: #334155;
+      --text: #f8fafc; --muted: #94a3b8; --primary: #0284c7;
+      --green: #34d399; --amber: #fbbf24; --red: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .top {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+      padding: 12px 18px; background: #0f172aee; border-bottom: 1px solid var(--line); backdrop-filter: blur(8px);
+    }
+    .top a, .top button {
+      text-decoration: none; border: 1px solid var(--line); background: #1e293b; color: var(--text);
+      padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .top a:hover, .top button:hover { border-color: var(--primary); color: #38bdf8; }
+    .top button.primary { background: #075bd5; border-color: #075bd5; }
+    main { max-width: 1100px; margin: 0 auto; padding: 24px 18px 48px; }
+    h1 { font-size: 22px; margin-bottom: 6px; }
+    .sub { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px;
+    }
+    .card label { display: block; font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: .04em; }
+    .card strong { display: block; margin-top: 8px; font-size: 20px; }
+    .status-GREEN { color: var(--green); }
+    .status-AMBER { color: var(--amber); }
+    .status-RED { color: var(--red); }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-size: 10px; text-transform: uppercase; }
+    #msg { margin: 12px 0; font-size: 13px; color: var(--muted); }
+    .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #1e293b; }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <a href="/">← Back to IGPC Live System</a>
+      <strong style="font-size:14px;color:#38bdf8">UNIVERSAL OPERATIONAL VAULT</strong>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button type="button" class="primary" id="btnRun">Run UOV Engine</button>
+      <button type="button" id="btnSummary">View Summary</button>
+      <button type="button" id="btnExports">Power BI / CSV Exports</button>
+    </div>
+  </div>
+  <main>
+    <h1>Project bottleneck & financial bleed analysis</h1>
+    <p class="sub">Same-origin module on IGPC Live System. Gatekeeper → RMR Loop → Black Box / UFE → SLA → exports.</p>
+    <div id="msg">Click <b>Run UOV Engine</b> to load live demo results from this server.</div>
+    <div class="grid" id="kpis"></div>
+    <div class="card" style="margin-bottom:16px">
+      <label>SHIFT / PANEL LEDGER</label>
+      <div style="overflow-x:auto;margin-top:10px">
+        <table>
+          <thead>
+            <tr>
+              <th>Panel</th><th>Shift</th><th>RMR</th><th>TARP</th><th>Vg</th><th>Driver</th><th>Leakage ZAR</th>
+            </tr>
+          </thead>
+          <tbody id="ledger"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <label>SLA INCIDENTS</label>
+      <div style="overflow-x:auto;margin-top:10px">
+        <table>
+          <thead>
+            <tr><th>ID</th><th>Face</th><th>TARP</th><th>Driver</th><th>Level</th><th>Status</th></tr>
+          </thead>
+          <tbody id="incidents"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    function money(n) {
+      const x = Number(n) || 0;
+      return 'R ' + x.toLocaleString('en-ZA', { maximumFractionDigits: 0 });
+    }
+    async function runEngine() {
+      $('msg').textContent = 'Running UOV pipeline…';
+      const r = await fetch('/api/uov/run-engine');
+      if (!r.ok) throw new Error('Engine HTTP ' + r.status);
+      const data = await r.json();
+      render(data);
+      $('msg').textContent = 'UOV run complete — ' + (data.timestamp || '');
+      return data;
+    }
+    function render(data) {
+      const s = data.summary || {};
+      const status = (s.op_status || 'GREEN').split(' ')[0];
+      $('kpis').innerHTML = [
+        ['OP STATUS', s.op_status || '—', 'status-' + status],
+        ['PRIMARY DRIVER', s.primary_driver || '—', ''],
+        ['MEAN RMR', s.mean_rmr != null ? s.mean_rmr : '—', ''],
+        ['TOTAL LEAKAGE', money(s.total_leakage_zar), ''],
+        ['ROWS', s.rows != null ? s.rows : '—', '']
+      ].map(([l,v,c]) => `<div class="card"><label>${l}</label><strong class="${c}">${v}</strong></div>`).join('');
+      $('ledger').innerHTML = (data.master || []).map(row => `
+        <tr>
+          <td>${row.Panel_ID || ''}</td>
+          <td>${row.Shift || ''}</td>
+          <td>${row.RMR ?? ''}</td>
+          <td><span class="pill">${row.TARP_Level || ''}</span></td>
+          <td>${row.UDF_Vg ?? ''}</td>
+          <td>${row.UDF_Primary_Driver || ''}</td>
+          <td>${money(row.Total_Financial_Leakage_ZAR)}</td>
+        </tr>`).join('') || '<tr><td colspan="7">No rows</td></tr>';
+      $('incidents').innerHTML = (data.incidents || []).map(i => `
+        <tr>
+          <td>${i.incident_id || ''}</td>
+          <td>${i.face_id || ''}</td>
+          <td>${i.tarp_level || ''}</td>
+          <td>${i.primary_driver || ''}</td>
+          <td>${i.current_level || ''}</td>
+          <td>${i.status || ''}</td>
+        </tr>`).join('') || '<tr><td colspan="6">No incidents</td></tr>';
+    }
+    $('btnRun').onclick = () => runEngine().catch(e => { $('msg').textContent = e.message; });
+    $('btnSummary').onclick = () => runEngine().then(d => {
+      alert((d.summary && d.summary.recommendation) || JSON.stringify(d.summary || {}, null, 2));
+    }).catch(e => alert(e.message));
+    $('btnExports').onclick = async () => {
+      try {
+        const r = await fetch('/api/uov/exports');
+        const d = await r.json();
+        alert('Export paths (repo / data pack):\n' + (d.files || []).join('\n'));
+      } catch (e) { alert(e.message); }
+    };
+    runEngine().catch(() => { $('msg').textContent = 'Engine idle — press Run UOV Engine.'; });
+  </script>
+</body>
+</html>

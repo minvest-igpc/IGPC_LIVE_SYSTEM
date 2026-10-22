@@ -1,0 +1,12 @@
+File,Pipeline_Stage,Description
+uov_raw_shift_input.csv,Intake,Sample raw shift CSV for Gatekeeper
+uov_gatekeeper_audit.csv,Gatekeeper,Integrity audit results
+uov_3x_shift_rmr_loop.csv,RMR Loop,Per-shift geotech penalties
+uov_dilution_accountability.csv,RMR Loop,Dilution and commercial accountability
+uov_primary_drivers.csv,Black Box,Hybrid driver catalogue
+uov_financial_leakage.csv,UFE / Black Box,ZAR leakage by panel
+uov_powerbi_master.csv,Export,Power BI master ledger
+uov_powerbi_summary.csv,Export,Power BI KPI summary
+uov_powerbi_incidents.csv,SLA,Incident register
+sla_escalation_log.csv,SLA,T0–T4 escalation history
+uov_p6_import.csv,P6,Global Change import fields

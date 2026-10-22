@@ -1,0 +1,4 @@
+Shift_Date,Shift_ID,Area,Panel_ID,Shift,Advance,Seismic,RMR,RMR_Gap,TARP_Level,Reef_Width,Planned_Stope_Width,Actual_Stope_Width,Delay_Hours
+2026-10-02,SH-2026-001,Sector North,PNL-101,Morning,3.2,0.2,62.0,2.0,GREEN,0.85,1.2,1.22,0.0
+2026-10-02,SH-2026-001,Sector North,PNL-102,Afternoon,2.8,0.4,58.0,4.0,GREEN,0.85,1.2,1.25,0.5
+2026-10-02,SH-2026-001,Sector North,PNL-103,Night,3.0,0.1,65.0,1.5,GREEN,0.85,1.2,1.2,0.0

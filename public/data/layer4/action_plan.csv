@@ -1,0 +1,6 @@
+Step,Action,Owner,Due
+1,Confirm drill-rig idle root cause with Maintenance,Maintenance Lead,Day 1
+2,Deploy standby support crew protocol on night shift,Shift Boss,Day 2
+3,Re-sequence face advance to protect critical path,Mine Overseer,Day 3
+4,Daily idle-hours dashboard review (UOV link),Tech Services,Day 1-14
+5,Verify recovery vs R1.86m target,Projects Manager,Day 14

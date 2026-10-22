@@ -1,0 +1,8 @@
+Date,Activity_Event,Category,Hours,Cost_R,Panel_ID,Shift,Notes
+2026-07-12,Shift Loss,Indirect,16,120000,PNL-101,Night,Changeover delay
+2026-07-14,Shift Loss,Indirect,8,60000,PNL-102,Day,Late start
+2026-07-19,Shift Loss,Indirect,12,90000,PNL-101,Afternoon,Blast clearance
+2026-07-25,Shift Loss,Indirect,10,75000,PNL-103,Night,Equipment wait
+2026-08-01,Shift Loss,Indirect,14,105000,PNL-102,Day,Changeover delay
+2026-08-06,Shift Loss,Indirect,9,67500,PNL-101,Night,Late tramming
+2026-08-11,Shift Loss,Indirect,11,82500,PNL-102,Afternoon,Support wait

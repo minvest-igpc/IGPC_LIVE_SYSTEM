@@ -1,0 +1,11 @@
+Step,Name,Purpose
+0,Executive Overview,"Identity, control position, readiness"
+1,Project Selection,Anchor Project ID
+2,Raw Data Intake,Register original sources
+3,Data Classification,Classify into IGPC classes
+4,IGPC Domains,Map control domains
+5,Project Workstreams,Structure workstreams
+6,Work Packages & P6,"Activities, durations, Vg"
+7,Project Status,Live status and milestones
+8,Expert Insights & Decisions,Specialist judgment and decisions
+9,IGPC Value,Value realization and NIV

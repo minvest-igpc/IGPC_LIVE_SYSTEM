@@ -1,0 +1,6 @@
+Panel_ID,Planned_Stope_Width,Actual_Stope_Width,Unplanned_Dilution_pct,TARP_Level,RMR_Gap,Commercial_Accountability
+PNL-101,1.2,1.22,1.67,GREEN,2.0,Contractor Risk (Poor Blasting)
+PNL-102,1.2,1.25,4.17,GREEN,4.0,Contractor Risk (Poor Blasting)
+PNL-103,1.2,1.2,0.0,GREEN,1.5,Standard Execution
+PNL-101,1.2,1.35,12.5,AMBER,8.0,Owner Risk (Geological Drop)
+PNL-102,1.2,1.4,16.7,AMBER,12.0,Owner Risk (Geological Drop)

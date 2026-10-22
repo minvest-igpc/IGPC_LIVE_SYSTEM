@@ -1,0 +1,8 @@
+Metric,Value,Unit,Period,Notes
+Rows_Processed,5,count,2026-08 to 2026-10,Demo master
+Mean_RMR,57.0,RMR,-,Across panels
+Max_Dilution,16.7,%,-,PNL-102 Day
+Total_Financial_Leakage,1093148,ZAR,-,Sum leakage
+Op_Status,AMBER - ELEVATED GEOTECHNICAL DRIFT,-,-,RMR loop
+Primary_Bleed_Driver,GEOTECH,-,-,Hybrid driver
+Recommendation,Geotechnical drift detected. Install supplemental spot bolting.,-,-,RMR loop

@@ -1,0 +1,4 @@
+Link_ID,Client_ID,Project_ID,Link_Type,URL_or_Path,Status
+LNK-001,CLI-NORTHAM,Northam_3Shaft,Secure bridge,/virtual-library/northam,ACTIVE
+LNK-002,CLI-NORTHAM,Northam_3Shaft,Source drop,data/sources/,ACTIVE
+LNK-003,CLI-VALTERRA,Valterra_15E,Secure bridge,/virtual-library/valterra,PENDING

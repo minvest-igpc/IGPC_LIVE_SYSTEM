@@ -1,0 +1,5 @@
+Driver,Change_Pct,Cost_Impact_Rm,Impact_on_Total_Pct
+Drill Rig Rate,10,0.186,6.3
+Idle Hours,10,0.293,10.0
+Shift Loss Rate,10,0.062,2.1
+Support Crew Rate,10,0.024,0.8

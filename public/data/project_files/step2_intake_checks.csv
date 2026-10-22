@@ -1,0 +1,5 @@
+Check,Result,Next_Stage
+Project ID recognised,PASS,STEP 3
+Duplicate source check,CHECKED,STEP 3
+Original source retained,YES,STEP 3
+Classification,NOT YET,STEP 3

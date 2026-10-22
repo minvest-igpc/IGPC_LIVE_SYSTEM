@@ -1,0 +1,6 @@
+Metric,Planned,Actual,Gap,Unit,Flag
+Advance rate,83.3,67.6,-15.7,m/day,RED
+Idle hours (period),40,124,84,hrs,RED
+Cost of problem,0.5,2.934,2.434,Rm,RED
+Data parse accuracy,99.0,98.5,-0.5,%,GREEN
+Schedule variance,0,-6,-6,days,AMBER

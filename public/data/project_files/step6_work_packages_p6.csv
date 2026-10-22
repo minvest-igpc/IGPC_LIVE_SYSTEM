@@ -1,0 +1,6 @@
+Activity_ID,Name,WBS,Base_Duration_Days,UDF_Vg,Primary_Driver,Status
+ACT-1020,Panel 101 Stope Excavation,WS-01,30.0,1.02,Normal Operational Control,In Progress
+ACT-1024,Panel 102 Cable Bolting Support,WS-02,12.0,1.08,Support Watch Verification,In Progress
+ACT-1030,DM45 Drill Advance Block A,WS-03,18.0,1.15,Drill Rig Idle,Delayed
+ACT-1040,Face Re-sequence Critical Path,WS-05,8.0,1.05,Schedule Recovery,Planned
+ACT-1050,Geotech Daily Log Integration,WS-01,5.0,1.0,Normal,In Progress

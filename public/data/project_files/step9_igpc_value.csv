@@ -1,0 +1,6 @@
+Value_Item,Amount_Rm,Type,Notes
+Problem cost exposed,2.934,Exposure,W6 cost of problem
+Intervention cost (Option B),0.42,Investment,Implementation package
+Avoided consequence,1.86,Benefit,Direct idle recovery
+Net intervention value,1.44,Net benefit,NIV ratio 4.43x
+Schedule days recoverable,0.0,Operational,~6 days (non-ZAR)

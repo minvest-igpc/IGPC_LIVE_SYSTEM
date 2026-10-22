@@ -1,0 +1,6 @@
+Shift_Date,Panel_ID,Shift_Label,Measured_RMR,RQD_Percentage,TARP_Level,P_Geotech_Shift,Shift_Min_RMR,UDF_Days_Geotech_Shift
+2026-10-02,PNL-101,Morning,62,72,GREEN,0.0,62,0.0
+2026-10-02,PNL-102,Afternoon,58,65,GREEN,0.1,58,0.6
+2026-10-02,PNL-103,Night,65,78,GREEN,0.0,65,0.0
+2026-08-03,PNL-101,Night,52,55,AMBER,0.25,52,1.2
+2026-08-08,PNL-102,Day,48,50,AMBER,0.35,48,1.8

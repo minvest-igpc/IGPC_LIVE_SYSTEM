@@ -1,0 +1,10 @@
+Node_ID,Parent_ID,Level_Type,Name,Project_ID,Status
+LOC-ROOT,,MINE,Northam Zondereinde,Northam_3Shaft,ACTIVE
+LOC-SHAFT,LOC-ROOT,SHAFT,3# Shaft,Northam_3Shaft,ACTIVE
+LOC-L45,LOC-SHAFT,LEVEL,45 Level,Northam_3Shaft,ACTIVE
+LOC-L46,LOC-SHAFT,LEVEL,46 Level,Northam_3Shaft,ACTIVE
+LOC-SEC-N,LOC-L45,SECTION,Sector North,Northam_3Shaft,ACTIVE
+LOC-SEC-S,LOC-L45,SECTION,Sector South,Northam_3Shaft,STANDBY
+LOC-PNL101,LOC-SEC-N,PANEL,Panel 101,Northam_3Shaft,ACTIVE
+LOC-PNL102,LOC-SEC-N,PANEL,Panel 102,Northam_3Shaft,ACTIVE
+LOC-PNL103,LOC-SEC-N,PANEL,Panel 103,Northam_3Shaft,ACTIVE

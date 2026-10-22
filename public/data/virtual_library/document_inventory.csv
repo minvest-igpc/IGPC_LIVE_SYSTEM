@@ -1,0 +1,7 @@
+Doc_ID,Client_ID,Project_ID,Title,Category,Version,Validation_Status,Release_Status
+DOC-001,CLI-NORTHAM,Northam_3Shaft,Client Raw Project Pack,Source,v1,VALIDATED,RELEASED
+DOC-002,CLI-NORTHAM,Northam_3Shaft,DRILL_COST_LOG_2026-08,Operational,v1,VALIDATED,RELEASED
+DOC-003,CLI-NORTHAM,Northam_3Shaft,ACTIVITY_TIME_LOG_2026-08,Operational,v1,VALIDATED,RELEASED
+DOC-004,CLI-NORTHAM,Northam_3Shaft,Geotech Daily Log extract,Geotech,v1,VALIDATED,RELEASED
+DOC-005,CLI-NORTHAM,Northam_3Shaft,P6 baseline export,Schedule,v1,IN REVIEW,HELD
+DOC-006,CLI-NORTHAM,Northam_3Shaft,RCA Rig Utilisation,Evidence,v1,VALIDATED,RELEASED

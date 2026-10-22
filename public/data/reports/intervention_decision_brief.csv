@@ -1,0 +1,13 @@
+Field,Value
+Decision_ID,DEC-2026-0813-01
+Recommended_Option,B - Targeted Idle-Time Reduction
+Cost_to_Implement_Rm,0.42
+Expected_Cost_Avoided_Rm,1.86
+Net_Value_Rm,1.44
+Time_to_Effect_Days,7-14
+Risk,Low-Medium
+Score_out_of_10,8.7
+Owner,Production Manager
+Status,Awaiting sign-off
+Review_Date,2026-08-27
+Specialist_Confidence_Pct,82

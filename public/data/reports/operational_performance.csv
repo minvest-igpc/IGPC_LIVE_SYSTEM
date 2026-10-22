@@ -1,0 +1,8 @@
+Metric,Value,Unit,Period,Flag
+Advance rate actual,67.6,m/day,14 Jul - 13 Aug 2026,BEHIND
+Advance rate planned,83.3,m/day,14 Jul - 13 Aug 2026,BASELINE
+Advance gap,-15.7,m/day,14 Jul - 13 Aug 2026,HIGH
+Idle hours,124,hrs,14 Jul - 13 Aug 2026,HIGH
+Schedule variance,-6.0,days,As of 13 Aug 2026,AMBER
+Data parse accuracy,98.5,%,Current source set,GOOD
+Primary constraint,Drill Rig Idle DM45,-,Current,ACTIVE

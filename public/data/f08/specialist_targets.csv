@@ -1,0 +1,5 @@
+Target_Type,Description,Boundary
+Primary,Cut direct idle cost by >= R1.5m in 14 days,Financial
+Operational,Idle hours <= 75 hrs / 14-day window,KPI
+Advance,Recover +8 to +12 m/day vs current,Production
+Safety,No RED TARP / no unsupported face advance,Hard limit

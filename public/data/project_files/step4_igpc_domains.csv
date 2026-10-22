@@ -1,0 +1,6 @@
+Domain,Purpose,Status,Owner
+OPERATIONAL GEO-CONTROL,Ground condition control and TARP,ACTIVE,Rock Engineering
+TARP & GROUND MITIGATION,Alert levels and mitigation actions,STANDBY,Geotech
+ASSET OPTIMISATION,Slope / pit / asset performance,STANDBY,Technical Services
+SCHEDULE CONTROL,P6 activity and duration control,ACTIVE,Projects
+COMMERCIAL CONTROL,Vg / financial leakage,ACTIVE,Minvest UFE

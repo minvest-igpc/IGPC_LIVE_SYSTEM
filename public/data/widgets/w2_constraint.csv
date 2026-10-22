@@ -1,0 +1,4 @@
+Constraint,Type,Severity,Evidence_ID
+Drill Rig Idle DM45,Equipment,High,EV-001
+Shift changeover delay,Operational,Medium,EV-002
+Support crew standby,Labour,Medium,EV-003

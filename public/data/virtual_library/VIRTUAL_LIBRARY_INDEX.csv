@@ -1,0 +1,7 @@
+File,Description
+clients.csv,Client registry and portal status
+client_links.csv,Secure bridges and source paths
+document_inventory.csv,Library document catalogue
+validation_gate.csv,Gate checks before release
+release_log.csv,What was released where
+library_flow.csv,Client → … → Project Files pipeline

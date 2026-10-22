@@ -1,0 +1,5 @@
+Step,From,To,Mechanism
+1,Drill Rig Idle,Lower metres,Reduced face advance
+2,Lower metres,Idle resources,Crew and support standby
+3,Idle resources,Direct + indirect cost,Rates x hours
+4,Cost stack,R2.934m problem cost,Aggregation + exposure

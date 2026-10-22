@@ -1,0 +1,17 @@
+File,Step,Description
+projects_directory.csv,1,Project selection directory
+step0_executive_overview.csv,0,Executive snapshot
+step2_raw_source_register.csv,2,Source register
+step2_intake_checks.csv,2,Intake control checks
+step3_data_classification.csv,3,Data classes
+step4_igpc_domains.csv,4,IGPC domains
+step5_workstreams.csv,5,Workstreams
+step6_work_packages_p6.csv,6,P6 work packages
+step7_project_status.csv,7,Status metrics
+step7_status_milestones.csv,7,Milestones
+step8_expert_insights.csv,8,Expert insights
+step8_decisions.csv,8,Decision ledger
+step9_igpc_value.csv,9,Value realization
+control_metrics.csv,All,Side panel metrics
+engineering_stack.csv,All,Engineering tools
+pipeline_steps.csv,All,Step catalogue

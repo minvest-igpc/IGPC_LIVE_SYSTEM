@@ -1,0 +1,5 @@
+Metric,This_Project,Benchmark,Variance,Direction
+Cost / Day Impact,188600,142000,32.8,Worse
+Cost / Metre Lost,27780,21100,31.6,Worse
+Idle % of Available Time,18.7,12.1,6.6,Worse
+Total Cost (Rm),2.934,2.12,38.3,Worse

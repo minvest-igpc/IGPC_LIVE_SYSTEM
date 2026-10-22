@@ -1,0 +1,9 @@
+Date,Activity_Event,Category,Equipment_Resource,Rate_R_per_hr,Hours,Quantity,Cost_R,Panel_ID,Shift
+2026-07-12,Drill Rig Idle,Indirect,Drill Rig - DM45,9500,48,1,456000,PNL-101,Night
+2026-07-15,Drill Rig Maintenance Delay,Indirect,Drill Rig - DM45,9500,22,1,209000,PNL-101,Day
+2026-07-18,Drill Rig Idle,Indirect,Drill Rig - DM45,9500,16,1,152000,PNL-102,Afternoon
+2026-07-22,Drill Rig Idle,Indirect,Drill Rig - DM45,9500,20,1,190000,PNL-101,Night
+2026-07-28,Drill Rig Standby,Indirect,Drill Rig - DM45,9500,12,1,114000,PNL-103,Day
+2026-08-03,Drill Rig Idle,Indirect,Drill Rig - DM45,9500,18,1,171000,PNL-102,Night
+2026-08-08,Drill Rig Idle,Indirect,Drill Rig - DM45,9500,14,1,133000,PNL-101,Afternoon
+2026-08-12,Drill Rig Maintenance Delay,Indirect,Drill Rig - DM45,9500,10,1,95000,PNL-102,Day

@@ -1,0 +1,4 @@
+Run_Timestamp,Rows,Status,State,Message
+2026-10-08T12:32:40,3,GREEN,OPTIMIZED,Data Integrity Verified
+2026-08-08T14:00:00,5,AMBER,STALE_DATA_OPERATIONAL,Null fields detected on 1 row – Last Known Good
+2026-08-03T06:00:00,4,GREEN,OPTIMIZED,Data Integrity Verified

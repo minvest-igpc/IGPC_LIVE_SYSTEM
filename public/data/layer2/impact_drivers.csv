@@ -1,0 +1,7 @@
+Driver,Amount_Rm,Percent,Type
+Drill Rig Idle (Direct),1.412,48.1,Direct
+Shift Loss (Indirect),0.62,21.1,Indirect
+Support Crew Idle (Indirect),0.244,8.3,Indirect
+Equipment Standby (Indirect),0.168,5.7,Indirect
+Other Indirects,0.144,4.9,Indirect
+Recurring / Exposure,0.258,8.8,Exposure

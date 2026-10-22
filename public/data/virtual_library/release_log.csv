@@ -1,0 +1,5 @@
+Release_ID,Doc_ID,Released_To,Released_At,Released_By,Notes
+REL-001,DOC-001,Project Files Step 2,2026-08-05,Admin,Source register
+REL-002,DOC-002,Analytics Layer 1,2026-08-12,IGPC,Cost log live
+REL-003,DOC-003,Analytics Layer 1,2026-08-12,IGPC,Time log live
+REL-004,DOC-006,Diagnostics / F08,2026-08-13,IGPC,RCA released

@@ -1,0 +1,8 @@
+incident_id,time,event,level
+08C54191,2026-10-08T12:32:40,Incident created – awaiting link open,T0
+19B819C2,2026-08-03T06:15:00,Incident created – awaiting link open,T0
+19B819C2,2026-08-03T08:15:00,Escalation warning – Tech Services / Projects,T2
+A1F302B7,2026-08-08T14:02:00,Incident created,T0
+A1F302B7,2026-08-08T14:10:00,Link opened – clock started,T0
+A1F302B7,2026-08-08T16:10:00,Escalation T+2h,T2
+A1F302B7,2026-08-08T18:10:00,Hard halt window – executive alert,T4

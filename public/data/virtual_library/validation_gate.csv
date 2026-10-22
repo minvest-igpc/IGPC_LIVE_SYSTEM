@@ -1,0 +1,6 @@
+Gate_ID,Doc_ID,Check,Result,Checked_By,Date
+VG-001,DOC-001,Project ID recognised,PASS,Gatekeeper,2026-08-05
+VG-002,DOC-002,Schema / columns complete,PASS,Gatekeeper,2026-08-12
+VG-003,DOC-003,Timestamps aligned,PASS,Gatekeeper,2026-08-12
+VG-004,DOC-005,P6 Activity_ID map complete,FAIL,Projects,2026-08-11
+VG-005,DOC-006,Evidence linked to cost drivers,PASS,Analytics,2026-08-13

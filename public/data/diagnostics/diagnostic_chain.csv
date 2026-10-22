@@ -1,0 +1,5 @@
+Step,From,To,Action
+1,Analytics W6,Diagnostics,Open cost-of-problem diagnostic
+2,Diagnostics,F08 Specialist,Apply judgement on ranked causes
+3,F08,Layer 4 Decision,Endorse Option B
+4,Decision,UOV / SLA,Track idle + escalate if TARP worsens

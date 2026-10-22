@@ -1,0 +1,6 @@
+Equipment_Resource,Rate_R_per_hr,Rate_Type,Effective_From,Effective_To,Currency
+Drill Rig - DM45,9500,Direct,2026-01-01,2026-12-31,ZAR
+Support Crew,5200,Indirect,2026-01-01,2026-12-31,ZAR
+Shift (All),7500,Indirect,2026-01-01,2026-12-31,ZAR
+All Equipment,12000,Indirect,2026-01-01,2026-12-31,ZAR
+LHD,3800,Direct,2026-01-01,2026-12-31,ZAR

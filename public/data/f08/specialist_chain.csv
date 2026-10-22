@@ -1,0 +1,6 @@
+Stage,Summary,Detail
+Target,Reduce idle cost,Cut direct idle >= R1.5m in 14 days
+Observation,124 idle hrs DM45 dominant,Idle clusters on night/changeover
+Judgement,Ops constraint not geotech,RMR adequate; availability is binding
+Confidence,82% specialist / 86% evidence,Combined decision confidence 78%
+Recommendation,Endorse Option B,Targeted idle-time reduction 7-14 days

@@ -1,0 +1,10 @@
+File,Description
+report_catalogue.csv,All controlled reports and status
+operational_performance.csv,RPT-001 body metrics
+geotechnical_control.csv,RPT-002 panel / TARP table
+project_value_control.csv,RPT-003 value and control figures
+cost_of_problem_summary.csv,RPT-004 W6 driver breakdown
+intervention_decision_brief.csv,RPT-005 Option B decision pack
+sla_incident_status.csv,RPT-006 open / escalated incidents
+report_distribution.csv,Who gets which report
+report_lineage.csv,Source modules and evidence links

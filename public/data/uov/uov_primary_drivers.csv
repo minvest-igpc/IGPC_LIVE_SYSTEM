@@ -1,0 +1,12 @@
+Driver_Code,Driver_Name,Department,Dynamic,Example_Trigger
+GEOTECH,Geotech / Rock Engineering,Rock Engineering,Yes,"RMR gap, TARP AMBER/RED"
+GEOLOGY,Geology,Geology,Yes,"Fault, reef width variance"
+LOGISTICS,Logistics,Logistics,Yes,Material / tram delay
+SAFETY,Safety,Safety,Yes,Stoppage / clearance
+VENTILATION,Ventilation,Ventilation,Yes,Air / gas limit
+HR,HR / Labour,HR,Yes,Crew shortage
+EQUIPMENT,Equipment / Mechanical,Mechanical,Yes,Rig idle / breakdown
+ELECTRICAL,Electrical,Electrical,Yes,Power / cable fault
+SURVEY,Survey,Survey,Yes,Alignment / mark-up delay
+SCHEDULE,Schedule / Planning,Projects,Yes,Sequence conflict
+NORMAL,Normal Operational Control,Operations,Yes,Within tolerance

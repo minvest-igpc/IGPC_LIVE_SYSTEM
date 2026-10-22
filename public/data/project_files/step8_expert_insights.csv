@@ -1,0 +1,5 @@
+Insight_ID,Theme,Statement,Confidence_Pct,Discipline
+INS-001,Root cause,"Primary cost driver is DM45 idle time, not geotech failure",82,Rock Engineering
+INS-002,Intervention,Endorse Option B targeted idle reduction,78,Projects
+INS-003,Boundary,No RED TARP / unsupported advance allowed during recovery,90,Geotech
+INS-004,Data,Source integrity intact; evidence quality 93%,93,IGPC Analytics
