@@ -559,9 +559,9 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 </div>
 
 <div id="analytics" class="view">
-<div class="top-actions"><div><div class="section-title">ANALYTICS DASHBOARD</div><div class="section-sub">W1–W10 · Layers 1–4 · F08 · PCV1–PCV4 — finished build</div></div>
+<div class="top-actions"><div><div class="section-title">ANALYTICS DASHBOARD</div><div class="section-sub">W1–W10 · Layers 1–4 · F08 · PCV1–PCV4</div></div>
 <button class="back" onclick="openView('home')">← Main Dashboard</button></div>
-<iframe class="module-frame" src="/analytics.html" title="MINVEST IGPC Analytics W1-W10 Layers F08 PCV"></iframe>
+<iframe class="module-frame" src="/analytics.html" title="MINVEST IGPC Analytics"></iframe>
 </div>
 <div id="library" class="view"><div class="top-actions"><div><div class="section-title">VIRTUAL LIBRARY</div><div class="section-sub">Client → Client Link → Client Portal → Virtual Library → Validation Gate → Release → Existing Project Files</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div><iframe class="module-frame" src="/virtual-library.html" title="IGPC Virtual Library"></iframe></div>
 
@@ -622,12 +622,19 @@ diagnostics:["DIAGNOSTICS","From problem or deviation to causes, probabilities a
 projectfiles:["PROJECT FILES","Tier 0 master navigation entry point for the project."]
 };
 function openView(id){
- document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
- document.getElementById("title").textContent=titles[id][0];
- document.getElementById("subtitle").textContent=titles[id][1];
- window.scrollTo(0,0);
+  if(id==="uov"){ window.open("/uov/","_blank"); return; }
+  var el=document.getElementById(id);
+  if(!el){ console.warn("openView: missing view", id); return; }
+  document.querySelectorAll(".view").forEach(function(v){ v.classList.remove("active"); });
+  el.classList.add("active");
+  document.querySelectorAll(".nav button").forEach(function(b){
+    b.classList.toggle("active", b.dataset.view===id);
+  });
+  var tit=document.getElementById("title");
+  var sub=document.getElementById("subtitle");
+  if(tit && titles[id]) tit.textContent=titles[id][0];
+  if(sub && titles[id]) sub.textContent=titles[id][1];
+  window.scrollTo(0,0);
 }
 document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>openView(b.dataset.view)));
 </script>
