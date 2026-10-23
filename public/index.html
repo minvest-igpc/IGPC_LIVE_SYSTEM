@@ -504,7 +504,7 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 <div class="module analytics" onclick="openView('analytics')"><div class="num">03</div><h3>ANALYTICS</h3><p>W1-W10, Layers 1-4, F08 and PCV1-PCV4. This is the integrated analytics dashboard already built.</p><div class="go">OPEN ANALYTICS →</div></div>
 <div class="module diagnostics" onclick="openView('diagnostics')"><div class="num">04</div><h3>DIAGNOSTICS</h3><p>Moves from an identified problem or deviation to the most likely causes, probabilities and diagnostic evidence.</p><div class="go">OPEN DIAGNOSTICS →</div></div>
 <div class="module reports" onclick="openView('reports')"><div class="num">05</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS →</div></div>
-<div class="module uov" onclick="openView('uov')"><div class="num">06</div><h3>UNIVERSAL OPERATIONAL VAULT (UOV)</h3><p>Project-level bottleneck and financial bleed analysis engine. Identifies what is causing the project to lose time and money.</p><div class="go">OPEN UOV →</div></div> 
+<div class="module uov" onclick="window.open('/uov/','_blank')"><div class="num">06</div><h3>UNIVERSAL OPERATIONAL VAULT (UOV)</h3><p>Project-level bottleneck and financial bleed analysis engine. Identifies what is causing the project to lose time and money.</p><div class="go">OPEN UOV →</div></div> 
 </div>
 </div>
 <div class="card">
@@ -559,14 +559,9 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 </div>
 
 <div id="analytics" class="view">
-<div class="top-actions"><div><div class="section-title">ANALYTICS DASHBOARD</div><div class="section-sub">MINVEST IGPC SYSTEM — W1—W10 · Layers · F08 · PCV</div></div>
+<div class="top-actions"><div><div class="section-title">ANALYTICS DASHBOARD</div><div class="section-sub">W1–W10 · Layers 1–4 · F08 · PCV1–PCV4 — finished build</div></div>
 <button class="back" onclick="openView('home')">← Main Dashboard</button></div>
-<iframe class="module-frame" src="/analytics.html" title="MINVEST IGPC Analytics"></iframe>
-</div>
-<div id="uov" class="view">
-<div class="top-actions"><div><div class="section-title">UNIVERSAL OPERATIONAL VAULT</div><div class="section-sub">Bottleneck · financial bleed · RMR · SLA · UFE</div></div>
-<button class="back" onclick="openView('home')">← Main Dashboard</button></div>
-<iframe class="module-frame" src="/uov/" title="Universal Operational Vault"></iframe>
+<iframe class="module-frame" src="/analytics.html" title="MINVEST IGPC Analytics W1-W10 Layers F08 PCV"></iframe>
 </div>
 <div id="library" class="view"><div class="top-actions"><div><div class="section-title">VIRTUAL LIBRARY</div><div class="section-sub">Client → Client Link → Client Portal → Virtual Library → Validation Gate → Release → Existing Project Files</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div><iframe class="module-frame" src="/virtual-library.html" title="IGPC Virtual Library"></iframe></div>
 
