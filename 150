@@ -1,0 +1,146 @@
+=== WIDGET DEFINITIONS ===
+const widgetViews={
+
+W1:()=>head("W1 — ANALYTICS CHAIN","How the problem is developing and where it leads.","ANALYTICS CHAIN")+topKpis()+`
+<div class="grid2">
+ ${card("CHANGE DETECTION",`
+   ${svgLine(DATA.trend,{labels:["T-4","T-3","T-2","T-1","Current"],min:60,max:90,color:"#075bd5"})}
+   <p>Small fluctuations are retained rather than discarded.</p>`)}
+ ${card("CHAIN TO CONTROL",`
+   <div class="flow"><span>Change</span><i>→</i><span>Constraint</span><i>→</i><span>Impact</span><i>→</i><span>Cost</span><i>→</i><span>Recovery</span><i>→</i><span>Intervention</span></div>
+   <div class="formula">Exposure = Current Consequence + Expected Future Consequence</div>
+   ${button("OPEN PCV.1 CURRENT","PCV1")}`)}
+</div>
+<div class="card" style="margin-top:12px"><h4>W1 → PCV CONNECTION</h4><p>W1 establishes the current analytical reality that feeds PCV.1 CURRENT. PCV.1 then becomes the verified starting position for PCV.2 FORECAST.</p></div>`,
+
+W2:()=>head("W2 — PROJECT / PROBLEM CONTEXT","What this project is about and the key background.","CONTEXT")+`
+<div class="grid3">
+ ${card("PROJECT",`<div class="metric">${esc(DATA.projectId)}</div><p>${esc(DATA.projectName)}</p>`)}
+ ${card("PLAN",`<div class="metric">${num(DATA.plannedAdvance)} m/day</div><p>Planned advance baseline</p>`)}
+ ${card("CURRENT",`<div class="metric bad">${num(DATA.currentAdvance)} m/day</div><p>Current measured performance</p>`)}
+</div>
+<div class="grid2" style="margin-top:12px">
+ ${card("PROJECT CONTROL FRAME",`<table class="table"><tr><td>Planned duration</td><td>${DATA.plannedDuration} days</td></tr><tr><td>Project value / cost</td><td>${money(DATA.projectCost)}</td></tr><tr><td>Samples planned</td><td>${DATA.samplesPlanned.toLocaleString()}</td></tr><tr><td>Lab turnaround baseline</td><td>${DATA.labTurnaroundPlanned} days</td></tr></table>`)}
+ ${card("CONTEXT → CURRENT",`<p>The context defines the baseline against which W3, W4, W5, W6 and W7 interpret the project.</p>${button("OPEN PCV.1","PCV1")}`)}
+</div>`,
+
+W3:()=>head("W3 — WHAT IS THE CONSTRAINT?","What is currently limiting progress and value?","CONSTRAINT")+`
+<div class="grid2">
+ ${card("LEADING DIAGNOSTIC CANDIDATE",`
+   <div class="metric">Ground Conditions</div>
+   <p>Diagnostic probability: <b>38%</b>. This is a candidate conclusion, not an automatic declaration of fact.</p>
+   <div class="formula">PCCSᵢ = wC·Cᵢ + wT·Tᵢ + wO·Oᵢ + wD·Dᵢ + wR·Rᵢ + wF·Fᵢ</div>
+   ${button("OPEN F08 ASSESSMENT","F08")}`)}
+ ${card("TOP 5 POSSIBLE CAUSES",`
+   <table class="table"><tr><th>Cause</th><th>Probability</th><th>Impact</th></tr>
+   ${DATA.causes.map(c=>`<tr><td>${esc(c.name)}</td><td>${c.prob}%</td><td>${c.impact}</td></tr>`).join("")}</table>`)}
+</div>
+<div class="card" style="margin-top:12px"><h4>W3 → EVIDENCE → F08</h4><div class="flow"><span>Possible Constraint</span><i>→</i><span>L3.3 Observation</span><i>→</i><span>L3.4 Causation</span><i>→</i><span>F08 Judgement</span></div></div>`,
+
+W4:()=>head("W4 — HAS THE CONSTRAINT SHIFTED?","How the constraint is changing and what it means.","CONSTRAINT SHIFT")+`
+<div class="grid2">
+ ${card("CONSTRAINT HISTORY",`
+   <table class="table"><tr><th>Period</th><th>Constraint</th><th>Probability</th><th>Status</th></tr>
+   ${DATA.constraintHistory.map((r,i)=>`<tr><td>${r.period}</td><td>${r.cause}</td><td>${r.prob}%</td><td><span class="badge ${i===DATA.constraintHistory.length-1?"orange":"blue"}">${i===DATA.constraintHistory.length-1?"CURRENT":"PREVIOUS"}</span></td></tr>`).join("")}</table>`)}
+ ${card("WHAT THE SHIFT MEANS",`
+   <div class="metric warn">Equipment → Ground</div>
+   <p>The controlling constraint is monitored over time rather than assumed to remain fixed.</p>
+   ${button("OPEN PCV.2 FORECAST","PCV2")}`)}
+</div>
+<div class="card" style="margin-top:12px"><h4>SHIFT DETECTION</h4>${svgLine(DATA.constraintHistory.map(x=>x.prob),{labels:DATA.constraintHistory.map(x=>x.period),min:20,max:45,color:"#df8b32"})}</div>`,
+
+W5:()=>head("W5 — CONSEQUENCE / IMPACT","What the problem is costing in time, cost and output.","IMPACT")+`
+<div class="grid3">
+ ${card("OUTPUT GAP",`<div class="metric bad">${num(F.gap())} m/day</div><p>Current rate below baseline.</p>`)}
+ ${card("TIME CONSEQUENCE",`<div class="metric warn">${num(DATA.daysRemaining)} days</div><p>Remaining time window used in the recovery logic.</p>`)}
+ ${card("COST CONSEQUENCE",`<div class="metric">${money(F.exposure(DATA.consequences.current,DATA.consequences.expectedFuture))}</div><p>Demo current + expected future consequence.</p>`)}
+</div>
+<div class="card" style="margin-top:12px"><h4>IMPACT CHAIN</h4><div class="flow"><span>Event Eᵢ</span><i>→</i><span>Activity Aⱼ</span><i>→</i><span>Activity Aₖ</span><i>→</i><span>Measure Mₗ</span><i>→</i><span>Output Lost</span><i>→</i><span>Time Impact</span><i>→</i><span>Cost</span></div>
+<div class="formula">Output_lost = Idle Time × Planned Output Rate</div>
+<div class="formula">Time_impact = Effective Output Rate / Output_lost</div>
+${button("OPEN PCV.2","PCV2")}</div>`,
+
+W6:()=>head("W6 — COST OF THE PROBLEM","The financial and operational cost of not solving the problem.","COST")+`
+<div class="kpis">
+ ${kpi("DIRECT COST",money(F.directCostConsequence(10,150000)),"Duration × Rate")}
+ ${kpi("AVOIDED CONSEQUENCE",money(F.avoidedConsequence()),"PCV4 avoided consequence","good")}
+ ${kpi("CURRENT EXPOSURE",money(F.exposure(DATA.consequences.current,DATA.consequences.expectedFuture)),"Current + expected future","warn")}
+ ${kpi("INTERVENTION COST",money(F.interventionCost()),"PCV4 intervention cost")}
+ ${kpi("NET INTERVENTION VALUE",money(F.niv(),2),"AC − IC","good")}
+</div>
+<div class="grid2">
+ ${card("ORIGINAL CONSEQUENCE FORMULAS",`
+   <div class="formula">C_direct = Duration × Rate</div>
+   <div class="formula">C_recurring = C_event × Expected Recurrence</div>
+   <div class="formula">Exposure = Current Consequence + Expected Future Consequence</div>`)}
+ ${card("COST BUILD-UP",`
+   <table class="table"><tr><th>Component</th><th>Value</th></tr>
+   ${Object.entries(DATA.intervention.avoided).map(([k,v])=>`<tr><td>${k}</td><td>${money(v)}</td></tr>`).join("")}
+   <tr><td><b>Total avoided consequence</b></td><td><b>${money(F.avoidedConsequence())}</b></td></tr></table>
+   ${button("OPEN PCV.4 INTERVENTION VALUE","PCV4","green")}`)}
+</div>`,
+
+W7:()=>head("W7 — RECOVERY GAP","What we need to achieve to get back on track.","RECOVERY")+`
+<div class="kpis">
+ ${kpi("CURRENT RATE",num(DATA.currentAdvance)+" m/day","Today","bad")}
+ ${kpi("BASELINE",num(DATA.plannedAdvance)+" m/day","Required normal performance")}
+ ${kpi("RECOVERY TARGET",num(DATA.recoveryTarget)+" m/day","Calculated recovery requirement","good")}
+ ${kpi("RECOVERY GAP",num(F.recoveryGap())+" m/day","Target − current","warn")}
+ ${kpi("RECOVERY PERIOD",DATA.recoveryDays+" days","Demo recovery window")}
+</div>
+<div class="grid2">
+ ${card("RECOVERY LOGIC",`
+   <p>The recovery requirement is calculated from remaining work and remaining time. This demonstration uses the current project position and recovery period.</p>
+   <div class="formula">Recovery Rate = Remaining Work / Remaining Recovery Time</div>
+   <div class="formula">Required Recovery Rate ≈ ${num(DATA.recoveryTarget)} m/day</div>`)}
+ ${card("RECOVERY PATH",`
+   ${svgLine([68,75,82,88,92],{labels:["Current","Day 7","Day 14","Day 21","Day 30"],min:60,max:100,color:"#df8b32"})}
+   ${button("OPEN PCV.3 PROJECTION","PCV3","orange")}`)}
+</div>`,
+
+W8:()=>head("W8 — WHAT HAPPENS IF WE INTERVENE?","What could change if we take action — options and value.","INTERVENTION")+`
+<div class="grid3">
+ ${card("CURRENT",`<div class="metric bad">${num(DATA.currentAdvance)} m/day</div><p>Current position.</p>`)}
+ ${card("INTERVENTION SCENARIO",`<div class="metric">${num(DATA.intervention.scenarioRate)} m/day</div><p>Scenario performance.</p>`)}
+ ${card("EXPECTED IMPROVEMENT",`<div class="metric good">+${num(F.scenarioImprovement())} m/day</div><p>Scenario − current.</p>`)}
+</div>
+<div class="grid2" style="margin-top:12px">
+ ${card("SCENARIO TEST",`
+   ${svgMulti([
+     {values:[68,68,68,68,68],color:"#d93636",dash:true},
+     {values:[68,74,80,83,85],color:"#29954a"},
+     {values:[83.3,83.3,83.3,83.3,83.3],color:"#075bd5",dash:true}
+   ],["Today","7d","14d","21d","30d"],60,95)}
+   <div class="legend"><span>Current path</span><span>Intervention scenario</span><span>Plan</span></div>`)}
+ ${card("PCV4 VALUE CONNECTION",`
+   <p>W8 supplies the intervention scenario to PCV4, where avoided consequence, intervention cost, confidence and net value are calculated.</p>
+   <div class="formula">NIV = AC − IC</div>
+   ${button("OPEN PCV.4","PCV4","green")}`)}
+</div>`,
+
+W9:()=>head("W9 — DID THE INTERVENTION WORK?","What happened after we intervened — results and verification.","VERIFICATION")+`
+<div class="grid3">
+ ${card("EXPECTED",`<div class="metric">${num(DATA.intervention.scenarioRate)} m/day</div>`)}
+ ${card("ACTUAL",`<div class="metric good">${num(DATA.intervention.actualRate)} m/day</div>`)}
+ ${card("RESULT",`<span class="badge green">TARGET EXCEEDED</span><p style="margin-top:8px">Verified result: ${num(F.verifiedImprovement())} m/day improvement from current.</p>`)}
+</div>
+<div class="card" style="margin-top:12px"><h4>VERIFICATION CHAIN</h4><div class="flow"><span>W8 Scenario</span><i>→</i><span>Intervention</span><i>→</i><span>Actual Result</span><i>→</i><span>L3.7 Evidence</span><i>→</i><span>L3.8 Verification</span><i>→</i><span>W10 Learning</span></div>
+${button("OPEN L3.8","L3.8","green")} ${button("OPEN PCV.4","PCV4")}</div>`,
+
+W10:()=>head("W10 — WHAT HAVE WE LEARNED?","Key insights and lessons for better outcomes in future.","LEARNING")+`
+<div class="grid3">
+ ${card("VERIFIED LEARNING",`<p>Intervention performance is compared with the expected result and captured as verified learning.</p>`)}
+ ${card("CONTROL LEARNING",`<p>Constraint response becomes measurable and can inform future project control.</p>`)}
+ ${card("REUSE",`<p>Learning feeds future projects and specialist intelligence.</p>`)}
+</div>
+<div class="card" style="margin-top:12px"><h4>LEARNING LOOP</h4><div class="flow"><span>Finding</span><i>→</i><span>Intervention</span><i>→</i><span>Verification</span><i>→</i><span>Learning</span><i>→</i><span>Future Control</span></div>
+${button("OPEN F08","F08","green")} ${button("OPEN L3.8","L3.8")}</div>`
+};
+
+/* ============================================================
+   PCV VIEWS
+============================================================ */
+
+
+
+=== POSSIBLE REFERENCE IMAGES ON D DRIVE ===

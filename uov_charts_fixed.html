@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IGPC Master Operations & Enterprise Control Portal</title>
+  
+  <!-- Asynchronous non-blocking script loading -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script defer src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:ital,wght@0,300..700;1,300..700&family=Google+Sans+Code:ital,wght,MONO@0,300..700,0..1;1,300..700,0..1&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --body-bg: #0b0f19;
+      --surface: #0f172a;
+      --surface-bright: #1e293b;
+      --surface-container: #141e33;
+      --on-surface: #f8fafc;
+      --on-surface-variant: #94a3b8;
+      --stroke-default: #334155;
+      --primary: #0284c7;
+      --accent-cyan: #38bdf8;
+      --positive: #34d399;
+      --positive-container: rgba(52, 211, 153, 0.15);
+      --warning: #fbbf24;
+      --warning-container: rgba(251, 191, 36, 0.15);
+      --error: #f87171;
+      --error-container: rgba(248, 113, 113, 0.15);
+      --ff-sans: 'Google Sans Flex', -apple-system, sans-serif;
+      --ff-mono: 'Google Sans Code', monospace;
+      --r-m: 8px;
+      --r-l: 12px;
+      --r-full: 999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--body-bg); color: var(--on-surface); font-family: var(--ff-sans); padding: 20px; }
+    .container { max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+    .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--stroke-default); padding-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .header h1 { font-size: 1.5rem; font-weight: 700; }
+    .header p { font-size: 0.85rem; color: var(--on-surface-variant); }
+
+    .btn { padding: 8px 16px; border-radius: var(--r-full); font-weight: 600; font-size: 0.85rem; cursor: pointer; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; z-index: 10; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: #0369a1; }
+    .btn-outline { background: var(--surface-bright); color: var(--on-surface); border: 1px solid var(--stroke-default); }
+    .btn-outline:hover { background: var(--stroke-default); }
+    .btn-cta { background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
+    .btn-cta:hover { background: var(--accent-cyan); color: #0b0f19; }
+
+    .control-deck { background: var(--surface); border: 1px solid var(--stroke-default); border-radius: var(--r-l); padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; align-items: center; }
+    .control-group { display: flex; flex-direction: column; gap: 6px; }
+    .control-group label { font-size: 0.8rem; color: var(--on-surface-variant); font-weight: 600; text-transform: uppercase; }
+
+    select.lumi-select, input.lumi-input {
+      background: var(--surface-bright); color: var(--on-surface); border: 1px solid var(--stroke-default); padding: 8px 12px; border-radius: var(--r-m); font-family: var(--ff-sans); font-size: 0.9rem; outline: none; width: 100%;
+    }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .kpi-card { background: var(--surface-bright); border: 1px solid var(--stroke-default); border-radius: var(--r-l); padding: 16px; }
+    .kpi-title { font-size: 0.75rem; color: var(--on-surface-variant); text-transform: uppercase; font-weight: 600; }
+    .kpi-value { font-size: 1.8rem; font-family: var(--ff-mono); font-weight: 700; margin-top: 6px; }
+
+    .dashboard-layout { display: grid; grid-template-columns: 340px 1fr; gap: 20px; }
+    @media (max-width: 1024px) { .dashboard-layout { grid-template-columns: 1fr; } }
+
+    .panel { background: var(--surface); border: 1px solid var(--stroke-default); border-radius: var(--r-l); padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+    .panel-title { font-size: 0.95rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+
+    .timer-box { background: var(--surface-container); border: 1px solid var(--stroke-default); border-radius: var(--r-m); padding: 16px; text-align: center; }
+    .timer-display { font-family: var(--ff-mono); font-size: 2.2rem; font-weight: 700; color: var(--warning); margin: 8px 0; }
+
+    .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+    .chart-viewport { position: relative; width: 100%; height: 230px; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { background: var(--surface-bright); color: var(--on-surface-variant); padding: 10px; text-align: left; font-size: 0.75rem; text-transform: uppercase; border-bottom: 1px solid var(--stroke-default); }
+    td { padding: 10px; border-bottom: 1px solid var(--stroke-default); }
+    .mono { font-family: var(--ff-mono); }
+
+    .tarp-directive { background: var(--error-container); border: 1px solid var(--error); border-radius: var(--r-m); padding: 12px; color: var(--on-surface); display: flex; flex-direction: column; gap: 6px; }
+
+    .view-container { display: none; flex-direction: column; gap: 20px; }
+    .view-container.active { display: flex; }
+
+    input[type=range] { accent-color: var(--primary); }
+
+    .modal-backdrop { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(6px); z-index: 999; display: none; align-items: center; justify-content: center; pointer-events: none; }
+    .modal-backdrop.is-open { display: flex; pointer-events: auto; }
+    .modal-card { background: var(--surface); border: 1px solid var(--stroke-default); border-radius: var(--r-l); width: 90%; max-width: 680px; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); }
+    .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--stroke-default); display: flex; justify-content: space-between; align-items: center; }
+    .modal-body { padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+
+    .dispatch-card {
+      background: var(--surface-bright);
+      border: 1px solid var(--stroke-default);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--r-m);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dispatch-card:hover { border-color: var(--accent-cyan); }
+    .dispatch-card.is-tarp { border-left-color: var(--error); }
+    .dispatch-card-top { display: flex; justify-content: space-between; align-items: center; }
+    .dispatch-dept { font-size: 0.95rem; font-weight: 700; color: var(--on-surface); }
+    .badge-opened { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 12px; background: var(--positive-container); color: var(--positive); border: 1px solid var(--positive); }
+    .badge-unopened { font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 12px; background: var(--warning-container); color: var(--warning); border: 1px solid var(--warning); }
+    .dispatch-line { font-size: 0.82rem; color: var(--on-surface); }
+    .dispatch-action { font-size: 0.8rem; color: var(--on-surface-variant); }
+    .dispatch-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; font-size: 0.78rem; color: var(--on-surface-variant); }
+  </style>
+</head>
+<body>
+<div id="igpc-back-bar" style="position:sticky;top:0;z-index:9999;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px 16px;background:#0f172a;border-bottom:1px solid #334155;font-family:system-ui,sans-serif"><a href="https://igpc-live-system.onrender.com/" style="color:#38bdf8;text-decoration:none;font-weight:700;font-size:13px">← Back to IGPC Live System</a><span style="color:#94a3b8;font-size:12px">UNIVERSAL OPERATIONAL VAULT (original portal)</span></div>
+
+
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1 id="headerTitle">IGPC Master Operations & Enterprise Control Portal</h1>
+        <p id="headerSubtitle">Minvest Integrated Geotechnical Projects Control & UFE Analytics</p>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <button id="navSec42Btn" class="btn btn-cta" onclick="switchView('section42')">⚡ Section 4.2: Time-Bank Analysis →</button>
+        <button id="navMainBtn" class="btn btn-outline" style="display: none;" onclick="switchView('main')">← Executive Control View</button>
+        <button class="btn btn-primary" onclick="runEngine()">Recalculate UFE</button>
+        <a href="/api/uov/export-p6" class="btn btn-outline">Export P6 CSV</a>
+      </div>
+    </div>
+
+    <!-- VIEW 1: EXECUTIVE MAIN DASHBOARD -->
+    <div id="mainDashboardView" class="view-container active">
+      <div class="control-deck">
+        <div class="control-group">
+          <label for="shaftSelect">Target Shaft Operation</label>
+          <select id="shaftSelect" class="lumi-select" onchange="runEngine()">
+            <option value="shaft_20" selected>Impala Shaft 20 - Chromitite Stope</option>
+            <option value="bakubung">Bakubung Level 28 - Manganese Drive</option>
+            <option value="valterra">Valterra Block C - Deep Gold Panel</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Stress Sensitivity Threshold (<span id="stressVal">70</span> MPa)</label>
+          <input type="range" id="stressSlider" min="50" max="100" value="70" style="width:100%;" oninput="document.getElementById('stressVal').innerText=this.value; runEngine();">
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-title">Monitored Assets</div>
+          <div class="kpi-value mono" id="kpiActivities">6</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Avg Multiplier (Vg)</div>
+          <div class="kpi-value mono" id="kpiAvgVg" style="color:var(--warning);">1.183x</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">Schedule Variance</div>
+          <div class="kpi-value mono" id="kpiScheduleDrag" style="color:var(--error);">+40.8 Days</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-title">ZAR Financial Leakage</div>
+          <div class="kpi-value mono" id="kpiFinancialLeakage" style="color:var(--accent-cyan);">R 17,136,000</div>
+        </div>
+      </div>
+
+      <div class="dashboard-layout">
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="panel">
+            <div class="panel-title">
+              <span>SLA Standby Window</span>
+              <span class="btn-outline" style="padding: 2px 8px; font-size: 0.7rem; border-radius: 4px; background:var(--error-container); color:var(--error); border-color:var(--error);">TARP L2</span>
+            </div>
+            <div class="timer-box">
+              <div style="font-size: 0.75rem; color: var(--on-surface-variant);">Active Ticket: DEL-2026-089</div>
+              <div class="timer-display" id="slaTimer">00:24:18</div>
+              <div style="font-size: 0.75rem; color: var(--positive);">SLA Response Target: &lt; 30 mins</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <button class="btn btn-outline" style="justify-content: center;" onclick="alert('Delay Event Acknowledged by Ground Control Team')">✓ Acknowledge Delay Event</button>
+              <button class="btn btn-primary" style="justify-content: center;" onclick="alert('Mitigation logged into IGPC Master Ledger')">⚡ Submit Mitigation & Close Ticket</button>
+              <button class="btn btn-cta" style="justify-content: center; margin-top: 4px;" onclick="switchView('section42')">📊 Drill Down to Section 4.2 Time-Bank →</button>
+            </div>
+          </div>
+
+          <div class="tarp-directive">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="font-size:0.85rem; color:var(--error);">TARP Level 2 Active Directive</strong>
+              <span style="font-size:0.7rem; background:var(--error); color:#fff; padding:2px 6px; border-radius:4px; font-weight:700;">ACTION REQUIRED</span>
+            </div>
+            <p style="font-size: 0.8rem; line-height: 1.3; color: var(--on-surface-variant);">
+              Multiple Excavations (Panel 103 Stope, Haulage 04 West, Box Front 12) exceed stress thresholds (FoS &lt; 1.10). Dynamic QC Verification holds enforced.
+            </p>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="dashboard-grid">
+            <div class="panel">
+              <div class="panel-title">1. Spatial Stope Risk Map <span style="font-size:0.75rem; color:var(--on-surface-variant);">FLAC3D &amp; Cavroc FoS</span></div>
+              <div class="chart-viewport" id="plotly3d"></div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-title">
+                <span>2. Financial Leakage Waterfall</span>
+                <a href="#" onclick="switchView('section42'); return false;" style="font-size:0.75rem; color:var(--accent-cyan); text-decoration:none;">Drill Down to Sec 4.2 →</a>
+              </div>
+              <div class="chart-viewport">
+                <canvas id="waterfallCanvas"></canvas>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-title">3. Operational Friction Branches <span style="font-size:0.75rem; color:var(--on-surface-variant);">Delay Contribution (%)</span></div>
+              <div class="chart-viewport">
+                <canvas id="frictionCanvas"></canvas>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-title">4. Primavera P6 Schedule Impact <span style="font-size:0.75rem; color:var(--on-surface-variant);">Baseline vs Adjusted</span></div>
+              <div class="chart-viewport">
+                <canvas id="ganttCanvas"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title">UFE Multi-Departmental Asset Attribution &amp; P6 UDF Link</div>
+            <div style="overflow-x: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Activity ID</th>
+                    <th>Asset &amp; Type</th>
+                    <th>RMR</th>
+                    <th>Primary Driver</th>
+                    <th>Vg</th>
+                    <th>Geotech (d)</th>
+                    <th>Safety (d)</th>
+                    <th>Equip (d)</th>
+                    <th>ZAR Leakage</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- VIEW 2: DYNAMIC SECTION 4.2 DRILL-DOWN VIEW -->
+    <div id="sec42DashboardView" class="view-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; background: var(--surface); border: 1px solid var(--stroke-default); padding: 12px 18px; border-radius: var(--r-l); flex-wrap: wrap; gap: 10px;">
+        <div>
+          <h2 style="font-size: 1.1rem; font-weight: 700;">Dynamic Section 4.2: Delay Ingestion &amp; Time-Bank Analysis</h2>
+          <p style="font-size: 0.8rem; color: var(--on-surface-variant);">Shift Standing Loss Ingestion, Dynamic Asset TARP Release &amp; Statutory Audit</p>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="toggleIngestModal(true)">+ Log Shift Delay Event</button>
+          <button class="btn btn-cta" onclick="toggleTarpQcModal(true)">⚡ Dynamic TARP QC Release</button>
+          <button class="btn btn-outline" onclick="toggleSignoffModal(true)">🔒 MHSA Sign-Off Audit</button>
+          <button class="btn btn-outline" onclick="toggleP6Modal(true)">📂 Import P6 (.xer/.xml)</button>
+          <button class="btn btn-outline" onclick="exportHandoverBrief()">📄 Export Shift Brief (CSV)</button>
+          <button class="btn btn-outline" onclick="toggleModal(true)">🔔 Alerts &amp; Audit Logs</button>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div style="background: var(--surface); border: 1px solid var(--stroke-default); padding: 12px 16px; border-radius: var(--r-m); border-left: 4px solid var(--warning);" id="rockEngSignoffBanner">
+          <div style="font-size: 0.75rem; color: var(--on-surface-variant); text-transform: uppercase; font-weight: 700;">Certificated Rock Engineer Sign-Off (MHSA 2.13.1)</div>
+          <div style="font-size: 0.9rem; font-weight: 600; margin-top: 4px;" id="rockEngSignoffText">Status: PENDING MHSA PIN SIGN-OFF</div>
+        </div>
+        <div style="background: var(--surface); border: 1px solid var(--stroke-default); padding: 12px 16px; border-radius: var(--r-m); border-left: 4px solid var(--warning);" id="mineOverseerSignoffBanner">
+          <div style="font-size: 0.75rem; color: var(--on-surface-variant); text-transform: uppercase; font-weight: 700;">Mine Overseer Sign-Off (MHSA 2.6.1)</div>
+          <div style="font-size: 0.9rem; font-weight: 600; margin-top: 4px;" id="mineOverseerSignoffText">Status: PENDING MHSA PIN SIGN-OFF</div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card" style="border-left: 3px solid var(--primary);">
+          <div class="kpi-title">Total Allocated</div>
+          <div class="kpi-value mono">160.0 hrs</div>
+          <div style="font-size: 0.75rem; color: var(--on-surface-variant); margin-top: 4px;">Shift Baseline</div>
+        </div>
+        <div class="kpi-card" style="border-left: 3px solid var(--warning);">
+          <div class="kpi-title">Productive Earned</div>
+          <div class="kpi-value mono" id="sec42EarnedHrs" style="color: var(--warning);">108.0 hrs</div>
+          <div style="font-size: 0.75rem; color: var(--positive);" id="sec42Efficiency">67.5% Efficiency</div>
+        </div>
+        <div class="kpi-card" style="border-left: 3px solid var(--error);">
+          <div class="kpi-title">Standing Loss</div>
+          <div class="kpi-value mono" id="sec42LossHrs" style="color: var(--error);">52.0 hrs</div>
+          <div style="font-size: 0.75rem; color: var(--error);" id="sec42LossZar">R 546 000 ZAR</div>
+        </div>
+        <div class="kpi-card" style="border-left: 3px solid var(--accent-cyan);">
+          <div class="kpi-title">Remaining Allowance</div>
+          <div class="kpi-value mono" style="color: var(--error);">00:30 hrs</div>
+          <div style="font-size: 0.75rem; color: var(--error);">Critical Threshold</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          <span>Dynamic Rate Adjusters (R/hr)</span>
+          <span style="font-size: 0.75rem; color: var(--on-surface-variant); font-style: italic;">Adjusting rates recalculates financial leakage across disciplines</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+          <div class="control-group">
+            <div style="display: flex; justify-content: space-between;">
+              <label>Crew Standing Rate</label>
+              <span class="mono" id="crewRateVal" style="color: var(--accent-cyan); font-weight: 700;">R 6.0k / hr</span>
+            </div>
+            <input type="range" id="crewRateSlider" min="2000" max="10000" value="6000" step="250" oninput="recalcSec42Rates()">
+          </div>
+          <div class="control-group">
+            <div style="display: flex; justify-content: space-between;">
+              <label>Equipment Charge</label>
+              <span class="mono" id="equipRateVal" style="color: var(--accent-cyan); font-weight: 700;">R 4.5k / hr</span>
+            </div>
+            <input type="range" id="equipRateSlider" min="1000" max="8000" value="4500" step="250" oninput="recalcSec42Rates()">
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="panel">
+          <div class="panel-title">
+            <span>Shift Time-Bank Burn-Down</span>
+            <span style="font-size:0.75rem; color:var(--on-surface-variant);">Target Earned vs Actual Standing Loss</span>
+          </div>
+          <div class="chart-viewport">
+            <canvas id="burnDownCanvas"></canvas>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">
+            <span>Root Cause Category Breakdown</span>
+            <span style="font-size:0.75rem; color:var(--on-surface-variant);">Delay Type % Allocation</span>
+          </div>
+          <div class="chart-viewport">
+            <canvas id="rootCauseCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          <span>Financial Leakage by Department</span>
+          <div style="display: flex; gap: 6px;">
+            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="filterDept('ALL')">All</button>
+            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="filterDept('Rock Eng')">Rock Eng</button>
+            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="filterDept('Electrical')">Electrical</button>
+            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="filterDept('Mechanical')">Mechanical</button>
+            <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="filterDept('Stores')">Stores</button>
+          </div>
+        </div>
+        <div class="chart-viewport">
+          <canvas id="deptLossChartCanvas"></canvas>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          <span>Section 4.2 Persistent Delay Stream Log (Live Backend Ingestion)</span>
+          <span style="font-size: 0.75rem; color: var(--accent-cyan);" id="eventCountBadge">Persistent State</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Event ID</th>
+                <th>Location &amp; Time</th>
+                <th>Department</th>
+                <th>Cause Category &amp; Summary</th>
+                <th>Lost Hrs</th>
+                <th>Cost Impact (ZAR)</th>
+                <th>Alert Status</th>
+              </tr>
+            </thead>
+            <tbody id="sec42EventTable">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL 1: Ingestion Form -->
+  <div class="modal-backdrop" id="ingestModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700;">+ Log New Shift Delay Event</h3>
+          <span style="font-size: 0.75rem; color: var(--on-surface-variant);">Ingest standing loss directly into Flask backend ledger</span>
+        </div>
+        <button class="btn btn-outline" style="padding: 2px 8px;" onclick="toggleIngestModal(false)">&times;</button>
+      </div>
+      <form id="ingestForm" onsubmit="handleIngestSubmit(event)">
+        <div class="modal-body">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="control-group">
+              <label>Location / Excavation</label>
+              <input type="text" id="ingestLoc" class="lumi-input" placeholder="e.g. Haulage 04 West Drive" required>
+            </div>
+            <div class="control-group">
+              <label>Responsible Department</label>
+              <select id="ingestDept" class="lumi-select" required>
+                <option value="Rock Eng">Rock Eng</option>
+                <option value="Electrical Eng">Electrical Eng</option>
+                <option value="Mechanical Eng">Mechanical Eng</option>
+                <option value="Logistics / Stores">Logistics / Stores</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="control-group">
+              <label>Root Cause Category</label>
+              <select id="ingestCat" class="lumi-select" required>
+                <option value="Geomechanical / Seismic">Geomechanical / Seismic</option>
+                <option value="Equipment Failure">Equipment Failure</option>
+                <option value="Material / Logistics">Material / Logistics</option>
+                <option value="Safety / Compliance">Safety / Compliance</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label>Lost Duration (Hours)</label>
+              <input type="number" id="ingestHrs" class="lumi-input" step="0.5" min="0.5" max="24" value="2.5" required>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Cause Summary / Description</label>
+            <input type="text" id="ingestCause" class="lumi-input" placeholder="e.g. Convergence pin reading hold &amp; shotcrete inspection" required>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="btn btn-outline" onclick="toggleIngestModal(false)">Cancel</button>
+            <button type="submit" class="btn btn-primary">⚡ Ingest to Master Ledger</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Dynamic TARP Release -->
+  <div class="modal-backdrop" id="tarpQcModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700;">⚡ Dynamic Asset TARP Physical QC Release</h3>
+          <span style="font-size: 0.75rem; color: var(--on-surface-variant);">Dynamic Inspection Verification for Haulages, Box Fronts &amp; Stopes</span>
+        </div>
+        <button class="btn btn-outline" style="padding: 2px 8px;" onclick="toggleTarpQcModal(false)">&times;</button>
+      </div>
+      <form id="tarpQcForm" onsubmit="handleTarpQcSubmit(event)">
+        <div class="modal-body">
+          <div class="control-group">
+            <label>Target Excavation Asset Under TARP Hold</label>
+            <select id="tarpAssetSelect" class="lumi-select" onchange="renderDynamicQcFields()" required>
+              <option value="ACT-2010" data-type="Haulage Drive">Haulage 04 West Drive (Haulage Drive - FoS 1.05)</option>
+              <option value="ACT-3005" data-type="Box Front / Ore Pass">Box Front 12 Ore Pass (Box Front - FoS 1.02)</option>
+              <option value="ACT-1020-EXT" data-type="Stope Panel">Panel 103 High-Stress Extraction (Stope Panel - FoS 1.08)</option>
+            </select>
+          </div>
+
+          <div id="dynamicQcContainer" style="background: var(--surface-bright); padding: 12px; border-radius: 8px; border-left: 3px solid var(--accent-cyan); display: flex; flex-direction: column; gap: 10px;">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="control-group">
+              <label>Certificated Signatory Name</label>
+              <input type="text" id="tarpSignatory" class="lumi-input" value="Vuyokazi Bangani" required>
+            </div>
+            <div class="control-group">
+              <label>Rock Engineer MHSA PIN</label>
+              <input type="password" id="tarpPin" class="lumi-input" placeholder="e.g. 2131" required>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="btn btn-outline" onclick="toggleTarpQcModal(false)">Cancel</button>
+            <button type="submit" class="btn btn-primary">⚡ Verify Physical QC &amp; Release Asset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: MHSA Sign-Off -->
+  <div class="modal-backdrop" id="signoffModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700;">🔒 Statutory Shift Handover Sign-Off</h3>
+          <span style="font-size: 0.75rem; color: var(--on-surface-variant);">Mine Health &amp; Safety Act (MHSA) Statutory Appointment Audit</span>
+        </div>
+        <button class="btn btn-outline" style="padding: 2px 8px;" onclick="toggleSignoffModal(false)">&times;</button>
+      </div>
+      <form id="signoffForm" onsubmit="handleSignoffSubmit(event)">
+        <div class="modal-body">
+          <div class="control-group">
+            <label>Select Statutory Appointment Role</label>
+            <select id="signoffRole" class="lumi-select" required>
+              <option value="rock_eng">Certificated Rock Engineer (MHSA 2.13.1)</option>
+              <option value="mine_overseer">Mine Overseer / Section Manager (MHSA 2.6.1)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label>Authorized Signatory Legal Name</label>
+            <input type="text" id="signoffName" class="lumi-input" value="Vuyokazi Bangani" required>
+          </div>
+
+          <div class="control-group">
+            <label>MHSA Appointment PIN (Rock Eng: 2131 | Overseer: 2610)</label>
+            <input type="password" id="signoffPin" class="lumi-input" placeholder="Enter PIN" required>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="btn btn-outline" onclick="toggleSignoffModal(false)">Cancel</button>
+            <button type="submit" class="btn btn-primary">🔒 Verify PIN &amp; Sign Off</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: P6 File Importer -->
+  <div class="modal-backdrop" id="p6Modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700;">📂 Import Primavera P6 Schedule File</h3>
+          <span style="font-size: 0.75rem; color: var(--on-surface-variant);">Ingest native .XER, .XML, or .CSV baseline files into IGPC Friction Engine</span>
+        </div>
+        <button class="btn btn-outline" style="padding: 2px 8px;" onclick="toggleP6Modal(false)">&times;</button>
+      </div>
+      <form id="p6Form" onsubmit="handleP6ImportSubmit(event)">
+        <div class="modal-body">
+          <div class="control-group">
+            <label>Select P6 Baseline Export (.XER, .XML, .CSV)</label>
+            <input type="file" id="p6FileInput" class="lumi-input" accept=".xer,.xml,.csv" required>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button type="button" class="btn btn-outline" onclick="toggleP6Modal(false)">Cancel</button>
+            <button type="submit" class="btn btn-primary">⚡ Upload &amp; Update Baselines</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 5: Alert Dispatch Tracking -->
+  <div class="modal-backdrop" id="alertModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700;">Alert &amp; Notification Dispatch Tracking</h3>
+          <span style="font-size: 0.78rem; color: var(--on-surface-variant); font-style: italic;">Real-Time Sign-Off Escalation &amp; Delivery Audit Logs</span>
+        </div>
+        <button class="btn btn-outline" style="padding: 2px 8px; border:none; font-size:1.1rem;" onclick="toggleModal(false)">&times;</button>
+      </div>
+      <div class="modal-body" id="alertDispatchContainer">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchView(target) {
+      try {
+        const mainView = document.getElementById('mainDashboardView');
+        const sec42View = document.getElementById('sec42DashboardView');
+        const navSec42Btn = document.getElementById('navSec42Btn');
+        const navMainBtn = document.getElementById('navMainBtn');
+        const hTitle = document.getElementById('headerTitle');
+        const hSub = document.getElementById('headerSubtitle');
+
+        if (target === 'section42') {
+          mainView.classList.remove('active');
+          sec42View.classList.add('active');
+          navSec42Btn.style.display = 'none';
+          navMainBtn.style.display = 'inline-flex';
+          hTitle.innerText = "Dynamic Section 4.2: Delay Ingestion & Time-Bank Analysis";
+          hSub.innerText = "Shaft 04 Monitoring & Shift Standing Loss Rate Ingestion";
+          loadDelayStreamData();
+        } else {
+          sec42View.classList.remove('active');
+          mainView.classList.add('active');
+          navMainBtn.style.display = 'none';
+          navSec42Btn.style.display = 'inline-flex';
+          hTitle.innerText = "IGPC Master Operations & Enterprise Control Portal";
+          hSub.innerText = "Minvest Integrated Geotechnical Projects Control & UFE Analytics";
+        }
+      } catch (err) {
+        console.error("Error switching view:", err);
+      }
+    }
+
+    function toggleModal(show) {
+      const modal = document.getElementById('alertModal');
+      if (show) {
+        modal.classList.add('is-open');
+        renderAlertDispatchCards();
+      } else modal.classList.remove('is-open');
+    }
+
+    function toggleIngestModal(show) {
+      const modal = document.getElementById('ingestModal');
+      if (show) modal.classList.add('is-open'); else modal.classList.remove('is-open');
+    }
+
+    function toggleTarpQcModal(show) {
+      const modal = document.getElementById('tarpQcModal');
+      if (show) {
+        modal.classList.add('is-open');
+        renderDynamicQcFields();
+      } else modal.classList.remove('is-open');
+    }
+
+    function toggleSignoffModal(show) {
+      const modal = document.getElementById('signoffModal');
+      if (show) modal.classList.add('is-open'); else modal.classList.remove('is-open');
+    }
+
+    function toggleP6Modal(show) {
+      const modal = document.getElementById('p6Modal');
+      if (show) modal.classList.add('is-open'); else modal.classList.remove('is-open');
+    }
+
+    let secondsLeft = 1458;
+    setInterval(() => {
+      if (secondsLeft > 0) {
+        secondsLeft--;
+        const m = Math.floor(secondsLeft / 60);
+        const s = secondsLeft % 60;
+        const timerElem = document.getElementById('slaTimer');
+        if (timerElem) timerElem.innerText = `00:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      }
+    }, 1000);
+
+    let waterfallChart, frictionChart, ganttChart, deptLossChart, burnDownChart, rootCauseChart;
+    let sec42Events = [];
+    let currentDeptFilter = 'ALL';
+
+    async async function runEngine() {
+      try {
+        const response = await fetch('/api/uov/run-engine');
+        if (!response.ok) throw new Error("API network error");
+        const raw = await response.json();
+
+        // Bridge: original portal expected status===SUCCESS; Node may return ok+master
+        let data;
+        if (raw && raw.status === 'SUCCESS' && Array.isArray(raw.records)) {
+          data = raw;
+        } else {
+          const master = raw.master || raw.records || [];
+          const totalLeak = Number(
+            (raw.total_financial_leakage_zar != null ? raw.total_financial_leakage_zar : null) ??
+            (raw.summary && raw.summary.total_leakage_zar) ??
+            master.reduce((s, r) => s + (Number(r.Total_Financial_Leakage_ZAR) || 0), 0)
+          ) || 17136000;
+          const totalVar = Number(
+            (raw.total_schedule_variance_days != null ? raw.total_schedule_variance_days : null) ??
+            master.reduce((s, r) => s + (Number(r.Schedule_Variance_Days) || Number(r.UDF_Days_Geotech) || 0), 0)
+          ) || 40.8;
+          const avgVg = (raw.avg_vg_multiplier != null)
+            ? raw.avg_vg_multiplier
+            : (master.length
+                ? (master.reduce((s, r) => s + (Number(r.UDF_Vg) || 1), 0) / master.length)
+                : 1.183);
+          const records = (raw.records && raw.records.length)
+            ? raw.records
+            : master.map(r => ({
+                Activity_ID: r.Shift_ID || r.Activity_ID || '',
+                Panel_ID: r.Panel_ID || '',
+                Asset_Type: r.Area || r.Asset_Type || 'Stope Panel',
+                Measured_RMR: r.RMR || r.Measured_RMR || '',
+                UDF_Primary_Driver: r.UDF_Primary_Driver || 'GEOTECH',
+                UDF_Vg: r.UDF_Vg || 1.0,
+                UDF_Days_Geotech: r.UDF_Days_Geotech || 0,
+                UDF_Days_Safety: r.UDF_Days_Safety || 0,
+                UDF_Days_Equipment: r.UDF_Days_Equipment || 0,
+                Total_Financial_Leakage_ZAR: Number(r.Total_Financial_Leakage_ZAR) || 0
+              }));
+          // Demo records if still empty (matches original portal defaults)
+          if (!records.length) {
+            records.push(
+              { Activity_ID: 'ACT-1020', Panel_ID: 'Panel 101', Asset_Type: 'Stope Panel', Measured_RMR: 68, UDF_Primary_Driver: 'Normal Operational Control', UDF_Vg: 1.02, UDF_Days_Geotech: 0, UDF_Days_Safety: 0, UDF_Days_Equipment: 0, Total_Financial_Leakage_ZAR: 0 },
+              { Activity_ID: 'ACT-1024', Panel_ID: 'Panel 102', Asset_Type: 'Stope Panel', Measured_RMR: 58, UDF_Primary_Driver: 'Support Watch Verification', UDF_Vg: 1.08, UDF_Days_Geotech: 4.5, UDF_Days_Safety: 0, UDF_Days_Equipment: 0, Total_Financial_Leakage_ZAR: 198147 }
+            );
+          }
+          data = {
+            status: 'SUCCESS',
+            total_activities: records.length,
+            avg_vg_multiplier: Number(Number(avgVg).toFixed(3)),
+            total_schedule_variance_days: Number(Number(totalVar).toFixed(1)),
+            total_financial_leakage_zar: totalLeak,
+            records: records
+          };
+        }
+
+        if (data.status === 'SUCCESS') {
+          const kpiAct = document.getElementById('kpiActivities');
+          if (kpiAct) kpiAct.innerText = data.total_activities;
+
+          const kpiVg = document.getElementById('kpiAvgVg');
+          if (kpiVg) kpiVg.innerText = data.avg_vg_multiplier + 'x';
+
+          const kpiDrag = document.getElementById('kpiScheduleDrag');
+          if (kpiDrag) kpiDrag.innerText = '+' + data.total_schedule_variance_days + ' Days';
+
+          const kpiLeak = document.getElementById('kpiFinancialLeakage');
+          if (kpiLeak) kpiLeak.innerText = 'R ' + Number(data.total_financial_leakage_zar).toLocaleString();
+
+          const tbody = document.getElementById('tableBody');
+          if (tbody) {
+            tbody.innerHTML = '';
+            (data.records || []).forEach(row => {
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td class="mono" style="color:var(--accent-cyan); font-weight:600;">${row.Activity_ID}</td>
+                <td><strong>${row.Panel_ID}</strong><br><span style="font-size:0.75rem; color:var(--on-surface-variant);">${row.Asset_Type || ''}</span></td>
+                <td class="mono">${row.Measured_RMR}</td>
+                <td><span style="font-size:0.8rem;">${row.UDF_Primary_Driver}</span></td>
+                <td class="mono" style="color:var(--warning); font-weight:700;">${row.UDF_Vg}x</td>
+                <td class="mono">${row.UDF_Days_Geotech}</td>
+                <td class="mono">${row.UDF_Days_Safety}</td>
+                <td class="mono">${row.UDF_Days_Equipment}</td>
+                <td class="mono" style="color:var(--error); font-weight:700;">R ${Number(row.Total_Financial_Leakage_ZAR || 0).toLocaleString()}</td>
+              `;
+              tbody.appendChild(tr);
+            });
+          }
+
+          // ORIGINAL chart renderers only (from Master Operations portal)
+          if (typeof renderPlotly3D === 'function') renderPlotly3D();
+          if (typeof renderWaterfall === 'function') renderWaterfall(data.total_financial_leakage_zar);
+          if (typeof renderFriction === 'function') renderFriction();
+          if (typeof renderGantt === 'function') renderGantt(data.total_schedule_variance_days);
+        }
+      } catch (err) {
+        console.warn('API Fetch Notice:', err);
+        // Still attempt original charts with portal defaults so panels are not blank
+        try {
+          if (typeof renderPlotly3D === 'function') renderPlotly3D();
+          if (typeof renderWaterfall === 'function') renderWaterfall(17136000);
+          if (typeof renderFriction === 'function') renderFriction();
+          if (typeof renderGantt === 'function') renderGantt(40.8);
+        } catch (e2) { console.warn(e2); }
+      }
+    }
+
+
+
+
+
+    async function loadDelayStreamData() {
+      try {
+        const response = await fetch('/api/uov/get-delays');
+        const data = await response.json();
+
+        if (data.status === 'SUCCESS') {
+          sec42Events = data.events || [];
+          updateSignoffBanners(data.signoff);
+          recalcSec42Rates();
+          renderAlertDispatchCards();
+        }
+      } catch (err) {
+        console.error("Error loading delays:", err);
+      }
+    }
+
+    function renderAlertDispatchCards() {
+      const container = document.getElementById('alertDispatchContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (!sec42Events.length) {
+        container.innerHTML = '<p style="font-size:0.85rem; color:var(--on-surface-variant);">No active notification dispatches.</p>';
+        return;
+      }
+
+      sec42Events.forEach(evt => {
+        const card = document.createElement('div');
+        const isOpened = evt.opened === true;
+        const openedBadgeHtml = isOpened 
+          ? `<span class="badge-opened">Opened: Yes (${evt.opened_time || 'SAST'})</span>`
+          : `<span class="badge-unopened">Opened: No</span>`;
+
+        const isTarp = evt.status && evt.status.includes('TARP');
+        card.className = 'dispatch-card' + (isTarp ? ' is-tarp' : '');
+        card.onclick = () => toggleAlertOpenedState(evt.id);
+
+        card.innerHTML = `
+          <div class="dispatch-card-top">
+            <div class="dispatch-dept">${evt.dept || 'Rock Eng'}</div>
+            ${openedBadgeHtml}
+          </div>
+          <div class="dispatch-line"><strong>Cause:</strong> ${evt.cause || 'Shift Event'}</div>
+          <div class="dispatch-action"><strong>Action Required:</strong> ${evt.action || 'Investigate and acknowledge delay'}</div>
+          <div class="dispatch-bottom">
+            <span>${evt.dispatch || 'SMS Dispatched'}</span>
+            <span class="mono">Hold Left: ${evt.hold_left || 'N/A'}</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function toggleAlertOpenedState(eventId) {
+      try {
+        const response = await fetch('/api/uov/toggle-alert-opened', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ event_id: eventId })
+        });
+        const res = await response.json();
+        if (res.status === 'SUCCESS') {
+          loadDelayStreamData();
+        }
+      } catch (err) {
+        console.error("Error toggling alert opened status:", err);
+      }
+    }
+
+    function renderDynamicQcFields() {
+      const select = document.getElementById('tarpAssetSelect');
+      if (!select) return;
+      const selectedOpt = select.options[select.selectedIndex];
+      const assetType = selectedOpt ? selectedOpt.getAttribute('data-type') : '';
+      const container = document.getElementById('dynamicQcContainer');
+      if (!container) return;
+
+      if (assetType === 'Haulage Drive') {
+        container.innerHTML = `
+          <div style="font-weight:700; color:var(--accent-cyan); font-size:0.85rem;">Haulage Drive Physical Quality Control Protocol</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="control-group"><label>Shotcrete Depth (mm)</label><input type="number" id="qcVal1" class="lumi-input" value="75" min="50"></div>
+            <div class="control-group"><label>Convergence Pin (mm/day)</label><input type="number" id="qcVal2" class="lumi-input" value="1.2" step="0.1"></div>
+          </div>
+        `;
+      } else if (assetType === 'Box Front / Ore Pass') {
+        container.innerHTML = `
+          <div style="font-weight:700; color:var(--accent-cyan); font-size:0.85rem;">Box Front / Ore Pass Quality Control Protocol</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="control-group"><label>Chute Plate Thickness (mm)</label><input type="number" id="qcVal1" class="lumi-input" value="25" min="20"></div>
+            <div class="control-group"><label>Timber/Steel Blocking Set</label><select id="qcVal2" class="lumi-select"><option value="Pass">PASSED &amp; BLOCKED</option></select></div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div style="font-weight:700; color:var(--accent-cyan); font-size:0.85rem;">Stope Panel Quality Control Protocol</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="control-group"><label>Cable Bolt Tension (Tons)</label><input type="number" id="qcVal1" class="lumi-input" value="22" min="18"></div>
+            <div class="control-group"><label>Resin Cure Time (Mins)</label><input type="number" id="qcVal2" class="lumi-input" value="45" min="30"></div>
+          </div>
+        `;
+      }
+    }
+
+    async function handleTarpQcSubmit(e) {
+      e.preventDefault();
+      const assetId = document.getElementById('tarpAssetSelect').value;
+      const signatory = document.getElementById('tarpSignatory').value;
+      const pin = document.getElementById('tarpPin').value;
+      const qcVal1 = document.getElementById('qcVal1') ? document.getElementById('qcVal1').value : 'Pass';
+
+      try {
+        const response = await fetch('/api/uov/tarp-qc-release', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ asset_id: assetId, signatory, pin, qc_metric_val: 'QC Passed (' + qcVal1 + ')' })
+        });
+        const res = await response.json();
+        if (res.status === 'SUCCESS') {
+          toggleTarpQcModal(false);
+          alert(res.message);
+          runEngine();
+          loadDelayStreamData();
+        } else {
+          alert("TARP Release Authorization Failed: " + res.message);
+        }
+      } catch (err) {
+        console.error("Error releasing TARP hold:", err);
+      }
+    }
+
+    function updateSignoffBanners(signoff) {
+      if (!signoff) return;
+      const rBanner = document.getElementById('rockEngSignoffBanner');
+      const rText = document.getElementById('rockEngSignoffText');
+      if (rBanner && rText && signoff.rock_eng) {
+        rBanner.style.borderColor = 'var(--positive)';
+        rBanner.style.borderLeftColor = 'var(--positive)';
+        rText.innerHTML = `<span style="color:var(--positive);">✓ AUDITED: ${signoff.rock_eng.name}</span> (${signoff.rock_eng.timestamp})`;
+      }
+      const mBanner = document.getElementById('mineOverseerSignoffBanner');
+      const mText = document.getElementById('mineOverseerSignoffText');
+      if (mBanner && mText && signoff.mine_overseer) {
+        mBanner.style.borderColor = 'var(--positive)';
+        mBanner.style.borderLeftColor = 'var(--positive)';
+        mText.innerHTML = `<span style="color:var(--positive);">✓ AUDITED: ${signoff.mine_overseer.name}</span> (${signoff.mine_overseer.timestamp})`;
+      }
+    }
+
+    async function handleIngestSubmit(e) {
+      e.preventDefault();
+      const loc = document.getElementById('ingestLoc').value;
+      const dept = document.getElementById('ingestDept').value;
+      const cat = document.getElementById('ingestCat').value;
+      const hrs = parseFloat(document.getElementById('ingestHrs').value);
+      const cause = document.getElementById('ingestCause').value;
+
+      try {
+        const response = await fetch('/api/uov/log-delay', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ loc, dept, cat, cause, hrs })
+        });
+        const res = await response.json();
+        if (res.status === 'SUCCESS') {
+          toggleIngestModal(false);
+          document.getElementById('ingestForm').reset();
+          loadDelayStreamData();
+        }
+      } catch (err) {
+        console.error("Error logging delay:", err);
+      }
+    }
+
+    async function handleSignoffSubmit(e) {
+      e.preventDefault();
+      const role = document.getElementById('signoffRole').value;
+      const name = document.getElementById('signoffName').value;
+      const pin = document.getElementById('signoffPin').value;
+      const now = new Date();
+      const timestamp = now.toLocaleDateString() + ' ' + now.toLocaleTimeString() + ' SAST';
+
+      try {
+        const response = await fetch('/api/uov/signoff', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role, name, pin, timestamp })
+        });
+        const res = await response.json();
+        if (res.status === 'SUCCESS') {
+          toggleSignoffModal(false);
+          updateSignoffBanners(res.signoff);
+          alert("Statutory MHSA Audit Sign-Off Successfully Executed & Locked.");
+        } else {
+          alert("Sign-off Error: " + res.message);
+        }
+      } catch (err) {
+        console.error("Error submitting signoff:", err);
+      }
+    }
+
+    async function handleP6ImportSubmit(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById('p6FileInput');
+      if (!fileInput || !fileInput.files.length) return;
+
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+
+      try {
+        const response = await fetch('/api/uov/import-p6-file', {
+          method: 'POST',
+          body: formData
+        });
+        const res = await response.json();
+        if (res.status === 'SUCCESS') {
+          toggleP6Modal(false);
+          alert(res.message);
+          runEngine();
+        } else {
+          alert("Error: " + res.message);
+        }
+      } catch (err) {
+        console.error("Error uploading P6 file:", err);
+      }
+    }
+
+    function filterDept(dept) {
+      currentDeptFilter = dept;
+      recalcSec42Rates();
+    }
+
+    function recalcSec42Rates() {
+      const crewElem = document.getElementById('crewRateSlider');
+      const equipElem = document.getElementById('equipRateSlider');
+      if (!crewElem || !equipElem) return;
+
+      const crew = parseFloat(crewElem.value);
+      const equip = parseFloat(equipElem.value);
+
+      const crewVal = document.getElementById('crewRateVal');
+      if (crewVal) crewVal.innerText = 'R ' + (crew / 1000).toFixed(1) + 'k / hr';
+
+      const equipVal = document.getElementById('equipRateVal');
+      if (equipVal) equipVal.innerText = 'R ' + (equip / 1000).toFixed(1) + 'k / hr';
+
+      const hourlyCombined = crew + equip;
+      const totalLossHrs = sec42Events.reduce((sum, e) => sum + (e.hrs || 0), 0);
+      const earnedHrs = Math.max(0, 160.0 - totalLossHrs);
+      const efficiency = ((earnedHrs / 160.0) * 100).toFixed(1);
+      const totalLossZar = totalLossHrs * hourlyCombined;
+
+      const lossHrs = document.getElementById('sec42LossHrs');
+      if (lossHrs) lossHrs.innerText = totalLossHrs.toFixed(1) + ' hrs';
+
+      const earnHrs = document.getElementById('sec42EarnedHrs');
+      if (earnHrs) earnHrs.innerText = earnedHrs.toFixed(1) + ' hrs';
+
+      const eff = document.getElementById('sec42Efficiency');
+      if (eff) eff.innerText = efficiency + '% Efficiency';
+
+      const lossZar = document.getElementById('sec42LossZar');
+      if (lossZar) lossZar.innerText = 'R ' + Math.round(totalLossZar).toLocaleString('en-ZA') + ' ZAR';
+
+      const evtBadge = document.getElementById('eventCountBadge');
+      if (evtBadge) evtBadge.innerText = sec42Events.length + ' Events Persisted';
+
+      renderSec42EventTable(hourlyCombined);
+      renderDeptLossChart(hourlyCombined);
+      renderBurnDownChart(totalLossHrs);
+      renderRootCauseChart();
+    }
+
+    function renderSec42EventTable(hourlyCombined) {
+      const tbody = document.getElementById('sec42EventTable');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const filtered = sec42Events.filter(e => currentDeptFilter === 'ALL' || (e.dept && e.dept.toLowerCase().includes(currentDeptFilter.toLowerCase())));
+
+      filtered.forEach(evt => {
+        const impact = (evt.hrs || 0) * hourlyCombined;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="mono" style="color:var(--accent-cyan); font-weight:600;">${evt.id}</td>
+          <td>${evt.loc}<br><span style="font-size:0.75rem; color:var(--on-surface-variant);">${evt.time}</span></td>
+          <td><span class="mono" style="color:var(--warning);">${evt.dept}</span></td>
+          <td><strong>${evt.cat}</strong><br><span style="font-size:0.75rem; color:var(--on-surface-variant);">${evt.cause}</span></td>
+          <td class="mono">${(evt.hrs || 0).toFixed(1)} hrs</td>
+          <td class="mono" style="color:var(--error); font-weight:700;">R ${impact.toLocaleString('en-ZA')}</td>
+          <td><span class="mono" style="font-size:0.75rem; color:var(--positive);">${evt.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderPlotly3D() {
+      try {
+        if (typeof Plotly === 'undefined') return;
+        const target = document.getElementById('plotly3d');
+        if (!target) return;
+        const zData = [[42, 58], [82, 65]];
+        const data = [{
+          type: 'surface',
+          z: zData,
+          colorscale: [[0, '#34d399'], [0.5, '#fbbf24'], [1, '#f87171']],
+          showscale: false
+        }];
+        const layout = {
+          paper_bgcolor: 'transparent', plot_bgcolor: 'transparent', margin: { l: 0, r: 0, t: 0, b: 0 },
+          scene: { xaxis: { visible: false }, yaxis: { visible: false }, zaxis: { title: 'Stress (MPa)', titlefont: { color: '#94a3b8', size: 10 }, tickfont: { color: '#94a3b8', size: 9 } } }
+        };
+        Plotly.react('plotly3d', data, layout, { responsive: true, displayModeBar: false });
+      } catch (e) { console.warn("Plotly notice:", e); }
+    }
+
+    function renderWaterfall(totalLeakage) {
+      try {
+        if (typeof Chart === 'undefined') return;
+        const ctx = document.getElementById('waterfallCanvas');
+        if (!ctx) return;
+        const waste = totalLeakage * 0.35, overhead = totalLeakage * 0.25, deferred = totalLeakage * 0.40;
+        if (waterfallChart) waterfallChart.destroy();
+        waterfallChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Waste Mill', 'Overhead', 'Deferred Rev', 'Total'],
+            datasets: [{ data: [[0, waste], [waste, waste + overhead], [waste + overhead, totalLeakage], [0, totalLeakage]], backgroundColor: ['#38bdf8', '#fbbf24', '#f87171', '#0284c7'], borderRadius: 4 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 10 } } }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8', font: { size: 9 } } } } }
+        });
+      } catch (e) { console.warn("Waterfall notice:", e); }
+    }
+
+    function renderFriction() {
+      try {
+        if (typeof Chart === 'undefined') return;
+        const ctx = document.getElementById('frictionCanvas');
+        if (!ctx) return;
+        if (frictionChart) frictionChart.destroy();
+        frictionChart = new Chart(ctx, {
+          type: 'bar',
+          data: { labels: ['Geotech', 'Logistics', 'Equipment', 'Safety'], datasets: [{ data: [48, 26, 16, 10], backgroundColor: '#38bdf8', borderRadius: 4 }] },
+          options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8', font: { size: 9 }, callback: v => v + '%' } }, y: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 9 } } } } }
+        });
+      } catch (e) { console.warn("Friction notice:", e); }
+    }
+
+    function renderGantt(delayDays) {
+      try {
+        if (typeof Chart === 'undefined') return;
+        const ctx = document.getElementById('ganttCanvas');
+        if (!ctx) return;
+        if (ganttChart) ganttChart.destroy();
+        ganttChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['ACT-1010 Stope', 'ACT-2010 Drive'],
+            datasets: [
+              { label: 'Baseline Days', data: [[0, 30], [30, 55]], backgroundColor: '#0284c7', borderRadius: 4 },
+              { label: 'Friction Adjusted', data: [[0, 30 + delayDays], [30 + delayDays, 55 + (delayDays * 1.5)]], backgroundColor: '#f87171', borderRadius: 4 }
+            ]
+          },
+          options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, labels: { color: '#94a3b8', font: { size: 9 } } } }, scales: { x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8', font: { size: 9 }, callback: v => v + 'd' } }, y: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 9 } } } } }
+        });
+      } catch (e) { console.warn("Gantt notice:", e); }
+    }
+
+    function renderBurnDownChart(currentLossHrs) {
+      try {
+        if (typeof Chart === 'undefined') return;
+        const ctx = document.getElementById('burnDownCanvas');
+        if (!ctx) return;
+        if (burnDownChart) burnDownChart.destroy();
+        burnDownChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Shift Start (00:00)', 'Hr 02:00', 'Hr 04:00', 'Hr 06:00', 'Shift End (08:00)'],
+            datasets: [
+              { label: 'Target Earned (160h Baseline)', data: [160, 120, 80, 40, 0], borderColor: '#0284c7', borderDash: [5, 5], fill: false },
+              { label: 'Actual Standing Loss Spikes', data: [0, 8, 24, Math.min(40, currentLossHrs), currentLossHrs], borderColor: '#f87171', backgroundColor: 'rgba(248, 113, 113, 0.15)', fill: true }
+            ]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, labels: { color: '#94a3b8', font: { size: 9 } } } }, scales: { x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8', font: { size: 9 } } }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8', font: { size: 9 }, callback: v => v + 'h' } } } }
+        });
+      } catch (e) { console.warn("BurnDown notice:", e); }
+    }
+
+    function renderRootCauseChart() {
+      try {
+        if (typeof Chart === 'undefined') return;
+        const ctx = document.getElementById('rootCauseCanvas');
+        if (!ctx) return;
+        if (rootCauseChart) rootCauseChart.destroy();
+        const catTotals = {};
+        sec42Events.forEach(e => { if (e.cat) catTotals[e.cat] = (catTotals[e.cat] || 0) + (e.hrs || 0); });
+        rootCauseChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: { labels: Object.keys(catTotals), datasets: [{ data: Object.values(catTotals), backgroundColor: ['#f87171', '#fbbf24', '#38bdf8', '#34d399'], borderWidth: 0 }] },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, position: 'right', labels: { color: '#94a3b8', font: { size: 9 } } } } }
+        });
+      } catch (e) { console.warn("RootCause notice:", e); }
+    }
+
+    function renderDeptLossChart(hourlyCombined) {
+      try {
+        if (typeof Chart === 'undefined') return;
+        const ctx = document.getElementById('deptLossChartCanvas');
+        if (!ctx) return;
+        if (deptLossChart) deptLossChart.destroy();
+        const deptTotals = {};
+        sec42Events.forEach(e => { if (e.dept) deptTotals[e.dept] = (deptTotals[e.dept] || 0) + ((e.hrs || 0) * hourlyCombined); });
+        deptLossChart = new Chart(ctx, {
+          type: 'bar',
+          data: { labels: Object.keys(deptTotals), datasets: [{ data: Object.values(deptTotals), backgroundColor: '#0284c7', borderRadius: 4 }] },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 10 } } }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8', font: { size: 9 }, callback: v => 'R ' + (v / 1000) + 'k' } } } }
+        });
+      } catch (e) { console.warn("DeptLoss notice:", e); }
+    }
+
+    function exportHandoverBrief() {
+      const crewElem = document.getElementById('crewRateSlider');
+      const equipElem = document.getElementById('equipRateSlider');
+      const crew = crewElem ? parseFloat(crewElem.value) : 6000;
+      const equip = equipElem ? parseFloat(equipElem.value) : 4500;
+      const hourlyCombined = crew + equip;
+
+      let csv = "IGPC SECTION 4.2 SHIFT HANDOVER BRIEF REPORT\n";
+      csv += "Timestamp," + new Date().toISOString() + "\n";
+      csv += "Crew Rate (ZAR/hr)," + crew + "\n";
+      csv += "Equipment Rate (ZAR/hr)," + equip + "\n";
+      csv += "Combined Hourly Rate (ZAR/hr)," + hourlyCombined + "\n\n";
+
+      csv += "EVENT ID,LOCATION,DEPARTMENT,CATEGORY,CAUSE,LOST HOURS,COST IMPACT (ZAR),STATUS\n";
+      sec42Events.forEach(e => {
+        const impact = (e.hrs || 0) * hourlyCombined;
+        csv += `"${e.id}","${e.loc}","${e.dept}","${e.cat}","${e.cause}",${e.hrs || 0},${impact},"${e.status}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', `IGPC_Section_42_Shift_Handover_Brief_${Date.now()}.csv`);
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    window.addEventListener('load', function() {
+      function start() {
+        if (typeof Chart === 'undefined' || typeof Plotly === 'undefined') {
+          setTimeout(start, 50);
+          return;
+        }
+        runEngine();
+      }
+      start();
+    });
+  </script>
+</body>
+</html>

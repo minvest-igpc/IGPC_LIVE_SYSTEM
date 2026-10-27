@@ -435,6 +435,42 @@ html body .pcvbar > button.pcv:hover {
   border-color: #FFD29B !important;
 }
 
+
+/* Finished Analytics — chocolate / orange (replaces old cyan / old widget chrome) */
+.analytics-scope{--an-bg:#1D1815;--an-card:#2C2E37;--an-card2:#30241F;--an-line:rgba(242,166,90,.35);--an-accent:#F2A65A;--an-accent2:#FFD29B;--an-text:#F7F1EC;--an-muted:#E9DDD6;padding:0 0 24px}
+.an-kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
+.an-kpi{background:linear-gradient(145deg,#2C2E37,#1D1815);border:1px solid var(--an-line);border-radius:8px;padding:12px;text-align:center}
+.an-kpi label{display:block;font-size:9px;font-weight:800;color:#BCAAA3;letter-spacing:.04em}
+.an-kpi strong{display:block;margin-top:6px;font-size:18px;color:var(--an-accent2)}
+.an-kpi small{font-size:9px;color:var(--an-muted)}
+.an-section-label{font-size:11px;font-weight:800;color:var(--an-accent2);margin:18px 0 10px;letter-spacing:.06em}
+.an-layers{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.an-layer{text-align:left;background:linear-gradient(145deg,#2C2E37,#1D1815);border:1px solid var(--an-line);border-top:4px solid var(--an-accent);border-radius:8px;padding:12px;color:var(--an-text);cursor:pointer;min-height:110px}
+.an-layer:hover,.an-layer.active{background:linear-gradient(145deg,#F2A65A,#BCAAA3);color:#1D1815;border-color:#FFD29B}
+.an-layer .an-ln{display:block;font-size:10px;font-weight:800;opacity:.85;margin-bottom:4px}
+.an-layer strong{display:block;font-size:12px;margin-bottom:6px}
+.an-layer p{font-size:10px;line-height:1.4;margin:0;opacity:.9}
+.an-widgets{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.an-w{background:#2C2E37;border:1px solid var(--an-line);border-radius:7px;padding:10px;color:var(--an-text);cursor:pointer;text-align:left}
+.an-w span{display:block;font-size:10px;font-weight:800;color:var(--an-accent2)}
+.an-w b{display:block;font-size:11px;margin-top:4px;font-weight:600}
+.an-w:hover,.an-w.active{background:linear-gradient(145deg,#F2A65A,#BCAAA3);color:#1D1815}
+.an-w:hover span,.an-w.active span{color:#1D1815}
+.an-pcv{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.an-p{background:#2C2E37;border:1px solid var(--an-line);border-radius:8px;padding:12px;color:var(--an-text);cursor:pointer;text-align:left}
+.an-p span{font-size:10px;font-weight:800;color:var(--an-accent2)}
+.an-p b{display:block;margin-top:4px;font-size:13px}
+.an-p small{display:block;margin-top:6px;font-size:9px;opacity:.75}
+.an-p:hover,.an-p.active{background:linear-gradient(145deg,#F2A65A,#BCAAA3);color:#1D1815}
+.an-p:hover span,.an-p.active span{color:#1D1815}
+.an-workspace{margin-top:16px;background:linear-gradient(145deg,#2C2E37,#1D1815);border:1px solid var(--an-line);border-radius:10px;padding:16px}
+.an-ws-head h2{margin:0 0 4px;font-size:16px;color:var(--an-accent2)}
+.an-ws-head p{margin:0 0 14px;font-size:12px;color:var(--an-muted)}
+.an-ph-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.an-ph-label{font-size:10px;font-weight:800;color:var(--an-accent);margin-bottom:6px}
+.an-ph-box{min-height:120px;border:1px dashed rgba(242,166,90,.45);border-radius:8px;background:#211B19;color:var(--an-muted);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:12px;line-height:1.5}
+@media(max-width:1100px){.an-kpis,.an-layers,.an-widgets{grid-template-columns:repeat(2,1fr)}.an-pcv,.an-ph-grid{grid-template-columns:1fr 1fr}}
+
 </style>
 <script src="config.js"></script><script>
 const IGPC_API=window.IGPC_API_BASE||'';
@@ -559,9 +595,96 @@ button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;o
 </div>
 
 <div id="analytics" class="view">
-<div class="top-actions"><div><div class="section-title">ANALYTICS DASHBOARD</div><div class="section-sub">W1–W10 · Layers 1–4 · F08 · PCV1–PCV4</div></div>
-<button class="back" onclick="openView('home')">← Main Dashboard</button></div>
-<iframe class="module-frame" src="/analytics.html" title="MINVEST IGPC Analytics"></iframe>
+
+<div class="top-actions">
+  <div>
+    <div class="section-title">ANALYTICS DASHBOARD</div>
+    <div class="section-sub">W1–W10 · Layers 1–4 · F08 · PCV1–PCV4 — finished layout (CSV-backed)</div>
+  </div>
+  <button class="back" onclick="openView('home')">← Main Dashboard</button>
+</div>
+
+<div class="analytics-scope" id="analyticsScope">
+
+  <!-- KPI strip -->
+  <div class="an-kpis">
+    <div class="an-kpi"><label>PROJECT</label><strong>EXPL-001</strong><small>Northam 3# Shaft</small></div>
+    <div class="an-kpi"><label>BASELINE</label><strong>R 2.934m</strong><small>Option B</small></div>
+    <div class="an-kpi"><label>OPEN GAPS</label><strong>4</strong><small>2 HIGH</small></div>
+    <div class="an-kpi"><label>F08 CONFIDENCE</label><strong>72%</strong><small>Specialist</small></div>
+    <div class="an-kpi"><label>DATA PARSE</label><strong>98.5%</strong><small>Gatekeeper</small></div>
+    <div class="an-kpi"><label>ENGINE</label><strong>LIVE</strong><small>CSV packs</small></div>
+  </div>
+
+  <!-- Layers + F08 -->
+  <div class="an-section-label">CONTROL LAYERS</div>
+  <div class="an-layers">
+    <button type="button" class="an-layer active" data-panel="L1" onclick="anShow('L1')">
+      <span class="an-ln">L1</span>
+      <strong>DATA / SOURCE</strong>
+      <p>Raw project information, completeness, validation, lineage</p>
+    </button>
+    <button type="button" class="an-layer" data-panel="L2" onclick="anShow('L2')">
+      <span class="an-ln">L2</span>
+      <strong>ANALYTICS / INTERPRETATION</strong>
+      <p>What is happening, magnitude, trends, impacts</p>
+    </button>
+    <button type="button" class="an-layer" data-panel="L3" onclick="anShow('L3')">
+      <span class="an-ln">L3</span>
+      <strong>EVIDENCE / CONTROL</strong>
+      <p>Evidence, causation, reconciliation, verification</p>
+    </button>
+    <button type="button" class="an-layer" data-panel="L4" onclick="anShow('L4')">
+      <span class="an-ln">L4</span>
+      <strong>DECISION / ACTION</strong>
+      <p>Priorities, options, responsibilities, outcomes</p>
+    </button>
+    <button type="button" class="an-layer f08" data-panel="F08" onclick="anShow('F08')">
+      <span class="an-ln">F08</span>
+      <strong>SPECIALIST INTELLIGENCE</strong>
+      <p>Target → observation → verification → recommend</p>
+    </button>
+  </div>
+
+  <!-- Widgets W1-W10 -->
+  <div class="an-section-label">ANALYTICS WIDGETS — W1 TO W10</div>
+  <div class="an-widgets">
+    <button type="button" class="an-w" data-panel="W1" onclick="anShow('W1')"><span>W1</span><b>What changed</b></button>
+    <button type="button" class="an-w" data-panel="W2" onclick="anShow('W2')"><span>W2</span><b>Problem context</b></button>
+    <button type="button" class="an-w" data-panel="W3" onclick="anShow('W3')"><span>W3</span><b>Constraint</b></button>
+    <button type="button" class="an-w" data-panel="W4" onclick="anShow('W4')"><span>W4</span><b>Impact path</b></button>
+    <button type="button" class="an-w" data-panel="W5" onclick="anShow('W5')"><span>W5</span><b>Evidence</b></button>
+    <button type="button" class="an-w" data-panel="W6" onclick="anShow('W6')"><span>W6</span><b>Cost of problem</b></button>
+    <button type="button" class="an-w" data-panel="W7" onclick="anShow('W7')"><span>W7</span><b>Options</b></button>
+    <button type="button" class="an-w" data-panel="W8" onclick="anShow('W8')"><span>W8</span><b>Intervention</b></button>
+    <button type="button" class="an-w" data-panel="W9" onclick="anShow('W9')"><span>W9</span><b>Verification</b></button>
+    <button type="button" class="an-w" data-panel="W10" onclick="anShow('W10')"><span>W10</span><b>What we learned</b></button>
+  </div>
+
+  <!-- PCV strip -->
+  <div class="an-section-label">PROJECT CONTROL VALUES — PCV1–PCV4</div>
+  <div class="an-pcv">
+    <button type="button" class="an-p" data-panel="PCV1" onclick="anShow('PCV1')"><span>PCV.1</span><b>Verified position</b><small>data/pcv/pcv1_verified_position.csv</small></button>
+    <button type="button" class="an-p" data-panel="PCV2" onclick="anShow('PCV2')"><span>PCV.2</span><b>Forecast</b><small>data/pcv/pcv2_forecast.csv</small></button>
+    <button type="button" class="an-p" data-panel="PCV3" onclick="anShow('PCV3')"><span>PCV.3</span><b>Value</b><small>data/pcv/pcv3_value.csv</small></button>
+    <button type="button" class="an-p" data-panel="PCV4" onclick="anShow('PCV4')"><span>PCV.4</span><b>Decision ledger</b><small>data/pcv/pcv4_decision_ledger.csv</small></button>
+  </div>
+
+  <!-- Workspace -->
+  <div class="an-workspace" id="anWorkspace">
+    <div class="an-ws-head">
+      <h2 id="anWsTitle">L1 — DATA / SOURCE</h2>
+      <p id="anWsSub">Raw project information · source records · validation · lineage</p>
+    </div>
+    <div class="an-ph-grid" id="anWsBody">
+      <div class="an-ph"><div class="an-ph-label">SOURCE REGISTER</div><div class="an-ph-box">Placeholder chart / table<br><small>data/project_files/step2_raw_source_register.csv</small></div></div>
+      <div class="an-ph"><div class="an-ph-label">COMPLETENESS</div><div class="an-ph-box">98.5% parse · Gatekeeper GREEN<br><small>No PNG — live metric tile</small></div></div>
+      <div class="an-ph"><div class="an-ph-label">LINEAGE</div><div class="an-ph-box">Client → VL → Validation → Release → Analytics<br><small>flow tile</small></div></div>
+    </div>
+  </div>
+
+</div>
+
 </div>
 <div id="library" class="view"><div class="top-actions"><div><div class="section-title">VIRTUAL LIBRARY</div><div class="section-sub">Client → Client Link → Client Portal → Virtual Library → Validation Gate → Release → Existing Project Files</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div><iframe class="module-frame" src="/virtual-library.html" title="IGPC Virtual Library"></iframe></div>
 
@@ -622,7 +745,6 @@ diagnostics:["DIAGNOSTICS","From problem or deviation to causes, probabilities a
 projectfiles:["PROJECT FILES","Tier 0 master navigation entry point for the project."]
 };
 function openView(id){
-  if(id==="uov"){ window.open("/uov/","_blank"); return; }
   var el=document.getElementById(id);
   if(!el){ console.warn("openView: missing view", id); return; }
   document.querySelectorAll(".view").forEach(function(v){ v.classList.remove("active"); });
@@ -635,9 +757,54 @@ function openView(id){
   if(tit && titles[id]) tit.textContent=titles[id][0];
   if(sub && titles[id]) sub.textContent=titles[id][1];
   window.scrollTo(0,0);
+  if(id==="analytics" && typeof anShow==="function") anShow("L1");
 }
 document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>openView(b.dataset.view)));
 </script>
+
+<script>
+// Finished Analytics panel driver (CSV path labels; placeholder body)
+window.AN_PANELS = {
+  L1:{title:"L1 — DATA / SOURCE", sub:"Raw project information · source records · validation · lineage",
+      body:'<div class="an-ph"><div class="an-ph-label">SOURCE REGISTER</div><div class="an-ph-box">Placeholder · data/project_files/step2_raw_source_register.csv</div></div><div class="an-ph"><div class="an-ph-label">COMPLETENESS</div><div class="an-ph-box">98.5% parse · Gatekeeper GREEN</div></div><div class="an-ph"><div class="an-ph-label">LINEAGE</div><div class="an-ph-box">Client → VL → Validation → Release → Analytics</div></div>'},
+  L2:{title:"L2 — ANALYTICS / INTERPRETATION", sub:"Magnitude · trends · impacts · recovery",
+      body:'<div class="an-ph"><div class="an-ph-label">IMPACT DRIVERS</div><div class="an-ph-box">Placeholder · data/layer2/impact_drivers.csv</div></div><div class="an-ph"><div class="an-ph-label">COST TREND</div><div class="an-ph-box">Placeholder · data/layer2/cost_over_time_trend.csv</div></div><div class="an-ph"><div class="an-ph-label">SENSITIVITY</div><div class="an-ph-box">Placeholder · data/layer2/sensitivity_analysis.csv</div></div>'},
+  L3:{title:"L3 — EVIDENCE / CONTROL", sub:"Evidence chain · quality · validation",
+      body:'<div class="an-ph"><div class="an-ph-label">EVIDENCE ITEMS</div><div class="an-ph-box">Placeholder · data/layer3/evidence_items.csv</div></div><div class="an-ph"><div class="an-ph-label">EVIDENCE CHAIN</div><div class="an-ph-box">Placeholder · data/layer3/evidence_chain.csv</div></div><div class="an-ph"><div class="an-ph-label">VALIDATION</div><div class="an-ph-box">Placeholder · data/layer3/validation_checks.csv</div></div>'},
+  L4:{title:"L4 — DECISION / ACTION", sub:"Options · plan · risks · value",
+      body:'<div class="an-ph"><div class="an-ph-label">DECISION OPTIONS</div><div class="an-ph-box">Placeholder · data/layer4/decision_options.csv</div></div><div class="an-ph"><div class="an-ph-label">ACTION PLAN</div><div class="an-ph-box">Placeholder · data/layer4/action_plan.csv</div></div><div class="an-ph"><div class="an-ph-label">RISKS / VALUE</div><div class="an-ph-box">Placeholder · data/layer4/implementation_risks.csv</div></div>'},
+  F08:{title:"F08 — SPECIALIST INTELLIGENCE", sub:"Target · observation · verification · recommendation",
+      body:'<div class="an-ph"><div class="an-ph-label">TARGETS</div><div class="an-ph-box">Placeholder · data/f08/specialist_targets.csv</div></div><div class="an-ph"><div class="an-ph-label">CHAIN</div><div class="an-ph-box">Placeholder · data/f08/specialist_chain.csv</div></div><div class="an-ph"><div class="an-ph-label">SIGNOFF</div><div class="an-ph-box">Placeholder · data/f08/specialist_signoff.csv</div></div>'},
+  W1:{title:"W1 — What changed", sub:"Current change and trend", body:'<div class="an-ph"><div class="an-ph-label">W1</div><div class="an-ph-box">Placeholder · data/widgets/w1_what_changed.csv</div></div><div class="an-ph"><div class="an-ph-label">TREND</div><div class="an-ph-box">Metric tile — no PNG</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">Open W2 for problem context</div></div>'},
+  W2:{title:"W2 — Problem context", sub:"Project / problem framing", body:'<div class="an-ph"><div class="an-ph-label">W2</div><div class="an-ph-box">Placeholder · data/widgets/w2_*.csv</div></div><div class="an-ph"><div class="an-ph-label">CONTEXT</div><div class="an-ph-box">Section / raiseline bottleneck view</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">Open W3 constraint</div></div>'},
+  W3:{title:"W3 — Constraint", sub:"Primary constraint candidate", body:'<div class="an-ph"><div class="an-ph-label">CONSTRAINT</div><div class="an-ph-box">Geotech / equipment / cycle</div></div><div class="an-ph"><div class="an-ph-label">RANK</div><div class="an-ph-box">Aligned to diagnostics cause ranking</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">Open W4 impact path</div></div>'},
+  W4:{title:"W4 — Impact path", sub:"Time → cost exposure path", body:'<div class="an-ph"><div class="an-ph-label">PATH</div><div class="an-ph-box">Event → delay → schedule → ZAR</div></div><div class="an-ph"><div class="an-ph-label">TILE</div><div class="an-ph-box">Placeholder impact diagram</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">Open W5 evidence</div></div>'},
+  W5:{title:"W5 — Evidence", sub:"Evidence pack for the constraint", body:'<div class="an-ph"><div class="an-ph-label">EVIDENCE</div><div class="an-ph-box">Layer 3 evidence items</div></div><div class="an-ph"><div class="an-ph-label">QUALITY</div><div class="an-ph-box">data/layer3/evidence_quality.csv</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">Open W6 cost of problem</div></div>'},
+  W6:{title:"W6 — Cost of the problem", sub:"Financial and operational cost of not solving", body:'<div class="an-ph"><div class="an-ph-label">ZAR EXPOSURE</div><div class="an-ph-box">Placeholder · reports/cost_of_problem_summary.csv</div></div><div class="an-ph"><div class="an-ph-label">LEAKAGE</div><div class="an-ph-box">Overhead · mitigation · opportunity</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">Open W7 options</div></div>'},
+  W7:{title:"W7 — Options", sub:"Decision options ranked", body:'<div class="an-ph"><div class="an-ph-label">OPTIONS</div><div class="an-ph-box">data/layer4/decision_options.csv</div></div><div class="an-ph"><div class="an-ph-label">COMPARE</div><div class="an-ph-box">Placeholder comparison tiles</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">Open W8 intervention</div></div>'},
+  W8:{title:"W8 — Intervention", sub:"Selected action and owners", body:'<div class="an-ph"><div class="an-ph-label">ACTION PLAN</div><div class="an-ph-box">data/layer4/action_plan.csv</div></div><div class="an-ph"><div class="an-ph-label">OWNERS</div><div class="an-ph-box">RE · Geology · Production</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">Open W9 verification</div></div>'},
+  W9:{title:"W9 — Verification", sub:"Did the intervention work?", body:'<div class="an-ph"><div class="an-ph-label">CHECKS</div><div class="an-ph-box">Post-action verification tiles</div></div><div class="an-ph"><div class="an-ph-label">SLA</div><div class="an-ph-box">Response clock outcome</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">Open W10 learning</div></div>'},
+  W10:{title:"W10 — What we learned", sub:"Learning locked back into control", body:'<div class="an-ph"><div class="an-ph-label">LEARNING</div><div class="an-ph-box">data/widgets/w10_what_learned.csv</div></div><div class="an-ph"><div class="an-ph-label">FEEDBACK</div><div class="an-ph-box">Into PCV and Virtual Library</div></div><div class="an-ph"><div class="an-ph-label">LOCK</div><div class="an-ph-box">Controlled output path</div></div>'},
+  PCV1:{title:"PCV.1 — Verified position", sub:"Starting verified project position", body:'<div class="an-ph"><div class="an-ph-label">PCV.1</div><div class="an-ph-box">data/pcv/pcv1_verified_position.csv</div></div><div class="an-ph"><div class="an-ph-label">STATUS</div><div class="an-ph-box">Verified baseline tile</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">PCV.2 Forecast</div></div>'},
+  PCV2:{title:"PCV.2 — Forecast", sub:"Forward position from verified start", body:'<div class="an-ph"><div class="an-ph-label">PCV.2</div><div class="an-ph-box">data/pcv/pcv2_forecast.csv</div></div><div class="an-ph"><div class="an-ph-label">FORECAST</div><div class="an-ph-box">Placeholder forecast tile</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">PCV.3 Value</div></div>'},
+  PCV3:{title:"PCV.3 — Value", sub:"Value movement and exposure", body:'<div class="an-ph"><div class="an-ph-label">PCV.3</div><div class="an-ph-box">data/pcv/pcv3_value.csv</div></div><div class="an-ph"><div class="an-ph-label">VALUE</div><div class="an-ph-box">Placeholder value tile</div></div><div class="an-ph"><div class="an-ph-label">NEXT</div><div class="an-ph-box">PCV.4 Decision ledger</div></div>'},
+  PCV4:{title:"PCV.4 — Decision ledger", sub:"Locked decisions and accountability", body:'<div class="an-ph"><div class="an-ph-label">PCV.4</div><div class="an-ph-box">data/pcv/pcv4_decision_ledger.csv</div></div><div class="an-ph"><div class="an-ph-label">LEDGER</div><div class="an-ph-box">Placeholder ledger tile</div></div><div class="an-ph"><div class="an-ph-label">CONTROL</div><div class="an-ph-box">No independent problem creation</div></div>'}
+};
+window.anShow = function(id){
+  var p = window.AN_PANELS[id];
+  if(!p) return;
+  document.querySelectorAll(".an-layer,.an-w,.an-p").forEach(function(el){
+    el.classList.toggle("active", el.getAttribute("data-panel")===id);
+  });
+  var t=document.getElementById("anWsTitle");
+  var s=document.getElementById("anWsSub");
+  var b=document.getElementById("anWsBody");
+  if(t) t.textContent=p.title;
+  if(s) s.textContent=p.sub;
+  if(b) b.innerHTML=p.body;
+};
+</script>
+
 </body>
 </html>
 

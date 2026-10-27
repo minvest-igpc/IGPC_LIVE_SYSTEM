@@ -1,0 +1,636 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>IGPC — Main Dashboard</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#142654}
+button{font:inherit}
+.app{display:flex;min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:245px;background:#061b3c;color:#fff;padding:18px 10px;z-index:10}
+.logo{padding:8px 15px 19px;border-bottom:1px solid rgba(255,255,255,.15)}
+.logo-main{font-size:35px;font-weight:800;letter-spacing:-1px}
+.logo-sub{font-size:9px;line-height:1.25;color:#d2dbea}
+.nav{margin-top:18px}
+.nav button{display:block;width:100%;border:0;background:transparent;color:#d6dfed;text-align:left;padding:13px 15px;border-radius:7px;margin:3px 0;cursor:pointer;font-size:13px}
+.nav button:hover{background:#103664}
+.nav button.active{background:#075bd5;color:#fff;font-weight:700}
+.support{position:absolute;bottom:22px;left:15px;right:15px;border:1px solid #174b86;border-radius:8px;padding:15px;font-size:12px}
+.main{margin-left:245px;width:calc(100% - 245px)}
+.header{background:#fff;border-bottom:1px solid #dbe3ed;padding:17px 25px}
+.crumb{font-size:12px;color:#647692;margin-bottom:8px}
+.crumb span{color:#075bd5;font-weight:700}
+.headrow{display:flex;justify-content:space-between;gap:20px;align-items:center}
+h1{margin:0;font-size:31px;color:#142654}
+.subtitle{margin:5px 0 0;color:#61718b;font-size:14px}
+.project{background:#071c40;color:#fff;border-radius:8px;min-width:410px;padding:11px 16px;display:grid;grid-template-columns:1fr 1fr;gap:7px 18px;font-size:12px}
+.live{color:#58d66b;font-weight:700}
+.content{padding:20px 24px 28px}
+.view{display:none}.view.active{display:block}
+.info{background:#eef5ff;border:1px solid #cddff6;border-radius:7px;padding:12px 15px;font-size:12px;color:#173b7b;margin-bottom:16px}
+.hero{background:linear-gradient(115deg,#071c40,#0b3370);color:#fff;border-radius:10px;padding:24px;margin-bottom:18px}
+.hero h2{margin:0 0 7px;font-size:25px}.hero p{margin:0;color:#dce8fa;font-size:13px;line-height:1.6}
+.modules{display:grid;grid-template-columns:repeat(6,1fr);gap:13px}
+.module{background:#fff;border:1px solid #d9e2ee;border-radius:9px;padding:17px;min-height:220px;cursor:pointer;transition:.15s;position:relative}
+.module:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(20,38,84,.10)}
+.module .num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eaf2ff;color:#075bd5;font-weight:800;margin-bottom:13px}
+.module h3{margin:0 0 8px;font-size:14px}.module p{font-size:11px;color:#687991;line-height:1.55;margin:0 0 13px}
+.module .go{position:absolute;bottom:15px;color:#075bd5;font-size:11px;font-weight:700}
+.analytics{border-top:4px solid #075bd5}.library{border-top:4px solid #19a56a}.reports{border-top:4px solid #7251b8}.diagnostics{border-top:4px solid #e39a20}.files{border-top:4px solid #168da1}.uov{border-top:4px solid #c2410c}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid #dbe4ef;border-radius:8px;padding:15px;text-align:center}.kpi label{font-size:9px;color:#687991;font-weight:700;display:block}.kpi strong{font-size:25px;display:block;margin-top:7px;color:#075bd5}.green{color:#269447!important}.orange{color:#c78300!important}.red{color:#d43a3a!important}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:#fff;border:1px solid #dbe4ef;border-radius:8px;padding:16px;margin-bottom:14px}.card h3{margin:0 0 5px;font-size:14px}.card p{font-size:11px;color:#65758d;line-height:1.55}.bar{height:11px;background:#edf1f6;border-radius:10px;overflow:hidden;margin:7px 0 11px}.bar i{display:block;height:100%;background:#075bd5;border-radius:10px}.flow{display:flex;gap:8px;align-items:center}.flow .step{flex:1;background:#f4f7fb;border:1px solid #dce5ef;border-radius:7px;padding:13px 8px;text-align:center;font-size:10px;font-weight:700}.arrow{color:#075bd5;font-weight:800}
+table{width:100%;border-collapse:collapse}th{background:#f3f6fa;text-align:left;font-size:9px;color:#61718a;padding:9px}td{border-top:1px solid #edf1f5;padding:9px;font-size:10px}.pill{display:inline-block;padding:5px 8px;border-radius:12px;font-size:9px;font-weight:700;background:#e3f6e8;color:#24823c}.pill.warn{background:#fff3d7;color:#986d00}.pill.alert{background:#ffe6e6;color:#b92929}
+.section-title{font-size:17px;font-weight:800;margin:0 0 4px}.section-sub{font-size:11px;color:#687991;margin-bottom:15px}
+.back{border:1px solid #cdd8e7;background:#fff;color:#075bd5;border-radius:7px;padding:9px 14px;font-weight:700;cursor:pointer}
+.top-actions{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
+.layer-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.layer{border-radius:8px;padding:14px;color:#fff;min-height:150px}.l1{background:#075bd5}.l2{background:#23955e}.l3{background:#7353ad}.l4{background:#d58b20}.f08{background:#168da1}.layer h3{margin:0 0 8px;font-size:12px}.layer p,.layer li{font-size:10px;line-height:1.5}.layer ul{padding-left:15px;margin:0}
+.arch-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.arch-box{background:#fff;border:1px solid #dbe4ef;border-radius:8px;padding:15px}.arch-box h3{font-size:12px;margin:0 0 10px}.arch-box p,.arch-box li{font-size:10px;line-height:1.55;color:#667791}.tier0{grid-column:1/-1;border:2px solid #0b2a58;background:#f7faff;text-align:center}.tier0 strong{font-size:16px;color:#0b2a58}
+iframe.analytics-frame{width:100%;height:calc(100vh - 110px);border:0;border-radius:0;background:#f4f7fb}
+@media(max-width:1100px){.modules,.layer-row{grid-template-columns:repeat(2,1fr)}.kpis{grid-template-columns:repeat(2,1fr)}.project{min-width:300px}.headrow{align-items:flex-start;flex-direction:column}.grid,.grid3,.arch-grid{grid-template-columns:1fr}}
+
+
+:root{
+  --navy:#071b33;--navy2:#0b2750;--blue:#075bd5;--blue2:#1b6ee8;
+  --ink:#142654;--muted:#5f718c;--line:#d9e3ef;--bg:#f3f7fb;--white:#fff;
+  --green:#29954a;--green2:#dff6e4;--red:#d93636;--red2:#ffe6e6;
+  --orange:#df8b32;--orange2:#fff2dc;--purple:#7652a8;--teal:#159b96;
+}
+*{box-sizing:border-box} .analytics-scope body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+button{font:inherit;cursor:pointer}
+button:focus{outline:2px solid #7db4ff;outline-offset:1px} .analytics-scope .app{min-height:100vh} .analytics-scope .sidebar{position:fixed;left:0;top:0;bottom:0;width:245px;background:linear-gradient(180deg,#071b33,#061734);color:#fff;z-index:20} .analytics-scope .logo{height:102px;padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.16)}
+.logo-main{font-size:34px;font-weight:900;letter-spacing:1px}
+.logo-sub{font-size:9px;line-height:1.35;color:#d7e0ed} .analytics-scope .nav{padding:12px 7px}
+.nav button{display:block;width:100%;border:0;background:transparent;color:#d8e2ef;text-align:left;padding:12px 12px;border-radius:7px;margin:3px 0;font-weight:700;font-size:13px}
+.nav button:hover{background:#123660}.nav button.active{background:#075bd5;color:#fff} .analytics-scope .support{position:absolute;left:16px;right:16px;bottom:18px;border:1px solid #174b86;border-radius:8px;padding:15px;color:#e7eef8;font-size:12px} .analytics-scope .main{margin-left:245px;min-height:100vh} .analytics-scope .header{background:#fff;padding:12px 24px 14px;border-bottom:1px solid var(--line)}
+.breadcrumb{font-size:11px;color:#55708f;margin-bottom:8px}.breadcrumb b{color:var(--blue)}
+.header-row{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.title h1{font-size:29px;margin:0;color:var(--ink);letter-spacing:.2px}.title p{margin:4px 0 0;color:#526a89;font-size:14px}
+.project-box{background:var(--navy);color:#fff;border-radius:8px;min-width:400px;padding:10px 14px;display:grid;grid-template-columns:1fr 1fr;gap:4px 22px;font-size:11px;line-height:1.35}
+.project-box .right{text-align:right}.live{color:#58d46f;font-weight:800} .analytics-scope .content{padding:14px 22px 28px}
+.info{background:#eef6ff;border:1px solid #c8dcf8;color:#123f89;border-radius:6px;padding:9px 12px;font-size:11px;margin-bottom:10px}
+.layerbar{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:12px}
+.layerbtn{background:#fff;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:7px;padding:10px;text-align:left;min-height:82px;color:var(--ink)}
+.layerbtn:hover,.layerbtn.active{box-shadow:0 4px 13px #0001;transform:translateY(-1px)}
+.layerbtn.active{background:#f4f8ff}.layerbtn h3{font-size:11px;margin:0 0 5px}.layerbtn p{font-size:9px;color:var(--muted);line-height:1.35;margin:0}
+.l1{border-top-color:#2878bd}.l2{border-top-color:#36a86b}.l3{border-top-color:#7652a8}.l4{border-top-color:#df8b32}.f08{border-top-color:#159b96}
+.flowbar{display:flex;align-items:center;gap:6px;margin:0 0 12px;overflow:auto;padding-bottom:2px}
+.flow-node{flex:1;min-width:125px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px;text-align:center;font-size:9px;font-weight:800}
+.flow-arrow{color:#7890ad;font-size:16px}
+.section-title{background:var(--navy);color:#fff;border-radius:7px;padding:9px 12px;font-size:11px;font-weight:800;margin:0 0 8px}
+.section-title span{float:right;color:#cdd9e8;font-weight:500;font-size:9px}
+.widgets{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-bottom:12px}
+.widget{background:#fff;border:1px solid var(--line);border-radius:7px;padding:8px 4px;min-height:70px;text-align:center;color:var(--ink);transition:.12s}
+.widget:hover,.widget.active{border-color:var(--blue);box-shadow:0 4px 10px #075bd51a;background:#f6faff}
+.widget .wn{display:block;font-size:12px;font-weight:900;color:var(--blue)}.widget .wt{display:block;font-size:8.5px;line-height:1.2;margin-top:3px}
+.pcvbar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.pcv{background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px 10px;text-align:left;min-height:60px}
+.pcv:hover,.pcv.active{background:#0b2b5a;color:#fff;border-color:#0b2b5a}.pcv b{display:block;font-size:11px}.pcv span{font-size:9px;opacity:.8}
+.workspace{background:#fff;border:1px solid var(--line);border-radius:9px;min-height:650px;padding:16px;box-shadow:0 2px 9px #0000000d}
+.workspace-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:11px;margin-bottom:12px}
+.workspace-head h2{margin:0;font-size:20px;color:var(--ink)}.workspace-head p{margin:4px 0 0;color:var(--muted);font-size:11px}.tag{background:#eaf1fa;border-radius:20px;padding:6px 10px;font-size:9px;font-weight:800}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:12px}.kpi{background:#fff;border:1px solid var(--line);border-radius:7px;padding:11px;text-align:center}.kpi label{display:block;font-size:8.5px;color:#6b7d94;font-weight:800}.kpi strong{display:block;margin-top:6px;font-size:20px;color:var(--blue)}.kpi small{font-size:8.5px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:#fff;border:1px solid var(--line);border-radius:7px;padding:13px}.card.soft{background:#fbfcfe}.card h3,.card h4{margin:0 0 7px;font-size:11px;color:var(--ink)}.card p{font-size:10.5px;line-height:1.55;color:#52677f;margin:0 0 7px}
+.metric{font-size:25px;font-weight:900;color:var(--blue)}.good{color:var(--green)!important}.bad{color:var(--red)!important}.warn{color:#b97a00!important}.purple{color:var(--purple)!important}
+.table{width:100%;border-collapse:collapse;font-size:9.5px}.table th{background:#f2f6fa;color:#5f7085;text-align:left;font-size:8.5px;padding:8px}.table td{padding:8px;border-bottom:1px solid #e7edf3}.badge{display:inline-block;border-radius:12px;padding:4px 7px;font-size:8px;font-weight:800}.badge.green{background:var(--green2);color:#247c3c}.badge.red{background:var(--red2);color:#b82d2d}.badge.orange{background:var(--orange2);color:#9a6700}.badge.blue{background:#e7f0ff;color:#1255b7}
+.formula{background:#f5f8fc;border:1px solid #dce5ef;border-radius:6px;padding:9px 10px;margin:6px 0;font-family:Consolas,monospace;font-size:10px;color:#17345e}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:5px}.flow span{background:#f0f5fa;border:1px solid #d8e3ec;border-radius:5px;padding:7px 9px;font-size:9px;font-weight:800}.flow i{font-style:normal;color:#8092a5}
+.actionrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.action{border:0;background:var(--blue);color:#fff;border-radius:5px;padding:7px 10px;font-size:9px;font-weight:800}.action.secondary{background:#e9f0f7;color:#163a62}.action.green{background:#29954a}.action.orange{background:#df8b32}
+.progress{height:8px;background:#e4eaf0;border-radius:5px;overflow:hidden}.progress span{display:block;height:100%;background:var(--blue)}
+.svgchart{width:100%;height:230px;display:block;background:#fff}.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:8.5px;color:#5d7088;margin-bottom:4px}.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px}
+.piewrap{display:flex;align-items:center;gap:20px}.pie{width:150px;height:150px;border-radius:50%;border:1px solid #d9e3ed}
+.side-note{font-size:9px;color:#66788d;line-height:1.5}
+.subtabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:11px}.subtab{border:1px solid var(--line);background:#fff;color:#244567;border-radius:5px;padding:7px 9px;font-size:8.5px;font-weight:800}.subtab.active{background:#0b2b5a;color:#fff;border-color:#0b2b5a}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.footer{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:7px;padding:10px;font-size:9px;color:#60738b;text-align:center}
+.hidden{display:none!important}
+@media(max-width:1200px){.widgets{grid-template-columns:repeat(6,1fr)}.layerbar{grid-template-columns:repeat(3,1fr)}.kpis{grid-template-columns:repeat(3,1fr)}.pcvbar{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:850px){.sidebar{position:relative;width:100%;height:auto} .analytics-scope .main{margin-left:0} .analytics-scope .support{display:none} .analytics-scope .nav{display:flex;flex-wrap:wrap}.nav button{width:auto}.header-row{flex-direction:column;align-items:stretch}.project-box{min-width:0}.grid2,.two-col{grid-template-columns:1fr}}
+@media(max-width:600px){.widgets{grid-template-columns:repeat(2,1fr)}.layerbar{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.pcvbar{grid-template-columns:1fr}.grid3,.three-col{grid-template-columns:1fr} .analytics-scope .content{padding:10px}.workspace{padding:10px}}
+
+/* Embedded Analytics: one IGPC shell, no nested dashboard shell/scrollbars */
+.embedded-analytics-content{width:100%;background:#f4f7fb;color:#142654}
+.embedded-analytics-content .analytics-shell{width:100%}
+.embedded-analytics-content .view{display:none}
+.embedded-analytics-content .view.active{display:block}
+.embedded-analytics-content .analytics-frame{display:none!important}
+.embedded-analytics-content .sidebar,
+.embedded-analytics-content .nav,
+.embedded-analytics-content .support,
+.embedded-analytics-content .logo{display:none!important}
+
+
+/* PASS 4 FIX — show the actual Project Files dashboard inside the Main Dashboard */
+.projectfiles-host{width:100%;margin:0;padding:0;background:#07111f;border:1px solid #18314f;border-radius:10px;overflow:hidden;box-shadow:0 10px 30px rgba(4,20,40,.16)}
+.projectfiles-frame{display:block;width:100%;height:calc(100vh - 150px);min-height:720px;border:0;background:#07111f}
+@media(max-width:900px){.projectfiles-frame{height:900px;min-height:900px}}
+ .module-frame{width:100%;height:calc(100vh - 150px);min-height:720px;border:0;border-radius:8px;background:#fff}
+/* =========================================================
+   IGPC UNIFIED GLOSSY VISUAL SYSTEM
+   COSMETIC LAYER ONLY
+   ========================================================= */
+
+:root{
+  --igpc-chocolate:#1D1815;
+  --igpc-chocolate-light:#BCAAA3;
+  --igpc-graphite:#2C2E37;
+  --igpc-graphite-deep:#171A1F;
+  --igpc-bg:#F7F7F7;
+  --igpc-white:#FFFFFF;
+  --igpc-orange:#F2A65A;
+  --igpc-orange-light:#FFD29B;
+}
+
+body{
+  background:
+    radial-gradient(circle at 15% 10%,rgba(242,166,90,.10),transparent 28%),
+    radial-gradient(circle at 85% 5%,rgba(188,170,163,.16),transparent 30%),
+    linear-gradient(135deg,#F7F7F7 0%,#EEEAE8 48%,#F7F7F7 100%);
+}
+
+.sidebar{
+  background:linear-gradient(160deg,#171A1F 0%,#2C2E37 55%,#1D1815 100%);
+  box-shadow:8px 0 30px rgba(29,24,21,.18);
+  border-right:1px solid rgba(255,255,255,.08);
+}
+
+.sidebar button,
+.sidebar .nav button{
+  color:#FFFFFF;
+  border-color:rgba(255,255,255,.10);
+  background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+}
+
+.sidebar button:hover,
+.sidebar .nav button:hover{
+  background:linear-gradient(145deg,rgba(242,166,90,.24),rgba(255,255,255,.06));
+  border-color:rgba(242,166,90,.55);
+}
+
+.hero{
+  background:
+    radial-gradient(circle at 75% 20%,rgba(255,210,155,.22),transparent 25%),
+    linear-gradient(135deg,#1D1815 0%,#2C2E37 58%,#171A1F 100%);
+  color:#FFFFFF;
+  box-shadow:0 14px 40px rgba(29,24,21,.20);
+  position:relative;
+  overflow:hidden;
+}
+
+.info-strip{
+  background:linear-gradient(135deg,#2C2E37,#1D1815);
+  color:#FFFFFF;
+  border:1px solid rgba(242,166,90,.30);
+  box-shadow:0 8px 25px rgba(29,24,21,.14);
+}
+
+.module{
+  background:
+    linear-gradient(145deg,#FFFFFF 0%,#FFFFFF 58%,#BCAAA3 100%);
+  border:1px solid rgba(188,170,163,.55);
+  border-top:3px solid #F2A65A;
+  color:#1D1815;
+  box-shadow:
+    0 10px 30px rgba(29,24,21,.10),
+    inset 0 1px 0 rgba(255,255,255,.95);
+  position:relative;
+  overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+
+.module:hover{
+  transform:translateY(-3px);
+  box-shadow:
+    0 16px 38px rgba(29,24,21,.16),
+    inset 0 1px 0 rgba(255,255,255,.98);
+}
+
+.module .num{
+  background:linear-gradient(145deg,#2C2E37,#1D1815);
+  color:#FFFFFF;
+  border:1px solid rgba(242,166,90,.60);
+  box-shadow:0 5px 14px rgba(29,24,21,.20);
+}
+
+.module h1,
+.module h2,
+.module h3,
+.module h4{
+  color:#1D1815;
+}
+
+.embedded-analytics-content{
+  background:
+    radial-gradient(circle at 80% 10%,rgba(242,166,90,.10),transparent 25%),
+    linear-gradient(135deg,#F7F7F7,#EEEAE8);
+}
+
+.projectfiles-host{
+  background:linear-gradient(135deg,#1D1815,#2C2E37,#171A1F)!important;
+  border:1px solid rgba(242,166,90,.35)!important;
+  box-shadow:0 14px 38px rgba(29,24,21,.22)!important;
+}
+
+.projectfiles-frame{
+  background:#171A1F!important;
+}
+
+.module-frame{
+  background:#FFFFFF;
+  box-shadow:0 8px 25px rgba(29,24,21,.08);
+}
+
+.arch-box{
+  background:linear-gradient(145deg,#2C2E37,#171A1F)!important;
+  color:#FFD29B!important;
+  border-color:rgba(242,166,90,.45)!important;
+  box-shadow:0 10px 28px rgba(29,24,21,.18);
+}
+
+.step{
+  background:
+    linear-gradient(145deg,#FFFFFF 0%,#F7F7F7 65%,#BCAAA3 140%);
+  color:#1D1815;
+  border-color:rgba(188,170,163,.55);
+  box-shadow:
+    0 8px 22px rgba(29,24,21,.10),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+.bar,
+.progress,
+.fill{
+  background:linear-gradient(90deg,#1D1815,#2C2E37,#F2A65A)!important;
+}
+
+.pill,
+.badge{
+  background:linear-gradient(145deg,#2C2E37,#1D1815)!important;
+  color:#FFFFFF!important;
+  border:1px solid rgba(242,166,90,.45)!important;
+}
+
+.support{
+  background:linear-gradient(145deg,#FFFFFF,#EEEAE8);
+  border-color:rgba(188,170,163,.55);
+  box-shadow:0 8px 24px rgba(29,24,21,.10);
+}
+
+::-webkit-scrollbar{
+  width:9px;
+}
+
+::-webkit-scrollbar-track{
+  background:#F7F7F7;
+}
+
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(#BCAAA3,#2C2E37);
+  border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(#F2A65A,#1D1815);
+}
+/* =========================================================
+   IGPC — REMOVE WHITE / WARM GLOSS FINISH
+   ========================================================= */
+
+body{
+  background:
+    radial-gradient(circle at 15% 5%,rgba(242,166,90,.16),transparent 25%),
+    radial-gradient(circle at 85% 10%,rgba(188,170,163,.14),transparent 28%),
+    linear-gradient(135deg,#2C2E37 0%,#1D1815 55%,#171A1F 100%);
+}
+
+/* Main content surfaces */
+main,
+.content,
+.container,
+.dashboard,
+.page,
+.view,
+section{
+  background:transparent!important;
+}
+
+/* All major cards */
+.card,
+.panel,
+.module,
+.widget,
+.tile,
+.box{
+  background:
+    linear-gradient(145deg,
+      rgba(255,255,255,.08) 0%,
+      rgba(188,170,163,.16) 45%,
+      rgba(29,24,21,.72) 100%)!important;
+  color:#FFFFFF!important;
+  border-color:rgba(242,166,90,.35)!important;
+  box-shadow:
+    0 12px 32px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.12)!important;
+}
+
+/* Module text */
+.module h1,
+.module h2,
+.module h3,
+.module h4,
+.module p,
+.module span{
+  color:#FFFFFF!important;
+}
+
+/* Numbers */
+.module .num{
+  background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;
+  color:#1D1815!important;
+  border-color:#FFD29B!important;
+}
+
+/* Internal analytics/project areas */
+.embedded-analytics-content,
+.projectfiles-host,
+.projectfiles-frame{
+  background:
+    linear-gradient(145deg,#2C2E37,#1D1815,#171A1F)!important;
+}
+
+/* Frames */
+.module-frame{
+  background:
+    linear-gradient(145deg,#2C2E37,#1D1815)!important;
+}
+
+/* Architecture / process boxes */
+.arch-box,
+.step{
+  background:
+    linear-gradient(145deg,#2C2E37,#1D1815)!important;
+  color:#FFFFFF!important;
+  border-color:rgba(242,166,90,.45)!important;
+}
+
+/* White text panels / strips */
+.info-strip,
+.support{
+  background:
+    linear-gradient(145deg,#2C2E37,#1D1815)!important;
+  color:#FFFFFF!important;
+  border-color:rgba(242,166,90,.35)!important;
+}
+
+/* Buttons / pills */
+.pill,
+.badge,
+button{
+  background:
+    linear-gradient(145deg,#2C2E37,#1D1815)!important;
+  color:#FFFFFF!important;
+  border-color:rgba(242,166,90,.45)!important;
+}
+
+/* Orange highlight */
+a:hover,
+button:hover{
+  border-color:#F2A65A!important;
+}
+
+/* Gloss reflection */
+.module:after,
+.card:after,
+.panel:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:35%;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.12),
+    rgba(255,255,255,0)
+  );
+  pointer-events:none;
+}
+/* IGPC LAYER AND PCV FINAL OVERRIDE */
+html body .layerbar > button.layerbtn,
+html body .pcvbar > button.pcv {
+  background: linear-gradient(145deg,#2C2E37,#211B19) !important;
+  color: #E9DDD6 !important;
+  border: 1px solid rgba(242,166,90,.45) !important;
+}
+html body .layerbar > button.layerbtn.active,
+html body .pcvbar > button.pcv.active,
+html body .layerbar > button.layerbtn:hover,
+html body .pcvbar > button.pcv:hover {
+  background: linear-gradient(145deg,#F2A65A,#BCAAA3) !important;
+  color: #1D1815 !important;
+  border-color: #FFD29B !important;
+}
+
+</style>
+<script src="config.js"></script><script>
+const IGPC_API=window.IGPC_API_BASE||'';
+async function igpcLiveRefresh(){try{const r=await fetch(IGPC_API+'/api/projects');if(!r.ok)return;const ps=await r.json();const latest=ps[0];if(latest){document.querySelectorAll('.project strong').forEach(e=>e.textContent='Project ID: '+latest.project_id);const live=document.querySelector('.live');if(live)live.textContent='â— LIVE / '+latest.status;}}catch(e){}}
+window.addEventListener('message',e=>{if(e.data?.type==='igpc-data-released'){igpcLiveRefresh();}});igpcLiveRefresh();setInterval(igpcLiveRefresh,10000);
+</script><link rel="stylesheet" href="unified-theme.css"><style id="igpc-main-final-theme">
+/* IGPC UNIFIED MAIN PAGE THEME */
+:root{--ink:#FFFFFF;--muted:#BCAAA3;--line:rgba(242,166,90,.35);--bg:#1D1815;--white:#2C2E37;--blue:#F2A65A;--navy:#1D1815;--orange:#F2A65A;--orange2:#30241F;--purple:#FFD29B;--teal:#F2A65A}
+body{background:radial-gradient(circle at 15% 5%,rgba(242,166,90,.13),transparent 30%),linear-gradient(145deg,#2C2E37,#1D1815,#171A1F)!important;color:#fff!important}
+.header,.module,.kpi,.card,.arch-box,.footer,.layer,.layerbtn,.flow-node,.widget,.pcv,.workspace,.analytics-scope .header,.analytics-scope .workspace,.analytics-scope .layerbtn,.analytics-scope .flow-node,.analytics-scope .widget,.analytics-scope .pcv,.analytics-scope .kpi,.analytics-scope .card{background:linear-gradient(145deg,#2C2E37,#211B19)!important;color:#fff!important;border-color:rgba(242,166,90,.38)!important}
+.module h3,.module p,.arch-box h3,.arch-box p,.arch-box li,.card h3,.card h4,.card p,.kpi label,.kpi small,.section-sub,.title h1,.title p,.workspace-head h2,.workspace-head p{color:#E9DDD6!important}
+.section-title{background:linear-gradient(145deg,#2C2E37,#1D1815)!important;color:#FFD29B!important;border:1px solid rgba(242,166,90,.4)!important}
+.nav button.active,.nav button:hover,.back,.subtab,.analytics-scope .nav button.active,.analytics-scope .nav button:hover{background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;color:#1D1815!important;border-color:#FFD29B!important}
+.module:hover,.card:hover,.arch-box:hover{border-color:#F2A65A!important;box-shadow:0 8px 24px rgba(0,0,0,.22)!important}
+.kpi strong,.metric,.pill,.tag,.widget .wn,.breadcrumb b{color:#FFD29B!important}
+th,.analytics-scope .table th{background:#30241F!important;color:#FFD29B!important;border-color:rgba(242,166,90,.3)!important}
+td,.analytics-scope .table td{background:#211B19!important;color:#F7F1EC!important;border-color:rgba(242,166,90,.25)!important}
+.bar,.formula,.info,.tag,.analytics-scope .info,.analytics-scope .formula{background:#30241F!important;color:#FFD29B!important;border-color:rgba(242,166,90,.4)!important}
+.bar i{background:linear-gradient(90deg,#F2A65A,#FFD29B)!important}
+.layer.l1,.layer.l2,.layer.l3,.layer.l4,.layer.f08{background:linear-gradient(145deg,#2C2E37,#1D1815)!important;border:1px solid rgba(242,166,90,.5)!important;border-top:4px solid #F2A65A!important;color:#fff!important}
+.analytics-scope .title h1,.analytics-scope .title p,.analytics-scope .breadcrumb,.analytics-scope .workspace-head h2,.analytics-scope .workspace-head p,.analytics-scope .card h3,.analytics-scope .card h4,.analytics-scope .card p,.analytics-scope .layerbtn p,.analytics-scope .widget .wt,.analytics-scope .kpi label,.analytics-scope .kpi small,.analytics-scope .pcv span{color:#E9DDD6!important}
+.analytics-scope .nav button.active,.analytics-scope .layerbtn.active,.analytics-scope .widget.active,.analytics-scope .widget:hover,.analytics-scope .pcv.active,.analytics-scope .pcv:hover{background:linear-gradient(145deg,#F2A65A,#BCAAA3)!important;color:#1D1815!important;border-color:#FFD29B!important}
+.analytics-scope .widget .wn,.analytics-scope .metric,.analytics-scope .kpi strong{color:#FFD29B!important}
+.analytics-scope .section-title{background:linear-gradient(145deg,#2C2E37,#1D1815)!important;color:#FFD29B!important}
+.analytics-scope .tag,.analytics-scope .formula{background:#30241F!important;color:#FFD29B!important}
+button:focus,.analytics-scope button:focus{outline:2px solid #F2A65A!important;outline-offset:2px}
+
+</style>\n<link rel="stylesheet" href="/igpc-typography.css?v=1">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="logo"><div class="logo-main">IGPC</div><div class="logo-sub">INTEGRATED GEOTECHNICAL<br>PROJECT CONTROLS</div></div>
+<nav class="nav">
+<button class="active" data-view="home">âŒ‚ &nbsp; MAIN DASHBOARD</button>
+<button data-view="library">â—‰ &nbsp; VIRTUAL LIBRARY</button>
+<button data-view="projectfiles">â—ˆ &nbsp; PROJECT FILES</button>
+<button data-view="analytics">â–¥ &nbsp; ANALYTICS</button>
+<button data-view="diagnostics">â—« &nbsp; DIAGNOSTICS</button>
+<button data-view="reports">â–§ &nbsp; REPORTS</button>
+</nav>
+<div class="support"><strong>Need Help?</strong><br>IGPC Support</div>
+</aside>
+
+<main class="main">
+
+
+<section class="content">
+
+<div id="home" class="view active">
+<div class="hero"><h2>IGPC PROJECT CONTROL SYSTEM</h2><p>One main dashboard connecting the five operating areas. Select a module below to enter its dedicated dashboard. The architecture remains connected rather than becoming five separate systems.</p></div>
+<div class="info">PROJECT FILES → VIRTUAL LIBRARY → ANALYTICS → DIAGNOSTICS → F08 SPECIALIST INTELLIGENCE → VERIFICATION / LEARNING → REPORTS</div><div class="card" style="margin-bottom:16px">
+<h3>SYSTEM STATUS</h3>
+<div class="grid3">
+<div><strong style="font-size:11px">DATA</strong><div class="bar"><i style="width:98%"></i></div><span class="pill">â— LIVE / 98% COMPLETE</span></div>
+<div><strong style="font-size:11px">VIRTUAL LIBRARY</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">â— READY / VALIDATED</span></div>
+<div><strong style="font-size:11px">ANALYTICS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">â— ACTIVE</span></div>
+<div><strong style="font-size:11px">DIAGNOSTICS</strong><div class="bar"><i style="width:82%"></i></div><span class="pill warn">â— 4 OPEN / 2 HIGH</span></div>
+<div><strong style="font-size:11px">F08</strong><div class="bar"><i style="width:72%"></i></div><span class="pill">â— ACTIVE / 72% CONFIDENCE</span></div>
+<div><strong style="font-size:11px">REPORTS</strong><div class="bar"><i style="width:100%"></i></div><span class="pill">â— READY</span></div>
+</div>
+</div>
+
+<div class="modules">
+<div class="module library" onclick="openView('library')"><div class="num">01</div><h3>VIRTUAL LIBRARY</h3><p>Secure bridge between client information and IGPC project intelligence, without touching the client's server.</p><div class="go">OPEN VIRTUAL LIBRARY →</div></div>
+<div class="module files" onclick="openView('projectfiles')"><div class="num">02</div><h3>PROJECT FILES</h3><p>Master project entry point with the three IGPC core operational boxes and the structured project architecture.</p><div class="go">OPEN PROJECT FILES →</div></div>
+<div class="module analytics" onclick="openView('analytics')"><div class="num">03</div><h3>ANALYTICS</h3><p>W1-W10, Layers 1-4, F08 and PCV1-PCV4. This is the integrated analytics dashboard already built.</p><div class="go">OPEN ANALYTICS →</div></div>
+<div class="module diagnostics" onclick="openView('diagnostics')"><div class="num">04</div><h3>DIAGNOSTICS</h3><p>Moves from an identified problem or deviation to the most likely causes, probabilities and diagnostic evidence.</p><div class="go">OPEN DIAGNOSTICS →</div></div>
+<div class="module reports" onclick="openView('reports')"><div class="num">05</div><h3>REPORTS</h3><p>Controlled reporting from the same project information, analytics, evidence and specialist intelligence.</p><div class="go">OPEN REPORTS →</div></div><div class="module uov" onclick="window.open('https://igpc-live-system.onrender.com/uov/','_blank')"><div class="num">06</div><h3>UNIVERSAL OPERATIONAL VAULT (UOV)</h3><p>Project-level bottleneck and financial bleed analysis engine. Identifies what is causing the project to lose time and money.</p><div class="go">OPEN UOV →</div></div> 
+</div>
+</div>
+<div class="card">
+<h3>PROJECT ID — SYSTEM ANCHOR</h3>
+<div class="grid3">
+<div class="arch-box"><h3>PROJECT</h3><p><strong>EXPL-001</strong><br>Exploration Drilling<br>PGM</p></div>
+<div class="arch-box"><h3>DATA PATH</h3><p>Project ID follows the information through Virtual Library → Analytics → Diagnostics → F08 → Reports.</p></div>
+<div class="arch-box"><h3>CONTROL PRINCIPLE</h3><p>No dashboard creates a problem independently. Findings are driven by controlled project information.</p></div>
+</div>
+</div>
+<div class="card" style="margin-top:16px">
+<h3>LOCKED IGPC CONTROL ARCHITECTURE</h3>
+<div class="flow">
+<div class="step">PROJECT FILES<br><small>Project context / Project ID</small></div><div class="arrow">→</div>
+<div class="step">VIRTUAL LIBRARY<br><small>Receive / Sort / Validate / Control</small></div><div class="arrow">→</div>
+<div class="step">ANALYTICS<br><small>What is happening?</small></div><div class="arrow">→</div>
+<div class="step">DIAGNOSTICS<br><small>Why is it happening?</small></div><div class="arrow">→</div>
+<div class="step">F08<br><small>Specialist Intelligence</small></div><div class="arrow">→</div>
+<div class="step">LAYER 4<br><small>Decision / Action</small></div><div class="arrow">→</div>
+<div class="step">INTERVENTION<br><small>Apply action</small></div><div class="arrow">→</div>
+<div class="step">VERIFICATION<br><small>Did it work?</small></div><div class="arrow">→</div>
+<div class="step">LEARNING<br><small>What have we learned?</small></div><div class="arrow">→</div>
+<div class="step">REPORTS<br><small>Controlled output</small></div>
+</div>
+</div>
+<div class="card">
+<h3>INTERVENTION & LEARNING LOOP</h3>
+<div class="flow">
+<div class="step">ANALYTICS<br><small>Identify gap / constraint</small></div><div class="arrow">→</div>
+<div class="step">DIAGNOSTICS<br><small>Rank likely causes</small></div><div class="arrow">→</div>
+<div class="step">F08<br><small>Specialist judgement</small></div><div class="arrow">→</div>
+<div class="step">LAYER 4<br><small>Decision / Action</small></div><div class="arrow">→</div>
+<div class="step">INTERVENTION</div><div class="arrow">→</div>
+<div class="step">W9<br><small>Did it work?</small></div><div class="arrow">→</div>
+<div class="step">W10<br><small>What have we learned?</small></div><div class="arrow">â†º</div>
+<div class="step">ANALYTICS</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h3>REPORTS — OUTPUT OF THE IGPC CONTROL CHAIN</h3>
+<p>Reports draw controlled information from Project Files, the Virtual Library, Analytics, Diagnostics, F08 specialist intelligence, verification and learning.</p>
+<div class="flow">
+<div class="step">PROJECT FILES</div><div class="arrow">→</div>
+<div class="step">VIRTUAL LIBRARY</div><div class="arrow">→</div>
+<div class="step">ANALYTICS</div><div class="arrow">→</div>
+<div class="step">DIAGNOSTICS / F08</div><div class="arrow">→</div>
+<div class="step">VERIFICATION / LEARNING</div><div class="arrow">→</div>
+<div class="step">REPORTS</div>
+</div>
+</div>
+
+<div id="analytics" class="view">
+<div class="top-actions"><div><div class="section-title">ANALYTICS DASHBOARD</div><div class="section-sub">W1—W10 · Layers 1—4 · F08 · PCV1—PCV4 · MINVEST IGPC SYSTEM</div></div>
+<button class="back" onclick="openView('home')">← Main Dashboard</button></div>
+<iframe class="module-frame" src="/analytics.html" title="MINVEST IGPC Analytics"></iframe>
+</div>
+<div id="library" class="view"><div class="top-actions"><div><div class="section-title">VIRTUAL LIBRARY</div><div class="section-sub">Client → Client Link → Client Portal → Virtual Library → Validation Gate → Release → Existing Project Files</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div><iframe class="module-frame" src="virtual-library.html" title="IGPC Virtual Library"></iframe></div>
+
+<div id="reports" class="view">
+<div class="top-actions"><div><div class="section-title">REPORTS DASHBOARD</div><div class="section-sub">From raw project information to clear, reliable and actionable reports.</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div>
+<div class="kpis">
+<div class="kpi"><label>PROJECT STATUS</label><strong class="green">CONTROLLED</strong></div>
+<div class="kpi"><label>REPORTS READY</label><strong>12</strong></div>
+<div class="kpi"><label>DATA COMPLETENESS</label><strong>98%</strong></div>
+<div class="kpi"><label>EVIDENCE STATUS</label><strong class="green">VALID</strong></div>
+<div class="kpi"><label>LAST REPORT</label><strong style="font-size:18px">30 Aug</strong></div>
+</div>
+<div class="grid3">
+<div class="card"><h3>OPERATIONAL PERFORMANCE REPORT</h3><p>Project progress, productivity, constraints, cost and schedule position.</p><span class="pill">READY</span></div>
+<div class="card"><h3>GEOTECHNICAL CONTROL REPORT</h3><p>Ground-control findings, evidence, risk position and specialist observations.</p><span class="pill">READY</span></div>
+<div class="card"><h3>PROJECT VALUE & CONTROL</h3><p>Current value, forecast, projection, exposure and intervention value.</p><span class="pill warn">REVIEW</span></div>
+</div>
+<div class="card"><h3>REPORT GENERATION CHAIN</h3><div class="flow"><div class="step">DATA</div><div class="arrow">→</div><div class="step">ANALYTICS</div><div class="arrow">→</div><div class="step">EVIDENCE</div><div class="arrow">→</div><div class="step">F08</div><div class="arrow">→</div><div class="step">REPORT</div></div></div>
+<div class="card"><h3>RECENT REPORTS</h3><table><tr><th>REPORT</th><th>DATE</th><th>STATUS</th></tr><tr><td>Operational Performance Report</td><td>30 Aug 2026</td><td><span class="pill">READY</span></td></tr><tr><td>Geotechnical Control Report</td><td>29 Aug 2026</td><td><span class="pill">READY</span></td></tr><tr><td>Project Value & Control Report</td><td>28 Aug 2026</td><td><span class="pill warn">REVIEW</span></td></tr></table></div>
+</div>
+
+<div id="diagnostics" class="view">
+<div class="top-actions"><div><div class="section-title">DIAGNOSTICS DASHBOARD</div><div class="section-sub">From analytics → diagnosis → F08 specialist intelligence → action.</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div>
+<div class="info">Diagnostics does not replace Analytics. Analytics identifies the problem, gap or deviation; Diagnostics investigates the likely causes; F08 converts the evidence into specialist intelligence; Layer 4 applies that intelligence to decision and action.</div>
+<div class="kpis">
+<div class="kpi"><label>OPEN DIAGNOSTICS</label><strong>4</strong></div>
+<div class="kpi"><label>PRIMARY ISSUE</label><strong>GROUND</strong></div>
+<div class="kpi"><label>TOP CAUSE PROBABILITY</label><strong>72%</strong></div>
+<div class="kpi"><label>HIGH PRIORITY</label><strong class="red">2</strong></div>
+<div class="kpi"><label>F08 STATUS</label><strong class="green">ACTIVE</strong></div>
+</div>
+<div class="grid">
+<div class="card"><h3>DIAGNOSTICS ENGINE</h3><p>Problem / gap / deviation analysis with the five most likely causes ranked by probability and impact.</p><table><tr><th>CAUSE</th><th>PROBABILITY</th><th>IMPACT</th></tr><tr><td>Ground condition</td><td>72%</td><td><span class="pill alert">HIGH</span></td></tr><tr><td>Equipment availability</td><td>48%</td><td><span class="pill warn">MEDIUM</span></td></tr><tr><td>Operational delay</td><td>35%</td><td><span class="pill warn">MEDIUM</span></td></tr><tr><td>Data / reporting</td><td>20%</td><td><span class="pill">LOW</span></td></tr><tr><td>External constraint</td><td>15%</td><td><span class="pill">LOW</span></td></tr></table></div>
+<div class="card"><h3>F08 — SPECIALIST INTELLIGENCE</h3><p>Target → Observation → Verification → Experience → Interpretation → Judgement → Assumptions → Expectation → Confidence → Recommendation → Reconciliation.</p><div class="bar"><i style="width:72%"></i></div><strong style="font-size:12px">Confidence / leading cause: 72%</strong></div>
+</div>
+<div class="card"><h3>DIAGNOSTICS TO ACTION</h3><div class="flow"><div class="step">ANALYTICS<br><small>What is happening?</small></div><div class="arrow">→</div><div class="step">DIAGNOSTICS<br><small>What is the real cause?</small></div><div class="arrow">→</div><div class="step">F08<br><small>What should we do?</small></div><div class="arrow">→</div><div class="step">VERIFICATION<br><small>Did it work?</small></div><div class="arrow">→</div><div class="step">LEARNING<br><small>What improves?</small></div></div></div>
+</div>
+
+<div id="projectfiles" class="view">
+<div class="top-actions"><div><div class="section-title">PROJECT FILES</div><div class="section-sub">Actual Project Files dashboard — Steps 0â€“9</div></div><button class="back" onclick="openView('home')">← Main Dashboard</button></div>
+<div class="projectfiles-host">
+  <iframe class="projectfiles-frame" title="Actual IGPC Project Files Dashboard" src="project-files.html"></iframe>
+</div>
+</div></div>
+
+</section>
+</main>
+</div>
+
+<script>
+const titles={
+home:["IGPC — MAIN DASHBOARD","One entry point to Analytics, Virtual Library, Reports, Diagnostics and Project Files."],
+analytics:["ANALYTICS","W1â€“W10 Â· Layers 1â€“4 Â· F08 Â· PCV1â€“PCV4"],
+library:["VIRTUAL LIBRARY","Secure bridge from client project information to structured IGPC intelligence."],
+reports:["REPORTS","Clear, reliable and actionable project reporting."],
+diagnostics:["DIAGNOSTICS","From problem or deviation to causes, probabilities and specialist intelligence."],
+projectfiles:["PROJECT FILES","Tier 0 master navigation entry point for the project."]
+};
+function openView(id){
+ document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
+ document.getElementById("title").textContent=titles[id][0];
+ document.getElementById("subtitle").textContent=titles[id][1];
+ window.scrollTo(0,0);
+}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>openView(b.dataset.view)));
+</script>
+</body>
+</html>
+
+
+
