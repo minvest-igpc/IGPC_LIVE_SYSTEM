@@ -471,6 +471,164 @@ html body .pcvbar > button.pcv:hover {
 .an-ph-box{min-height:120px;border:1px dashed rgba(242,166,90,.45);border-radius:8px;background:#211B19;color:var(--an-muted);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:12px;line-height:1.5}
 @media(max-width:1100px){.an-kpis,.an-layers,.an-widgets{grid-template-columns:repeat(2,1fr)}.an-pcv,.an-ph-grid{grid-template-columns:1fr 1fr}}
 
+
+
+/* Layer drill-down full-screen (W6) */
+.lyr-overlay{display:none;position:fixed;inset:0;z-index:99998;background:#f4f7fb;overflow:auto;font-family:Segoe UI,Arial,sans-serif;color:#142654}
+.lyr-overlay.active{display:block}
+.lyr-top{background:#0a1628;color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.lyr-top .brand{display:flex;gap:12px;align-items:center}
+.lyr-top .brand .logo{font-size:22px;font-weight:900;letter-spacing:.5px}
+.lyr-top .brand .logo small{display:block;font-size:8px;font-weight:600;color:#94a3b8;max-width:120px;line-height:1.2}
+.lyr-top h1{margin:0;font-size:16px;font-weight:800}
+.lyr-top .sub{font-size:11px;color:#94a3b8;margin-top:2px}
+.lyr-top .meta{text-align:right;font-size:11px;color:#cbd5e1;line-height:1.5}
+.lyr-top .back{background:#1e293b;border:1px solid #334155;color:#e2e8f0;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer}
+.lyr-chain{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 16px;display:flex;gap:6px;align-items:center;overflow:auto;flex-wrap:wrap}
+.lyr-chain .node{display:flex;align-items:center;gap:4px;font-size:9px;font-weight:700;color:#64748b;padding:6px 8px;border-radius:6px;white-space:nowrap}
+.lyr-chain .node.on{color:#dc2626;border-bottom:2px solid #dc2626}
+.lyr-chain .sep{color:#cbd5e1}
+.lyr-crumb{padding:8px 16px;font-size:11px;color:#64748b;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.lyr-crumb b{color:#075bd5}
+.lyr-tabs{display:flex;gap:6px}
+.lyr-tabs button{border:1px solid #d9e2ee;background:#fff;border-radius:6px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;color:#475569}
+.lyr-tabs button.active{background:#075bd5;color:#fff;border-color:#075bd5}
+.lyr-tabs button.green{background:#16a34a;color:#fff;border-color:#16a34a}
+.lyr-body{padding:12px 16px 24px;display:grid;grid-template-columns:220px 1fr 220px;gap:12px}
+.lyr-side{display:flex;flex-direction:column;gap:10px}
+.lyr-card{background:#fff;border:1px solid #d9e2ee;border-radius:10px;padding:12px}
+.lyr-card h3{margin:0 0 8px;font-size:11px;font-weight:800;color:#0f172a}
+.lyr-card h2{margin:0 0 6px;font-size:15px;font-weight:800;color:#0f172a}
+.lyr-card table{width:100%;border-collapse:collapse;font-size:10px}
+.lyr-card th{text-align:left;font-size:9px;color:#64748b;padding:5px 4px;border-bottom:1px solid #e2e8f0;text-transform:uppercase}
+.lyr-card td{padding:5px 4px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+.lyr-big{font-size:28px;font-weight:800;color:#dc2626;line-height:1.1}
+.lyr-big.blue{color:#075bd5}
+.lyr-muted{font-size:10px;color:#64748b}
+.lyr-pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:9px;font-weight:800}
+.lyr-pill.ok{background:#dcfce7;color:#15803d}
+.lyr-pill.warn{background:#fef9c3;color:#a16207}
+.lyr-pill.alert{background:#fee2e2;color:#b91c1c}
+.lyr-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px}
+.lyr-kpi{background:#fff;border:1px solid #d9e2ee;border-radius:10px;padding:10px;text-align:center}
+.lyr-kpi label{display:block;font-size:9px;font-weight:800;color:#64748b;text-transform:uppercase}
+.lyr-kpi .v{font-size:18px;font-weight:800;margin-top:4px}
+.lyr-kpi .v.red{color:#dc2626}.lyr-kpi .v.orange{color:#ea580c}.lyr-kpi .v.purple{color:#7c3aed}.lyr-kpi .v.blue{color:#075bd5}
+.lyr-kpi .p{font-size:10px;color:#64748b;margin-top:2px}
+.lyr-grid{display:grid;gap:10px;margin-bottom:10px}
+.lyr-grid.g2{grid-template-columns:1fr 1fr}
+.lyr-grid.g3{grid-template-columns:1fr 1fr 1fr}
+.lyr-grid.g23{grid-template-columns:1.2fr 1fr}
+.lyr-grid.g32{grid-template-columns:1fr 1.2fr}
+.lyr-foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:8px;flex-wrap:wrap}
+.lyr-btn{background:#075bd5;color:#fff;border:0;border-radius:8px;padding:10px 16px;font-size:12px;font-weight:700;cursor:pointer}
+.lyr-btn.sec{background:#fff;color:#075bd5;border:1px solid #d9e2ee}
+.lyr-check{font-size:11px;line-height:1.7}
+.lyr-check .ok{color:#16a34a}
+.lyr-bar{height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;display:inline-block;width:80px;vertical-align:middle;margin-right:6px}
+.lyr-bar>i{display:block;height:100%;background:#16a34a}
+.lyr-flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:10px}
+.lyr-flow .box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;text-align:center;min-width:90px}
+.lyr-flow .arr{color:#94a3b8;font-weight:800}
+@media(max-width:1100px){
+ .lyr-body{grid-template-columns:1fr}
+ .lyr-kpis{grid-template-columns:repeat(2,1fr)}
+ .lyr-grid.g2,.lyr-grid.g3,.lyr-grid.g23,.lyr-grid.g32{grid-template-columns:1fr}
+}
+
+
+
+/* PCV full-screen — exact design graphics */
+.pcv-overlay{display:none;position:fixed;inset:0;z-index:99999;background:#f4f7fb;overflow:auto;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#142654}
+.pcv-overlay.active{display:block}
+.pcv-shell{display:flex;min-height:100%}
+.pcv-side{width:196px;background:#061b3c;color:#94a3b8;flex-shrink:0;padding:14px 0}
+.pcv-side .logo{padding:6px 16px 16px;color:#fff;font-weight:800;font-size:15px;letter-spacing:.02em}
+.pcv-side .logo small{display:block;font-size:8px;font-weight:600;color:#647692;margin-top:2px}
+.pcv-side .nav-item{padding:9px 16px;font-size:10px;font-weight:700;letter-spacing:.04em}
+.pcv-side .nav-item.on{background:#075bd5;color:#fff}
+.pcv-main{flex:1;min-width:0}
+.pcv-topbar{display:flex;justify-content:space-between;gap:12px;padding:12px 18px 6px;background:#fff;border-bottom:1px solid #d9e2ee;flex-wrap:wrap;align-items:flex-start}
+.pcv-topbar .crumb{font-size:10px;color:#647692}
+.pcv-topbar h1{margin:2px 0 0;font-size:24px;font-weight:800;color:#142654}
+.pcv-topbar .sub{font-size:12px;color:#647692;margin-top:2px}
+.pcv-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pcv-meta .box{background:#142654;color:#d9e2ee;border-radius:10px;padding:8px 12px;font-size:10px;line-height:1.45}
+.pcv-meta .box b{color:#fff;display:block}
+.pcv-meta .live{font-size:11px;color:#58d66b;font-weight:700}
+.pcv-btn{background:#fff;border:1px solid #dbe3ed;border-radius:8px;padding:7px 12px;font-size:11px;font-weight:700;cursor:pointer;color:#142654}
+.pcv-btn.primary{background:#075bd5;border-color:#075bd5;color:#fff}
+.pcv-btn.on{background:#58d66b;border-color:#58d66b;color:#fff}
+.pcv-body{padding:10px 16px 24px}
+.pcv-info{background:#eef5ff;border:1px solid #cddff6;border-radius:10px;padding:9px 12px;font-size:12px;color:#173b7b;margin-bottom:10px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.pcv-tabs{display:flex;border:1px solid #d9e2ee;border-radius:10px;overflow:hidden;background:#fff;margin-bottom:12px}
+.pcv-tabs button{flex:1;border:0;background:#fff;padding:11px 6px;font-size:10px;font-weight:800;color:#475569;cursor:pointer;border-right:1px solid #d9e2ee}
+.pcv-tabs button.active{background:#075bd5;color:#fff}
+.pcv-kpis{display:grid;gap:10px;margin-bottom:12px}
+.pcv-kpis.k6{grid-template-columns:repeat(6,1fr)}
+.pcv-kpis.k5{grid-template-columns:repeat(5,1fr)}
+.pcv-kpis.k4{grid-template-columns:repeat(4,1fr)}
+.pcv-kpi{background:#fff;border:1px solid #d9e2ee;border-radius:12px;padding:12px 13px;min-height:96px;position:relative}
+.pcv-kpi label{display:block;font-size:9px;font-weight:800;color:#647692;text-transform:uppercase;letter-spacing:.03em}
+.pcv-kpi .v{font-size:28px;font-weight:800;margin-top:6px;line-height:1;color:#142654}
+.pcv-kpi .v.blue{color:#075bd5}.pcv-kpi .v.red{color:#dc2626}.pcv-kpi .v.green{color:#58d66b}.pcv-kpi .v.purple{color:#7c3aed}
+.pcv-kpi .h{font-size:10px;color:#647692;margin-top:6px}
+.pcv-kpi .d{font-size:11px;font-weight:700;color:#dc2626;margin-top:4px}
+.pcv-kpi .ico{position:absolute;top:12px;right:12px;opacity:.35;font-size:14px}
+.pcv-grid{display:grid;gap:12px;margin-bottom:12px}
+.pcv-grid.g3{grid-template-columns:1.3fr .9fr 1.1fr}
+.pcv-grid.g32{grid-template-columns:1.55fr 1fr}
+.pcv-grid.g23{grid-template-columns:1.15fr 1fr 1fr}
+.pcv-grid.g4{grid-template-columns:1.15fr 1fr .95fr 1.15fr}
+.pcv-card{background:#fff;border:1px solid #d9e2ee;border-radius:12px;padding:14px}
+.pcv-card h3{margin:0 0 10px;font-size:11px;font-weight:800;letter-spacing:.02em}
+.pcv-card table{width:100%;border-collapse:collapse;font-size:11px}
+.pcv-card th{text-align:left;font-size:9px;color:#647692;font-weight:800;padding:5px 4px;border-bottom:1px solid #d9e2ee;text-transform:uppercase}
+.pcv-card td{padding:6px 4px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+.pcv-badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:800}
+.pcv-badge.red{background:#fee2e2;color:#b91c1c}
+.pcv-badge.orange{background:#ffedd5;color:#c2410c}
+.pcv-badge.yellow{background:#fef9c3;color:#a16207}
+.pcv-badge.green{background:#dcfce7;color:#15803d}
+.pcv-hbar{height:9px;background:#d9e2ee;border-radius:5px;overflow:hidden;display:inline-block;width:110px;vertical-align:middle;margin:0 6px}
+.pcv-hbar>i{display:block;height:100%;border-radius:5px;background:#075bd5}
+.pcv-hbar.neg>i{background:#dc2626}
+.pcv-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap;padding-top:8px}
+.pcv-note{font-size:11px;color:#647692}
+.pcv-insight{background:#eef5ff;border-radius:8px;padding:10px 12px;font-size:11px;color:#173b7b;line-height:1.55}
+.pcv-warn{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;font-size:11px;color:#92400e;margin-top:8px}
+.pcv-scen{border-radius:12px;padding:12px;color:#fff;min-height:138px}
+.pcv-scen h4{margin:0 0 8px;font-size:12px;line-height:1.25;font-weight:800}
+.pcv-scen .r{display:flex;justify-content:space-between;font-size:11px;margin-top:5px;opacity:.95}
+.pcv-scen.green{background:linear-gradient(160deg,#58d66b,#15803d)}
+.pcv-scen.blue{background:linear-gradient(160deg,#075bd5,#1d4ed8)}
+.pcv-scen.orange{background:linear-gradient(160deg,#ea580c,#c2410c)}
+.pcv-scen.purple{background:linear-gradient(160deg,#7c3aed,#6d28d9)}
+.pcv-decide{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:14px;text-align:center}
+.pcv-decide .ok{font-size:18px;font-weight:800;color:#15803d}
+.pcv-chart{width:100%;height:auto;display:block}
+.sens-row{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:11px}
+.sens-row .lab{width:140px;flex-shrink:0}
+.sens-row .bar{flex:1;height:10px;background:#fee2e2;border-radius:5px;overflow:hidden}
+.sens-row .bar>i{display:block;height:100%;background:#dc2626;border-radius:5px}
+.sens-row .bar.pos{background:#dcfce7}
+.sens-row .bar.pos>i{background:#58d66b}
+.sens-row .val{width:64px;text-align:right;font-weight:800}
+@media(max-width:1100px){
+ .pcv-side{display:none}
+ .pcv-kpis.k6,.pcv-kpis.k5,.pcv-kpis.k4{grid-template-columns:repeat(2,1fr)}
+ .pcv-grid.g3,.pcv-grid.g32,.pcv-grid.g23,.pcv-grid.g4{grid-template-columns:1fr}
+}
+
+
+/* IGPC PCV theme align to main dashboard */
+.pcv-overlay{background:#f4f7fb!important}
+.pcv-side{background:#061b3c!important}
+.pcv-side .nav-item.on,.pcv-tabs button.active{background:#075bd5!important;color:#fff!important}
+.pcv-btn.primary{background:#075bd5!important;border-color:#075bd5!important}
+.pcv-topbar h1,.pcv-kpi .v{color:#142654!important}
+.pcv-meta .live{color:#58d66b!important}
+
 </style>
 <script src="config.js"></script><script>
 const IGPC_API=window.IGPC_API_BASE||'';
@@ -745,7 +903,7 @@ diagnostics:["DIAGNOSTICS","From problem or deviation to causes, probabilities a
 projectfiles:["PROJECT FILES","Tier 0 master navigation entry point for the project."]
 };
 function openView(id){
-  if(id=="analytics"){ window.open("/analytics.html","_blank"); return; }
+  if(id=="analytics"){ window.open("analytics.html","_blank"); return; }
 
   var el=document.getElementById(id);
   if(!el){ console.warn("openView: missing view", id); return; }
@@ -770,7 +928,7 @@ window.AN_PANELS = {
   L1:{title:"L1 — DATA / SOURCE", sub:"Raw project information · source records · validation · lineage",
       body:'<div class="an-ph"><div class="an-ph-label">SOURCE REGISTER</div><div class="an-ph-box">Placeholder · data/project_files/step2_raw_source_register.csv</div></div><div class="an-ph"><div class="an-ph-label">COMPLETENESS</div><div class="an-ph-box">98.5% parse · Gatekeeper GREEN</div></div><div class="an-ph"><div class="an-ph-label">LINEAGE</div><div class="an-ph-box">Client → VL → Validation → Release → Analytics</div></div>'},
   L2:{title:"L2 — ANALYTICS / INTERPRETATION", sub:"Magnitude · trends · impacts · recovery",
-      body:'<div class="an-ph"><div class="an-ph-label">IMPACT DRIVERS</div><div class="an-ph-box">Placeholder · data/layer2/impact_drivers.csv</div></div><div class="an-ph"><div class="an-ph-label">COST TREND</div><div class="an-ph-box">Placeholder · data/layer2/cost_over_time_trend.csv</div></div><div class="an-ph"><div class="an-ph-label">SENSITIVITY</div><div class="an-ph-box">Placeholder · data/layer2/sensitivity_analysis.csv</div></div>'},
+      body:'<div class="l2live" style="font-size:12px;color:#f7f1ec"><style>.l2live .row{display:grid;grid-template-columns:200px 1fr 220px;gap:10px}.l2live .card{background:#2c2622;border:1px solid rgba(242,166,90,.28);border-radius:10px;padding:12px}.l2live h3{margin:0 0 8px;font-size:11px;color:#ffd29b;letter-spacing:.03em}.l2live h2{margin:0 0 6px;font-size:15px;color:#ffd29b}.l2live .muted{color:#b8a99c;font-size:11px;line-height:1.45}.l2live .kpi{font-size:26px;font-weight:800;color:#f2a65a;line-height:1.1}.l2live .kpi-s{font-size:11px;color:#b8a99c;margin-top:4px}.l2live .g5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}.l2live .m{background:#1d1815;border:1px solid rgba(242,166,90,.2);border-radius:8px;padding:10px;text-align:center}.l2live .m label{display:block;font-size:9px;color:#b8a99c;font-weight:700}.l2live .m strong{display:block;font-size:15px;margin-top:4px}.l2live .m.d strong{color:#f87171}.l2live .m.i strong{color:#fbbf24}.l2live .m.r strong{color:#c4b5fd}.l2live .m.t strong{color:#ffd29b}.l2live .m.day strong{color:#f2a65a}.l2live .g2{display:grid;grid-template-columns:1.1fr 1fr;gap:10px;margin-top:10px}.l2live table{width:100%;border-collapse:collapse;font-size:11px}.l2live th,.l2live td{padding:5px 6px;border-bottom:1px solid rgba(242,166,90,.12);text-align:left}.l2live th{color:#b8a99c;font-size:10px}.l2live .n{text-align:right}.l2live tr.tot td{font-weight:800;color:#ffd29b;border-top:2px solid rgba(242,166,90,.25)}.l2live .logic{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}.l2live .step{background:#1d1815;border:1px solid rgba(242,166,90,.2);border-radius:8px;padding:8px 10px;font-size:10px;color:#b8a99c;min-width:100px}.l2live .step b{display:block;color:#ffd29b;font-size:11px;margin-bottom:2px}.l2live .arr{color:#f2a65a;font-weight:700}.l2live .ins{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.35);border-radius:10px;padding:10px;margin-top:10px}.l2live .ins strong{color:#34d399;font-size:11px}.l2live .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}.l2live .btn{display:inline-block;background:linear-gradient(145deg,#f2a65a,#bcaaa3);color:#1d1815;border:0;border-radius:8px;padding:9px 12px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none}.l2live .chk{list-style:none;padding:0;margin:0;font-size:11px;color:#b8a99c}.l2live .chk li{padding:4px 0}.l2live .chk li:before{content:"✓ ";color:#34d399;font-weight:800}.l2live .lin{font-size:11px;padding:6px 0;border-bottom:1px solid rgba(242,166,90,.12);color:#b8a99c}.l2live .lin b{color:#f7f1ec}@media(max-width:1100px){.l2live .row,.l2live .g5,.l2live .g2,.l2live .g3{grid-template-columns:1fr}}</style><div class="row"><div>  <div class="card" style="margin-bottom:10px">    <h3>WHAT YOU CLICKED</h3>    <div class="muted" style="margin-bottom:8px">W6 – COST OF THE PROBLEM</div>    <div class="kpi">R2.934m</div>    <div class="kpi-s">(15.7 m/day gap)</div>  </div>  <div class="card">    <h3>INTERPRETATION SUMMARY</h3>    <table>      <tr><td>Direct Cost Impact</td><td class="n">R1.864m (63.5%)</td></tr>      <tr><td>Indirect Cost Impact</td><td class="n">R0.812m (27.7%)</td></tr>      <tr><td>Recurring / Exposure</td><td class="n">R0.258m (8.8%)</td></tr>      <tr class="tot"><td>Total Cost of Problem</td><td class="n">R2.934m (100%)</td></tr>    </table>  </div>  <div class="ins">    <strong>KEY INSIGHT</strong>    <p class="muted" style="margin:6px 0 0">The majority of the cost impact (63.5%) is driven by direct drilling idle time caused by the constraint (Drill Rig Idle).</p>  </div></div><div>  <div class="card">    <h2>LAYER 2 – ANALYTICS / INTERPRETATION</h2>    <p class="muted">How IGPC calculated and interpreted the cost — formulas, drivers, trends and sensitivity.</p>    <h3 style="margin-top:12px">1. COST IMPACT BREAKDOWN</h3>    <div class="g5">      <div class="m d"><label>DIRECT</label><strong>R1.864m</strong><span class="muted">63.5%</span></div>      <div class="m i"><label>INDIRECT</label><strong>R0.812m</strong><span class="muted">27.7%</span></div>      <div class="m r"><label>RECURRING</label><strong>R0.258m</strong><span class="muted">8.8%</span></div>      <div class="m t"><label>TOTAL</label><strong>R2.934m</strong><span class="muted">100%</span></div>      <div class="m day"><label>COST / DAY</label><strong>R188,600</strong><span class="muted">Average</span></div>    </div>    <div class="g2">      <div>        <h3>2. IMPACT DRIVERS</h3>        <table>          <tr><th>Driver</th><th class="n">Amount</th><th class="n">%</th></tr>          <tr><td>Drill Rig Idle (Direct)</td><td class="n">R1.412m</td><td class="n">48.1%</td></tr>          <tr><td>Shift Loss (Indirect)</td><td class="n">R0.620m</td><td class="n">21.1%</td></tr>          <tr><td>Support Crew Idle</td><td class="n">R0.244m</td><td class="n">8.3%</td></tr>          <tr><td>Equipment Standby</td><td class="n">R0.168m</td><td class="n">5.7%</td></tr>          <tr><td>Other Indirects</td><td class="n">R0.144m</td><td class="n">4.9%</td></tr>          <tr><td>Recurring / Exposure</td><td class="n">R0.258m</td><td class="n">8.8%</td></tr>          <tr class="tot"><td>Total</td><td class="n">R2.934m</td><td class="n">100%</td></tr>        </table>      </div>      <div>        <h3>3. COST OVER TIME (CUMULATIVE Rm)</h3>        <table>          <tr><th>Week ending</th><th class="n">Direct</th><th class="n">Indirect</th><th class="n">Recurring</th><th class="n">Total</th></tr>          <tr><td>14 Jul</td><td class="n">0.12</td><td class="n">0.05</td><td class="n">0.01</td><td class="n">0.18</td></tr>          <tr><td>21 Jul</td><td class="n">0.35</td><td class="n">0.15</td><td class="n">0.03</td><td class="n">0.71</td></tr>          <tr><td>28 Jul</td><td class="n">0.55</td><td class="n">0.28</td><td class="n">0.06</td><td class="n">1.60</td></tr>          <tr><td>04 Aug</td><td class="n">0.72</td><td class="n">0.42</td><td class="n">0.12</td><td class="n">2.86</td></tr>          <tr><td>11 Aug</td><td class="n">0.12</td><td class="n">0.08</td><td class="n">0.04</td><td class="n">2.93</td></tr>          <tr class="tot"><td>13 Aug</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">2.934</td></tr>        </table>      </div>    </div>    <h3 style="margin-top:12px">4. IMPACT LOGIC</h3>    <div class="logic">      <div class="step"><b>CONSTRAINT</b>Drill Rig Idle<br/>Reduced advance</div><span class="arr">→</span>      <div class="step"><b>IMPACT</b>Lower output /<br/>Lost metres</div><span class="arr">→</span>      <div class="step"><b>RESOURCE</b>Idle resources<br/>&amp; standby</div><span class="arr">→</span>      <div class="step"><b>COST</b>Rates × idle<br/>time</div><span class="arr">→</span>      <div class="step"><b>TOTAL</b>Direct + indirect<br/>+ exposure</div>    </div>    <div class="g3">      <div class="card" style="padding:8px">        <h3>5. KEY CALCULATIONS</h3>        <table>          <tr><th>Component</th><th>Basis</th><th class="n">Result</th></tr>          <tr><td>Idle Time</td><td>Planned − Actual</td><td class="n">124 hrs</td></tr>          <tr><td>Direct Cost</td><td>124 × R15,000/hr</td><td class="n">R1.860m</td></tr>          <tr><td>Indirect Cost</td><td>124 × R6,550/hr</td><td class="n">R0.812m</td></tr>          <tr><td>Recurring</td><td>0.6 × R0.430m</td><td class="n">R0.258m</td></tr>        </table>      </div>      <div class="card" style="padding:8px">        <h3>6. SENSITIVITY (+10%)</h3>        <table>          <tr><th>Driver</th><th class="n">Cost impact</th><th class="n">On total</th></tr>          <tr><td>Drill Rig Rate</td><td class="n">R0.186m</td><td class="n">+6.3%</td></tr>          <tr><td>Idle Hours</td><td class="n">R0.293m</td><td class="n">+10.0%</td></tr>          <tr><td>Shift Loss Rate</td><td class="n">R0.062m</td><td class="n">+2.1%</td></tr>          <tr><td>Support Crew Rate</td><td class="n">R0.024m</td><td class="n">+0.8%</td></tr>        </table>      </div>      <div class="card" style="padding:8px">        <h3>7. BENCHMARK</h3>        <table>          <tr><th>Metric</th><th class="n">This project</th><th class="n">Bench</th><th class="n">Var</th></tr>          <tr><td>Cost / Day</td><td class="n">R188,600</td><td class="n">R142,000</td><td class="n" style="color:#f87171">+33%</td></tr>          <tr><td>Cost / m lost</td><td class="n">R27,780</td><td class="n">R21,100</td><td class="n" style="color:#f87171">+32%</td></tr>          <tr><td>Idle % time</td><td class="n">18.7%</td><td class="n">12.1%</td><td class="n" style="color:#f87171">+6.6pp</td></tr>          <tr><td>Total cost</td><td class="n">R2.934m</td><td class="n">R2.120m</td><td class="n" style="color:#f87171">+38%</td></tr>        </table>      </div>    </div>    <p class="muted" style="margin-top:10px">Source CSVs: data/layer2/* · Period 14 Jul – 13 Aug 2026 · Live Layer 2 board</p>  </div></div><div>  <div class="card" style="margin-bottom:10px">    <h3>DATA LINEAGE (LAYER 1)</h3>    <div class="lin">📄 <b>6 Source Files</b><br/>CSV / System Data</div>    <div class="lin">🛡 <b>Validated</b><br/>All records validated</div>    <div class="lin">📅 <b>Period</b><br/>14 Jul – 13 Aug 2026</div>    <div class="lin">📊 <b>Records Used</b><br/>1,041 data points</div>  </div>  <div class="card" style="margin-bottom:10px">    <h3>HOW IGPC INTERPRETS</h3>    <ul class="chk">      <li>Data cleaned and validated</li>      <li>Impacts quantified with formula logic</li>      <li>Costs allocated by causation</li>      <li>Trends identify dominant drivers</li>      <li>Results roll into total cost of problem</li>    </ul>  </div>  <div class="card">    <h3>NEXT STEP</h3>    <p class="muted">View evidence that supports these calculations.</p>    <button class="btn" type="button" onclick="typeof anShow===\'function\'&&anShow(\'L3\')">Go to Layer 3 – Evidence →</button>  </div></div></div></div>'},
   L3:{title:"L3 — EVIDENCE / CONTROL", sub:"Evidence chain · quality · validation",
       body:'<div class="an-ph"><div class="an-ph-label">EVIDENCE ITEMS</div><div class="an-ph-box">Placeholder · data/layer3/evidence_items.csv</div></div><div class="an-ph"><div class="an-ph-label">EVIDENCE CHAIN</div><div class="an-ph-box">Placeholder · data/layer3/evidence_chain.csv</div></div><div class="an-ph"><div class="an-ph-label">VALIDATION</div><div class="an-ph-box">Placeholder · data/layer3/validation_checks.csv</div></div>'},
   L4:{title:"L4 — DECISION / ACTION", sub:"Options · plan · risks · value",
@@ -805,6 +963,1559 @@ window.anShow = function(id){
   if(s) s.textContent=p.sub;
   if(b) b.innerHTML=p.body;
 };
+</script>
+
+<script>
+
+function openLyr(id){
+  document.querySelectorAll('.lyr-overlay').forEach(function(el){el.classList.remove('active');});
+  var el=document.getElementById(id);
+  if(el){el.classList.add('active');document.body.style.overflow='hidden';}
+}
+function closeLyr(){
+  document.querySelectorAll('.lyr-overlay').forEach(function(el){el.classList.remove('active');});
+  document.body.style.overflow='';
+}
+
+</script>
+
+
+<div id="lyrOverlay1" class="lyr-overlay">
+<div class="lyr-top">
+<div class="brand"><div class="logo">IGPC<small>INTEGRATED GEOTECHNICAL PROJECTS CONTROL</small></div>
+<div><h1>INTELLIGENCE CHAIN (W1 – W10) → W6 – COST OF THE PROBLEM</h1>
+<div class="sub">DRILL DOWN: LAYER 1 – DATA / SOURCE</div></div></div>
+<div class="meta">Project: EXPL-001 – Gold Exploration Drilling<br>Workstream: Exploration Drilling<br>Data Status: ● Current &nbsp; Last Data Received: 13 Aug 2026 10:42<br>
+<button class="back" onclick="closeLyr()">← Back to W6 Dashboard</button></div>
+</div>
+<div class="lyr-chain">
+<span class="node">W1 WHAT CHANGED?</span><span class="sep">→</span>
+<span class="node">W2 CONSTRAINT?</span><span class="sep">→</span>
+<span class="node">W3 SHIFTED?</span><span class="sep">→</span>
+<span class="node">W4 IMPACT CHAIN</span><span class="sep">→</span>
+<span class="node">W5 QUANTIFICATION</span><span class="sep">→</span>
+<span class="node on">W6 COST OF THE PROBLEM</span><span class="sep">→</span>
+<span class="node">W7 RECOVERY GAP</span><span class="sep">→</span>
+<span class="node">W8 INTERVENTION</span><span class="sep">→</span>
+<span class="node">W9 DID IT WORK?</span><span class="sep">→</span>
+<span class="node">W10 LEARNED?</span>
+</div>
+<div class="lyr-crumb"><div>YOU ARE HERE: <b>W6 – COST OF THE PROBLEM</b> → <b>LAYER 1 – DATA / SOURCE</b></div>
+<div class="lyr-tabs"><button class="active" onclick="openLyr('lyrOverlay1')">Layer 1</button><button class="" onclick="openLyr('lyrOverlay2')">Layer 2</button><button class="" onclick="openLyr('lyrOverlay3')">Layer 3</button><button class="" onclick="openLyr('lyrOverlay4')">Layer 4</button><button class="" onclick="openLyr('lyrOverlayF08')">F08</button></div></div>
+
+<div class="lyr-body">
+<div class="lyr-side">
+  <div class="lyr-card">
+    <h3>WHAT YOU CLICKED</h3>
+    <div style="font-size:11px;font-weight:700;margin-bottom:6px">$ W6 – COST OF THE PROBLEM</div>
+    <div class="lyr-muted">Total Cost of the Problem</div>
+    <div class="lyr-big">R2.934m</div>
+    <div class="lyr-muted">(15.7 m/day gap)</div>
+    <div class="lyr-muted" style="margin-top:8px">You clicked this number on the W6 dashboard</div>
+  </div>
+  <div class="lyr-card">
+    <h3>ABOUT THIS NUMBER</h3>
+    <table>
+      <tr><td>Type</td><td><b>Calculated Value</b></td></tr>
+      <tr><td>Category</td><td>Cost Impact</td></tr>
+      <tr><td>Impact Area</td><td>Exploration Drilling</td></tr>
+      <tr><td>Date Range</td><td>14 Jul – 13 Aug 2026</td></tr>
+      <tr><td>Currency</td><td>South African Rand (R)</td></tr>
+      <tr><td>Calculation Version</td><td>v1.3</td></tr>
+      <tr><td>Last Calculated</td><td>13 Aug 2026 10:42</td></tr>
+      <tr><td>Calculated By</td><td>IGPC Analytics Engine</td></tr>
+      <tr><td>Approved By</td><td>Vuyo Bangani</td></tr>
+      <tr><td>Approval Date</td><td>13 Aug 2026</td></tr>
+    </table>
+  </div>
+  <div class="lyr-card">
+    <h3>DATA INTEGRITY</h3>
+    <div class="lyr-check">
+      <div class="ok">✓ All source files available</div>
+      <div class="ok">✓ All mandatory fields present</div>
+      <div class="ok">✓ No critical data gaps</div>
+      <div class="ok">✓ Data reconciled</div>
+      <div class="ok">✓ Quality score: 96%</div>
+    </div>
+    <div class="lyr-bar" style="width:100%;margin-top:8px"><i style="width:96%"></i></div>
+  </div>
+</div>
+
+<div>
+  <div class="lyr-card" style="margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+      <div>
+        <h2>LAYER 1 – DATA / SOURCE</h2>
+        <div class="lyr-muted">Where did the number come from? Raw data, source records, inputs, versions and classifications.</div>
+      </div>
+      <div style="text-align:right">
+        <div class="lyr-muted">Total Cost of the Problem</div>
+        <div class="lyr-big">R2.934m</div>
+        <div class="lyr-muted">(15.7 m/day gap)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lyr-card" style="margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3>1. RAW DATA SOURCES</h3>
+      <span style="font-size:11px;color:#075bd5;font-weight:700">↓ Download All Source Files</span>
+    </div>
+    <table>
+      <tr><th>Source Type</th><th>Source Name / File</th><th>Record Count</th><th>Date From</th><th>Date To</th><th>Last Updated</th><th>Status</th></tr>
+      <tr><td>Drilling Cost Log</td><td>DRILL_COST_LOG_2026-08.csv</td><td>156</td><td>14 Jul 2026</td><td>13 Aug 2026</td><td>13 Aug 10:15</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+      <tr><td>Activity Time Log</td><td>ACTIVITY_TIME_LOG_2026-08.csv</td><td>312</td><td>14 Jul 2026</td><td>13 Aug 2026</td><td>13 Aug 10:15</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+      <tr><td>Equipment Rate Table</td><td>EQUIPMENT_RATE_TABLE_2026.xlsx</td><td>28</td><td>01 Jan 2026</td><td>31 Dec 2026</td><td>01 Jul 09:30</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+      <tr><td>Production Targets</td><td>PRODUCTION_TARGETS_v3.xlsx</td><td>18</td><td>01 Jul 2026</td><td>30 Nov 2026</td><td>10 Jul 14:22</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+      <tr><td>Weather Downtime Log</td><td>WEATHER_DOWNTIME_2026-08.csv</td><td>45</td><td>14 Jul 2026</td><td>13 Aug 2026</td><td>13 Aug 09:50</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+      <tr><td>Support Crew Log</td><td>SUPPORT_CREW_LOG_2026-08.csv</td><td>62</td><td>14 Jul 2026</td><td>13 Aug 2026</td><td>13 Aug 09:55</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+    </table>
+    <div class="lyr-muted" style="margin-top:6px;color:#16a34a">✓ All data is sourced from the Virtual Library and automatically validated.</div>
+  </div>
+
+  <div class="lyr-card" style="margin-bottom:10px">
+    <h3>2. COST INPUT DATA (DETAIL)</h3>
+    <table>
+      <tr><th>Date</th><th>Activity / Event</th><th>Category</th><th>Equipment / Resource</th><th>Rate (R/hr)</th><th>Hours</th><th>Qty</th><th>Cost (R)</th><th>Source File</th></tr>
+      <tr><td>12 Jul 2026</td><td>Drill Rig Idle</td><td>Indirect</td><td>Drill Rig – DM45</td><td>9,500</td><td>48.0</td><td>1</td><td>456,000</td><td>DRILL_COST_LOG…</td></tr>
+      <tr><td>12 Jul 2026</td><td>Shift Loss</td><td>Indirect</td><td>Shift (All)</td><td>–</td><td>16.0</td><td>1</td><td>120,000</td><td>ACTIVITY_TIME…</td></tr>
+      <tr><td>13 Jul 2026</td><td>Support Crew Idle</td><td>Indirect</td><td>Support Crew</td><td>5,200</td><td>32.0</td><td>1</td><td>166,400</td><td>SUPPORT_CREW…</td></tr>
+      <tr><td>15 Jul 2026</td><td>Drill Rig Maintenance Delay</td><td>Indirect</td><td>Drill Rig – DM45</td><td>9,500</td><td>22.0</td><td>1</td><td>209,000</td><td>DRILL_COST_LOG…</td></tr>
+      <tr><td>16 Jul 2026</td><td>Weather Downtime</td><td>Indirect</td><td>All Equipment</td><td>–</td><td>12.0</td><td>1</td><td>90,000</td><td>WEATHER_DOWN…</td></tr>
+      <tr><td colspan="5"><b>TOTAL (Showcased)</b></td><td><b>130.0</b></td><td></td><td><b>1,041,400</b></td><td style="color:#075bd5">See All</td></tr>
+    </table>
+  </div>
+
+  <div class="lyr-grid g3">
+    <div class="lyr-card">
+      <h3>3. KEY ASSUMPTIONS & PARAMETERS</h3>
+      <table>
+        <tr><th>Parameter</th><th>Value / Assumption</th></tr>
+        <tr><td>Planned Advance Rate (Baseline)</td><td>83.3 m/day</td></tr>
+        <tr><td>Planned Cost / Day (Baseline)</td><td>R150,000</td></tr>
+        <tr><td>Drilling Rig Rate</td><td>R9,500 / hr</td></tr>
+        <tr><td>Support Crew Rate</td><td>R5,200 / hr</td></tr>
+        <tr><td>Indirect Cost Allocation Method</td><td>Time-based allocation</td></tr>
+        <tr><td>Cost Escalation</td><td>0% (For period)</td></tr>
+        <tr><td>Currency</td><td>ZAR</td></tr>
+      </table>
+    </div>
+    <div class="lyr-card">
+      <h3>4. CLASSIFICATIONS</h3>
+      <table>
+        <tr><td>Cost Type</td><td>Direct / Indirect</td></tr>
+        <tr><td>Impact Type</td><td>Time Loss / Output Loss / Cost</td></tr>
+        <tr><td>Activity Type</td><td>Drilling / Support / Non-Productive</td></tr>
+        <tr><td>Data Confidence</td><td><span class="lyr-pill ok">High</span></td></tr>
+        <tr><td>Data Completeness</td><td>96%</td></tr>
+        <tr><td>Data Quality Score</td><td>96%</td></tr>
+      </table>
+    </div>
+    <div class="lyr-card">
+      <h3>5. DATA QUALITY & COVERAGE</h3>
+      <div style="display:flex;gap:12px;align-items:center">
+        <svg viewBox="0 0 90 90" width="90" height="90">
+          <circle cx="45" cy="45" r="36" fill="none" stroke="#e2e8f0" stroke-width="10"/>
+          <circle cx="45" cy="45" r="36" fill="none" stroke="#16a34a" stroke-width="10" stroke-dasharray="217 226" transform="rotate(-90 45 45)" stroke-linecap="round"/>
+          <text x="45" y="42" text-anchor="middle" font-size="16" font-weight="800">96%</text>
+          <text x="45" y="56" text-anchor="middle" font-size="7" fill="#64748b">Overall</text>
+        </svg>
+        <div style="font-size:11px;line-height:1.8">
+          <div>Completeness <span class="lyr-bar"><i style="width:96%"></i></span>96%</div>
+          <div>Accuracy <span class="lyr-bar"><i style="width:95%"></i></span>95%</div>
+          <div>Timeliness <span class="lyr-bar"><i style="width:98%"></i></span>98%</div>
+          <div>Consistency <span class="lyr-bar"><i style="width:95%"></i></span>95%</div>
+          <div>Validation <span class="lyr-bar"><i style="width:96%"></i></span>96%</div>
+        </div>
+      </div>
+      <div class="lyr-muted" style="margin-top:6px">Missing Records 4% (Low)</div>
+    </div>
+  </div>
+</div>
+
+<div class="lyr-side">
+  <div class="lyr-card">
+    <h3>DATA LINEAGE</h3>
+    <div style="font-size:11px;line-height:1.9">
+      <div>🖥 Source Systems<br><span class="lyr-muted">Mine Systems / CSV Uploads</span></div>
+      <div style="text-align:center;color:#94a3b8">↓</div>
+      <div>📚 Virtual Library<br><span class="lyr-muted">IGPC – Isolated Data Bridge</span></div>
+      <div style="text-align:center;color:#94a3b8">↓</div>
+      <div>🛡 Data Validation<br><span class="lyr-muted">Automated Checks & Rules</span></div>
+      <div style="text-align:center;color:#94a3b8">↓</div>
+      <div>⚙ Data Processing<br><span class="lyr-muted">IGPC Analytics Engine</span></div>
+      <div style="text-align:center;color:#94a3b8">↓</div>
+      <div style="background:#eaf2ff;border:1px solid #c9ddf7;border-radius:8px;padding:8px;font-weight:700;color:#075bd5">📄 Layer 1 – Data / Source<br><span class="lyr-muted">You are here</span></div>
+      <div style="text-align:center;color:#94a3b8">↓</div>
+      <div class="lyr-muted">Layer 2 – Analytics / Interpretation</div>
+      <div class="lyr-muted">Layer 3 – Evidence / Control</div>
+      <div class="lyr-muted">Layer 4 – Decision / Action</div>
+      <div class="lyr-muted">F08 – Specialist Intelligence</div>
+    </div>
+  </div>
+  <div class="lyr-card">
+    <h3>NOTES</h3>
+    <div style="font-size:11px;line-height:1.7">
+      <div>• All costs include current period only (14 Jul – 13 Aug 2026).</div>
+      <div>• Does not include future exposure.</div>
+      <div>• Indirect costs allocated based on time impacted.</div>
+      <div>• See Layer 2 for calculation logic.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lyr-foot">
+  <div class="lyr-muted">All amounts are in South African Rand (R) and include current data up to 13 Aug 2026 10:42.</div>
+  <button class="lyr-btn" onclick="openLyr('lyrOverlay2')">Next: Layer 2 – Analytics / Interpretation →</button>
+</div>
+</div>
+</div>
+
+<div id="lyrOverlay3" class="lyr-overlay">
+<div class="lyr-top">
+<div class="brand"><div class="logo">IGPC<small>INTEGRATED GEOTECHNICAL PROJECTS CONTROL</small></div>
+<div><h1>INTELLIGENCE CHAIN (W1 – W10) → W6 – COST OF THE PROBLEM</h1>
+<div class="sub">DRILL DOWN: LAYER 3 – EVIDENCE / CONTROL</div></div></div>
+<div class="meta">Project: EXPL-001 – Gold Exploration Drilling<br>Workstream: Exploration Drilling<br>Data Status: ● Current &nbsp; Last Data Received: 13 Aug 2026 10:42<br>
+<button class="back" onclick="closeLyr()">← Back to W6 Dashboard</button></div>
+</div>
+<div class="lyr-chain">
+<span class="node">W1 WHAT CHANGED?</span><span class="sep">→</span>
+<span class="node">W2 CONSTRAINT?</span><span class="sep">→</span>
+<span class="node">W3 SHIFTED?</span><span class="sep">→</span>
+<span class="node">W4 IMPACT CHAIN</span><span class="sep">→</span>
+<span class="node">W5 QUANTIFICATION</span><span class="sep">→</span>
+<span class="node on">W6 COST OF THE PROBLEM</span><span class="sep">→</span>
+<span class="node">W7 RECOVERY GAP</span><span class="sep">→</span>
+<span class="node">W8 INTERVENTION</span><span class="sep">→</span>
+<span class="node">W9 DID IT WORK?</span><span class="sep">→</span>
+<span class="node">W10 LEARNED?</span>
+</div>
+<div class="lyr-crumb"><div>YOU ARE HERE: <b>W6 – COST OF THE PROBLEM</b> → <b>LAYER 1</b> → <b>LAYER 2</b> → <b>LAYER 3 – EVIDENCE / CONTROL</b></div>
+<div class="lyr-tabs"><button class="" onclick="openLyr('lyrOverlay1')">Layer 1</button><button class="" onclick="openLyr('lyrOverlay2')">Layer 2</button><button class="active green" onclick="openLyr('lyrOverlay3')">Layer 3</button><button class="" onclick="openLyr('lyrOverlay4')">Layer 4</button><button class="" onclick="openLyr('lyrOverlayF08')">F08</button></div></div>
+
+<div class="lyr-body">
+<div class="lyr-side">
+  <div class="lyr-card">
+    <h3>WHAT YOU CLICKED</h3>
+    <div style="font-size:11px;font-weight:700">$ W6 – COST OF THE PROBLEM</div>
+    <div class="lyr-muted">Total Cost of the Problem</div>
+    <div class="lyr-big">R2.934m</div>
+    <div class="lyr-muted">(15.7 m/day gap)</div>
+  </div>
+  <div class="lyr-card">
+    <h3>EVIDENCE SUMMARY</h3>
+    <table>
+      <tr><td>Total Evidence Items</td><td><b>123</b></td></tr>
+      <tr><td>Validated</td><td><b>115 (93%)</b></td></tr>
+      <tr><td>Partially Validated</td><td>6 (5%)</td></tr>
+      <tr><td>Pending Validation</td><td>2 (2%)</td></tr>
+      <tr><td>Overall Evidence Quality</td><td><b>93%</b></td></tr>
+    </table>
+    <div class="lyr-bar" style="width:100%;margin-top:6px"><i style="width:93%"></i></div>
+  </div>
+  <div class="lyr-card" style="background:#eaf2ff;border-color:#c9ddf7">
+    <h3>EVIDENCE CONFIDENCE</h3>
+    <div style="font-size:20px;font-weight:800;color:#075bd5">High (86%)</div>
+    <div class="lyr-muted">Sufficient, reliable and corroborated evidence supports the calculated cost of the problem.</div>
+  </div>
+</div>
+
+<div>
+  <div class="lyr-card" style="margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div>
+        <h2>LAYER 3 – EVIDENCE / CONTROL</h2>
+        <div class="lyr-muted">Can we prove it? Evidence chain that supports the calculated cost. From source evidence to verification and learning.</div>
+      </div>
+      <div style="text-align:right">
+        <div class="lyr-muted">TOTAL COST OF THE PROBLEM</div>
+        <div class="lyr-big">R2.934m</div>
+        <div class="lyr-muted">(15.7 m/day gap)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lyr-card" style="margin-bottom:10px">
+    <h3>EVIDENCE CHAIN – END TO END</h3>
+    <div class="lyr-flow">
+      <div class="box">Source Evidence<br><b>23</b><br><span class="lyr-pill ok">95% Valid</span></div>
+      <span class="arr">→</span>
+      <div class="box">Validation<br><b>18</b><br><span class="lyr-pill ok">94% Valid</span></div>
+      <span class="arr">→</span>
+      <div class="box">Observation<br><b>16</b><br><span class="lyr-pill ok">94% Valid</span></div>
+      <span class="arr">→</span>
+      <div class="box">Causation<br><b>12</b><br><span class="lyr-pill ok">92% Valid</span></div>
+      <span class="arr">→</span>
+      <div class="box">Specialist Evidence<br><b>14</b><br><span class="lyr-pill ok">92% Valid</span></div>
+      <span class="arr">→</span>
+      <div class="box">Reconciliation<br><b>12</b><br><span class="lyr-pill ok">92% Valid</span></div>
+      <span class="arr">→</span>
+      <div class="box">Intervention Evidence<br><b>8</b><br><span class="lyr-pill warn">88% Valid</span></div>
+      <span class="arr">→</span>
+      <div class="box">Verification / Learning<br><b>20</b><br><span class="lyr-pill ok">95% Valid</span></div>
+    </div>
+  </div>
+
+  <div class="lyr-grid g23">
+    <div class="lyr-card">
+      <h3>EVIDENCE ITEMS (DETAIL)</h3>
+      <table>
+        <tr><th>ID</th><th>Evidence Description</th><th>Type</th><th>Source</th><th>Date</th><th>Status</th></tr>
+        <tr><td>EV-001</td><td>Drill rig idle records (12–16 Jul)</td><td>Source Data</td><td>DRILL_COST_LOG…</td><td>13 Aug 2026</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+        <tr><td>EV-002</td><td>Shift change delays (12–16 Jul)</td><td>Source Data</td><td>ACTIVITY_TIME…</td><td>13 Aug 2026</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+        <tr><td>EV-003</td><td>Support crew standby records</td><td>Source Data</td><td>SUPPORT_CREW…</td><td>13 Aug 2026</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+        <tr><td>EV-004</td><td>Weather downtime records</td><td>Source Data</td><td>WEATHER_DOWN…</td><td>13 Aug 2026</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+        <tr><td>EV-005</td><td>Drill rig maintenance delay</td><td>Observation</td><td>Maintenance Report</td><td>16 Jul 2026</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+        <tr><td>EV-006</td><td>Hole advance vs planned</td><td>Observation</td><td>Daily Drilling Reports</td><td>14–16 Jul</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+        <tr><td>EV-007</td><td>Root cause – rig availability</td><td>Causation</td><td>RCA Report</td><td>17 Jul 2026</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+        <tr><td>EV-008</td><td>Geotech comment on constraint</td><td>Specialist</td><td>Geotech Daily Log</td><td>17 Jul 2026</td><td><span class="lyr-pill ok">Valid</span></td></tr>
+      </table>
+      <div class="lyr-muted" style="margin-top:6px;color:#075bd5">View all 123 evidence items</div>
+    </div>
+    <div class="lyr-card">
+      <h3>EVIDENCE MEDIA (SAMPLES)</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:10px">
+        <div style="background:#f1f5f9;border-radius:8px;padding:20px 8px;text-align:center;border:1px solid #e2e8f0">Idle Time Report<br>(12–16 Jul)</div>
+        <div style="background:#f1f5f9;border-radius:8px;padding:20px 8px;text-align:center;border:1px solid #e2e8f0">Shift Log Extract<br>(12–16 Jul)</div>
+        <div style="background:#f1f5f9;border-radius:8px;padding:20px 8px;text-align:center;border:1px solid #e2e8f0">Support Crew Log<br>(12–16 Jul)</div>
+        <div style="background:#f1f5f9;border-radius:8px;padding:20px 8px;text-align:center;border:1px solid #e2e8f0">Rig Maintenance Delay Photo (14 Jul)</div>
+        <div style="background:#f1f5f9;border-radius:8px;padding:20px 8px;text-align:center;border:1px solid #e2e8f0">Daily Drilling Report (15 Jul)</div>
+        <div style="background:#f1f5f9;border-radius:8px;padding:20px 8px;text-align:center;border:1px solid #e2e8f0">Weather Downtime Report (14–16 Jul)</div>
+      </div>
+      <div class="lyr-muted" style="margin-top:6px;color:#075bd5">View all evidence media</div>
+    </div>
+  </div>
+
+  <div class="lyr-grid g3" style="margin-top:10px">
+    <div class="lyr-card">
+      <h3>EVIDENCE QUALITY ASSESSMENT</h3>
+      <div style="display:flex;gap:10px;align-items:center">
+        <svg viewBox="0 0 80 80" width="80" height="80">
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#16a34a" stroke-width="8" stroke-dasharray="187 201" transform="rotate(-90 40 40)" stroke-linecap="round"/>
+          <text x="40" y="44" text-anchor="middle" font-size="14" font-weight="800">93%</text>
+        </svg>
+        <div style="font-size:11px;line-height:1.7">
+          <div>Completeness <span class="lyr-bar"><i style="width:91%"></i></span>91%</div>
+          <div>Reliability <span class="lyr-bar"><i style="width:94%"></i></span>94%</div>
+          <div>Timeliness <span class="lyr-bar"><i style="width:95%"></i></span>95%</div>
+          <div>Consistency <span class="lyr-bar"><i style="width:92%"></i></span>92%</div>
+          <div>Corroboration <span class="lyr-bar"><i style="width:93%"></i></span>93%</div>
+          <div>Relevance <span class="lyr-bar"><i style="width:93%"></i></span>93%</div>
+        </div>
+      </div>
+    </div>
+    <div class="lyr-card">
+      <h3>VALIDATION & CONTROL CHECKS</h3>
+      <div class="lyr-check">
+        <div class="ok">✓ Source data cross-checked with multiple systems <span class="lyr-muted">Passed 13 Aug 2026</span></div>
+        <div class="ok">✓ Timestamps validated and aligned <span class="lyr-muted">Passed 13 Aug 2026</span></div>
+        <div class="ok">✓ Data completeness verified <span class="lyr-muted">Passed 13 Aug 2026</span></div>
+        <div class="ok">✓ Calculations reconciled with source <span class="lyr-muted">Passed 13 Aug 2026</span></div>
+        <div class="ok">✓ Outliers investigated and explained <span class="lyr-muted">Passed 13 Aug 2026</span></div>
+        <div class="ok">✓ Evidence approved for use <span class="lyr-muted">Passed 13 Aug 2026</span></div>
+      </div>
+    </div>
+    <div class="lyr-card">
+      <h3>EVIDENCE TO COST MAPPING</h3>
+      <table>
+        <tr><th>Evidence Category</th><th>Cost Impact (R)</th><th>% of Total</th><th>Strength</th></tr>
+        <tr><td>Direct Costs (Idle / Delays)</td><td>R1.864m</td><td>63.5%</td><td><span class="lyr-pill ok">High</span></td></tr>
+        <tr><td>Indirect Costs (Shift Loss)</td><td>R0.812m</td><td>27.7%</td><td><span class="lyr-pill ok">High</span></td></tr>
+        <tr><td>Recurring / Exposure</td><td>R0.258m</td><td>8.8%</td><td><span class="lyr-pill warn">Medium</span></td></tr>
+        <tr><td><b>Total</b></td><td><b>R2.934m</b></td><td><b>100%</b></td><td><span class="lyr-pill ok">High</span></td></tr>
+      </table>
+      <div class="lyr-muted" style="margin-top:6px;color:#16a34a">Evidence strength is sufficient to support the total cost of the problem with high confidence.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lyr-side">
+  <div class="lyr-card">
+    <h3>DATA LINEAGE (FROM LAYER 1)</h3>
+    <div style="font-size:11px;line-height:1.8">
+      <div>6 Source Files · CSV / System Data</div>
+      <div>✓ Validated</div>
+      <div>📅 Period 14 Jul – 13 Aug 2026</div>
+      <div>📊 Records Used 1,041 data points</div>
+      <button class="lyr-btn sec" style="width:100%;padding:8px;margin-top:8px" onclick="openLyr('lyrOverlay1')">View Layer 1 – Data / Source</button>
+    </div>
+  </div>
+  <div class="lyr-card">
+    <h3>HOW IGPC CONTROLS THE EVIDENCE</h3>
+    <div class="lyr-check">
+      <div class="ok">✓ Standardised evidence protocols</div>
+      <div class="ok">✓ Independent validation rules</div>
+      <div class="ok">✓ Automated data quality checks</div>
+      <div class="ok">✓ Version control & audit trail</div>
+      <div class="ok">✓ Cross-functional review</div>
+      <div class="ok">✓ Evidence retained for learning</div>
+    </div>
+  </div>
+  <div class="lyr-card">
+    <h3>NEXT STEP</h3>
+    <div class="lyr-muted" style="margin-bottom:8px">See what management does with this proven cost and what actions were taken.</div>
+    <button class="lyr-btn" style="width:100%" onclick="closeLyr()">Go to Layer 4 – Decision / Action →</button>
+  </div>
+  <div class="lyr-card">
+    <h3>LAYER NAVIGATION</h3>
+    <div style="font-size:11px;line-height:1.9">
+      <div>✓ Layer 1 – Data / Source</div>
+      <div>✓ Layer 2 – Analytics / Interpretation</div>
+      <div style="color:#075bd5;font-weight:700">● Layer 3 – Evidence / Control</div>
+      <div>○ Layer 4 – Decision / Action</div>
+      <div>○ F08 – Specialist Intelligence</div>
+    </div>
+  </div>
+</div>
+
+<div class="lyr-foot">
+  <div class="lyr-muted">All amounts are in South African Rand (R) · Evidence retained in the IGPC Virtual Library · Audit trail available</div>
+  <button class="lyr-btn" onclick="closeLyr()">Next: Layer 4 – Decision / Action →</button>
+</div>
+</div>
+</div>
+
+<script>
+
+</script>
+<script>
+
+/* LAYER FULL-SCREEN WIRE */
+(function(){
+  function bindLayers(){
+    document.querySelectorAll('.layerbtn[data-view="L1"], button[data-view="L1"]').forEach(function(b){
+      b.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        if(typeof openLyr==='function') openLyr('lyrOverlay1');
+      }, true);
+    });
+    document.querySelectorAll('.layerbtn[data-view="L2"], button[data-view="L2"]').forEach(function(b){
+      b.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        if(typeof openLyr==='function') openLyr('lyrOverlay2');
+      }, true);
+    });
+    document.querySelectorAll('.layerbtn[data-view="L3"], button[data-view="L3"]').forEach(function(b){
+      b.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        if(typeof openLyr==='function') openLyr('lyrOverlay3');
+      }, true);
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bindLayers);
+  else bindLayers();
+  // also bind after short delay in case analytics re-renders
+  setTimeout(bindLayers, 500);
+  setTimeout(bindLayers, 1500);
+
+  // Override layerViews if present
+  try {
+    if(typeof layerViews !== 'undefined'){
+      var _o1 = layerViews.L1, _o2 = layerViews.L2, _o3 = layerViews.L3;
+      layerViews.L1 = function(){ openLyr('lyrOverlay1'); return (typeof head==='function'?head('LAYER 1','Full-screen design open','L1'):'')+'<div class="card"><p>Layer 1 full-screen is open.</p><button class="btn green" onclick="openLyr(\'lyrOverlay1\')">Re-open Layer 1</button></div>'; };
+      layerViews.L2 = function(){ openLyr('lyrOverlay2'); return (typeof head==='function'?head('LAYER 2','Full-screen design open','L2'):'')+'<div class="card"><p>Layer 2 full-screen is open.</p><button class="btn green" onclick="openLyr(\'lyrOverlay2\')">Re-open Layer 2</button></div>'; };
+      layerViews.L3 = function(){ openLyr('lyrOverlay3'); return (typeof head==='function'?head('LAYER 3','Full-screen design open','L3'):'')+'<div class="card"><p>Layer 3 full-screen is open.</p><button class="btn green" onclick="openLyr(\'lyrOverlay3\')">Re-open Layer 3</button></div>'; };
+    }
+  } catch(e){}
+})();
+
+</script>
+
+<script>
+
+</script>
+
+<div id="lyrOverlay2" class="lyr-overlay">
+<div class="lyr-top">
+<div class="brand"><div class="logo">IGPC<small>INTEGRATED GEOTECHNICAL PROJECTS CONTROL</small></div>
+<div><h1>INTELLIGENCE CHAIN (W1 – W10) → W6 – COST OF THE PROBLEM</h1>
+<div class="sub">DRILL DOWN: LAYER 2 – ANALYTICS / INTERPRETATION</div></div></div>
+<div class="meta">Project: EXPL-001 – Gold Exploration Drilling<br>Workstream: Exploration Drilling<br>Data Status: ● Current &nbsp; Last Data Received: 13 Aug 2026 10:42<br>
+<button class="back" onclick="closeLyr()">← Back to W6 Dashboard</button></div>
+</div>
+<div class="lyr-chain">
+<span class="node">W1</span><span class="sep">→</span><span class="node">W2</span><span class="sep">→</span><span class="node">W3</span><span class="sep">→</span><span class="node">W4</span><span class="sep">→</span><span class="node">W5</span><span class="sep">→</span>
+<span class="node on">W6 COST OF THE PROBLEM</span><span class="sep">→</span>
+<span class="node">W7</span><span class="sep">→</span><span class="node">W8</span><span class="sep">→</span><span class="node">W9</span><span class="sep">→</span><span class="node">W10</span>
+</div>
+<div class="lyr-crumb"><div>YOU ARE HERE: <b>W6 – COST OF THE PROBLEM</b> → <b>LAYER 1 – DATA / SOURCE</b> → <b>LAYER 2 – ANALYTICS / INTERPRETATION</b></div>
+<div class="lyr-tabs">
+<button onclick="openLyr('lyrOverlay1')">Layer 1</button>
+<button class="active green" onclick="openLyr('lyrOverlay2')">Layer 2</button>
+<button onclick="openLyr('lyrOverlay3')">Layer 3</button>
+<button onclick="openLyr('lyrOverlay4')">Layer 4</button>
+<button onclick="closeLyr()">F08</button>
+</div></div>
+
+<div class="lyr-body">
+<div class="lyr-side">
+  <div class="lyr-card">
+    <h3>WHAT YOU CLICKED</h3>
+    <div style="font-size:11px;font-weight:700">$ W6 – COST OF THE PROBLEM</div>
+    <div class="lyr-muted">Total Cost of the Problem</div>
+    <div class="lyr-big">R2.934m</div>
+    <div class="lyr-muted">(15.7 m/day gap)</div>
+    <div class="lyr-muted" style="margin-top:8px">You clicked this number on the W6 dashboard</div>
+  </div>
+  <div class="lyr-card">
+    <h3>INTERPRETATION SUMMARY</h3>
+    <table>
+      <tr><td>Direct Cost Impact</td><td><b>R1.864m</b> (63.5%)</td></tr>
+      <tr><td>Indirect Cost Impact</td><td><b>R0.812m</b> (27.7%)</td></tr>
+      <tr><td>Recurring / Exposure</td><td><b>R0.258m</b> (8.8%)</td></tr>
+      <tr><td>Total Cost of Problem</td><td><b>R2.934m</b> (100%)</td></tr>
+    </table>
+  </div>
+  <div class="lyr-card" style="background:#eaf2ff;border-color:#c9ddf7">
+    <h3>KEY INSIGHT</h3>
+    <div style="font-size:11px;line-height:1.6">The majority of the cost impact (63.5%) is driven by direct drilling idle time caused by the constraint (Drill Rig Idle).</div>
+  </div>
+</div>
+
+<div>
+  <div class="lyr-card" style="margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div>
+        <h2>LAYER 2 – ANALYTICS / INTERPRETATION</h2>
+        <div class="lyr-muted">How did IGPC calculate and interpret it? Calculations, formulas, logic, relationships, trends and impact modelling.</div>
+      </div>
+      <div style="text-align:right">
+        <div class="lyr-muted">TOTAL COST OF THE PROBLEM</div>
+        <div class="lyr-big">R2.934m</div>
+        <div class="lyr-muted">(15.7 m/day gap)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lyr-card" style="margin-bottom:10px">
+    <h3>1. COST IMPACT BREAKDOWN (CALCULATED)</h3>
+    <div class="lyr-kpis">
+      <div class="lyr-kpi"><label>Direct Cost Impact</label><div class="v red">R1.864m</div><div class="p">63.5%</div></div>
+      <div class="lyr-kpi"><label>Indirect Cost Impact</label><div class="v orange">R0.812m</div><div class="p">27.7%</div></div>
+      <div class="lyr-kpi"><label>Recurring / Exposure</label><div class="v purple">R0.258m</div><div class="p">8.8%</div></div>
+      <div class="lyr-kpi"><label>Total Cost</label><div class="v" style="color:#0f172a">R2.934m</div><div class="p">100%</div></div>
+      <div class="lyr-kpi"><label>Cost / Day Impact</label><div class="v blue">R188,600</div><div class="p">Average</div></div>
+    </div>
+  </div>
+
+  <div class="lyr-grid g23">
+    <div class="lyr-card">
+      <h3>2. IMPACT DRIVERS (CONTRIBUTION TO TOTAL)</h3>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <svg viewBox="0 0 120 120" width="110" height="110">
+          <circle cx="60" cy="60" r="40" fill="none" stroke="#e2e8f0" stroke-width="20"/>
+          <circle cx="60" cy="60" r="40" fill="none" stroke="#ef4444" stroke-width="20" stroke-dasharray="121 251" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="40" fill="none" stroke="#f97316" stroke-width="20" stroke-dasharray="53 251" stroke-dashoffset="-121" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="40" fill="none" stroke="#eab308" stroke-width="20" stroke-dasharray="21 251" stroke-dashoffset="-174" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="40" fill="none" stroke="#3b82f6" stroke-width="20" stroke-dasharray="14 251" stroke-dashoffset="-195" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="40" fill="none" stroke="#8b5cf6" stroke-width="20" stroke-dasharray="12 251" stroke-dashoffset="-209" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="40" fill="none" stroke="#a855f7" stroke-width="20" stroke-dasharray="22 251" stroke-dashoffset="-221" transform="rotate(-90 60 60)"/>
+          <text x="60" y="56" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">Total</text>
+          <text x="60" y="70" text-anchor="middle" font-size="10" font-weight="700" fill="#0f172a">R2.934m</text>
+        </svg>
+        <table>
+          <tr><td>● Drill Rig Idle (Direct)</td><td>R1.412m</td><td>48.1%</td></tr>
+          <tr><td>● Shift Loss (Indirect)</td><td>R0.620m</td><td>21.1%</td></tr>
+          <tr><td>● Support Crew Idle</td><td>R0.244m</td><td>8.3%</td></tr>
+          <tr><td>● Equipment Standby</td><td>R0.168m</td><td>5.7%</td></tr>
+          <tr><td>● Other Indirects</td><td>R0.144m</td><td>4.9%</td></tr>
+          <tr><td>● Recurring / Exposure</td><td>R0.258m</td><td>8.8%</td></tr>
+          <tr><td><b>Total</b></td><td><b>R2.934m</b></td><td><b>100%</b></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="lyr-card">
+      <h3>3. COST OVER TIME (TREND)</h3>
+      <svg viewBox="0 0 320 140" width="100%" height="140">
+        <line x1="35" y1="15" x2="35" y2="115" stroke="#cbd5e1"/><line x1="35" y1="115" x2="300" y2="115" stroke="#cbd5e1"/>
+        <text x="28" y="20" font-size="8" fill="#94a3b8" text-anchor="end">1,200</text>
+        <text x="28" y="60" font-size="8" fill="#94a3b8" text-anchor="end">600</text>
+        <text x="28" y="115" font-size="8" fill="#94a3b8" text-anchor="end">0</text>
+        <polygon fill="#fecaca" opacity=".5" points="50,110 90,95 130,80 170,65 210,45 250,30 290,20 290,115 50,115"/>
+        <polygon fill="#fed7aa" opacity=".6" points="50,110 90,100 130,90 170,80 210,70 250,58 290,50 290,115 50,115"/>
+        <polyline fill="none" stroke="#0f172a" stroke-width="2" points="50,108 90,92 130,78 170,62 210,42 250,28 290,18"/>
+        <text x="50" y="130" font-size="8" fill="#64748b">14 Jul</text>
+        <text x="130" y="130" font-size="8" fill="#64748b">28 Jul</text>
+        <text x="210" y="130" font-size="8" fill="#64748b">04 Aug</text>
+        <text x="270" y="130" font-size="8" fill="#64748b">11 Aug</text>
+      </svg>
+      <div class="lyr-muted">Direct · Indirect · Total cumulative R2.93m</div>
+    </div>
+  </div>
+
+  <div class="lyr-card" style="margin:10px 0">
+    <h3>4. IMPACT LOGIC – HOW THE COST WAS DERIVED</h3>
+    <div class="lyr-flow">
+      <div class="box"><b>CONSTRAINT</b><br>Drill Rig Idle</div>
+      <span class="arr">→</span>
+      <div class="box"><b>IMPACT</b><br>Lost metres</div>
+      <span class="arr">→</span>
+      <div class="box"><b>RESOURCE</b><br>Idle / standby</div>
+      <span class="arr">→</span>
+      <div class="box"><b>COST</b><br>Rates × time</div>
+      <span class="arr">→</span>
+      <div class="box"><b>TOTAL</b><br>R2.934m</div>
+    </div>
+  </div>
+
+  <div class="lyr-grid g3">
+    <div class="lyr-card">
+      <h3>5. KEY CALCULATION COMPONENTS</h3>
+      <table>
+        <tr><th>Component</th><th>Basis</th><th>Result</th></tr>
+        <tr><td>Idle Time</td><td>Planned – Actual</td><td>124 hrs</td></tr>
+        <tr><td>Direct Cost</td><td>124 × rate</td><td>R1.860m</td></tr>
+        <tr><td>Indirect Cost</td><td>124 × indirect</td><td>R0.812m</td></tr>
+        <tr><td>Recurring</td><td>0.6 × R0.430m</td><td>R0.258m</td></tr>
+        <tr><td><b>TOTAL</b></td><td></td><td style="color:#dc2626"><b>R2.934m</b></td></tr>
+      </table>
+    </div>
+    <div class="lyr-card">
+      <h3>6. SENSITIVITY (TOP DRIVERS)</h3>
+      <table>
+        <tr><th>Driver</th><th>Change</th><th>Impact</th></tr>
+        <tr><td>Drill Rig Rate</td><td>+10%</td><td>+R0.186m</td></tr>
+        <tr><td>Idle Hours</td><td>+10%</td><td>+R0.293m</td></tr>
+        <tr><td>Shift Loss Rate</td><td>+10%</td><td>+R0.062m</td></tr>
+        <tr><td>Support Crew Rate</td><td>+10%</td><td>+R0.024m</td></tr>
+      </table>
+    </div>
+    <div class="lyr-card">
+      <h3>7. BENCHMARK COMPARISON</h3>
+      <table>
+        <tr><th>Metric</th><th>Project</th><th>Bench</th><th>Var</th></tr>
+        <tr><td>Cost / Day</td><td>R188,600</td><td>R142,000</td><td style="color:#dc2626">+32.8%</td></tr>
+        <tr><td>Cost / m lost</td><td>R27,780</td><td>R21,100</td><td style="color:#dc2626">+31.6%</td></tr>
+        <tr><td>Idle %</td><td>18.7%</td><td>12.1%</td><td style="color:#dc2626">+6.6pp</td></tr>
+        <tr><td>Total Cost</td><td>R2.934m</td><td>R2.12m</td><td style="color:#dc2626">+38.3%</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="lyr-side">
+  <div class="lyr-card">
+    <h3>DATA LINEAGE (FROM LAYER 1)</h3>
+    <div style="font-size:11px;line-height:1.8">
+      <div>6 Source Files</div>
+      <div>✓ All records validated</div>
+      <div>📅 14 Jul – 13 Aug 2026</div>
+      <div>📊 1,041 data points</div>
+      <button class="lyr-btn sec" style="width:100%;padding:8px;margin-top:8px" onclick="openLyr('lyrOverlay1')">View Layer 1</button>
+    </div>
+  </div>
+  <div class="lyr-card">
+    <h3>HOW IGPC INTERPRETS THE DATA</h3>
+    <div class="lyr-check">
+      <div class="ok">✓ Data cleaned and validated</div>
+      <div class="ok">✓ Impacts quantified by formula</div>
+      <div class="ok">✓ Costs allocated by causation</div>
+      <div class="ok">✓ Trends identify cost drivers</div>
+      <div class="ok">✓ Results roll into total cost</div>
+    </div>
+  </div>
+  <div class="lyr-card">
+    <h3>NEXT STEP</h3>
+    <div class="lyr-muted" style="margin-bottom:8px">View the evidence that supports these calculations.</div>
+    <button class="lyr-btn" style="width:100%" onclick="openLyr('lyrOverlay3')">Go to Layer 3 →</button>
+  </div>
+  <div class="lyr-card">
+    <h3>LAYER NAVIGATION</h3>
+    <div style="font-size:11px;line-height:1.9">
+      <div>✓ Layer 1 – Data / Source</div>
+      <div style="color:#075bd5;font-weight:700">● Layer 2 – Analytics / Interpretation</div>
+      <div>○ Layer 3 – Evidence / Control</div>
+      <div>○ Layer 4 – Decision / Action</div>
+    </div>
+  </div>
+</div>
+
+<div class="lyr-foot">
+  <div class="lyr-muted">All amounts in ZAR · data to 13 Aug 2026 10:42</div>
+  <button class="lyr-btn" onclick="openLyr('lyrOverlay3')">Next: Layer 3 – Evidence / Control →</button>
+</div>
+</div>
+</div>
+
+
+<div id="lyrOverlay4" class="lyr-overlay">
+<div class="lyr-top">
+<div class="brand"><div class="logo">IGPC<small>INTEGRATED GEOTECHNICAL PROJECTS CONTROL</small></div>
+<div><h1>INTELLIGENCE CHAIN (W1 – W10) → W6 – COST OF THE PROBLEM</h1>
+<div class="sub">DRILL DOWN: LAYER 4 – DECISION / ACTION</div></div></div>
+<div class="meta">Project: EXPL-001 – Gold Exploration Drilling<br>Workstream: Exploration Drilling<br>Data Status: ● Current &nbsp; Last Data Received: 13 Aug 2026 10:42<br>
+<button class="back" onclick="closeLyr()">← Back to W6 Dashboard</button></div>
+</div>
+<div class="lyr-chain">
+<span class="node">W1</span><span class="sep">→</span><span class="node">W2</span><span class="sep">→</span><span class="node">W3</span><span class="sep">→</span><span class="node">W4</span><span class="sep">→</span><span class="node">W5</span><span class="sep">→</span>
+<span class="node on">W6 COST OF THE PROBLEM</span><span class="sep">→</span>
+<span class="node">W7</span><span class="sep">→</span><span class="node">W8</span><span class="sep">→</span><span class="node">W9</span><span class="sep">→</span><span class="node">W10</span>
+</div>
+<div class="lyr-crumb"><div>YOU ARE HERE: <b>W6 – COST OF THE PROBLEM</b> → <b>LAYER 1</b> → <b>LAYER 2</b> → <b>LAYER 3</b> → <b>LAYER 4 – DECISION / ACTION</b></div>
+<div class="lyr-tabs">
+<button onclick="openLyr('lyrOverlay1')">Layer 1</button>
+<button onclick="openLyr('lyrOverlay2')">Layer 2</button>
+<button onclick="openLyr('lyrOverlay3')">Layer 3</button>
+<button class="active" onclick="openLyr('lyrOverlay4')">Layer 4</button>
+<button onclick="closeLyr()">F08</button>
+</div></div>
+
+<div class="lyr-body">
+<div class="lyr-side">
+  <div class="lyr-card">
+    <h3>WHAT YOU CLICKED</h3>
+    <div style="font-size:11px;font-weight:700">$ W6 – COST OF THE PROBLEM</div>
+    <div class="lyr-muted">Total Cost of the Problem</div>
+    <div class="lyr-big">R2.934m</div>
+    <div class="lyr-muted">(15.7 m/day gap)</div>
+  </div>
+  <div class="lyr-card">
+    <h3>DECISION CONTEXT</h3>
+    <table>
+      <tr><td>Problem Cost</td><td><b>R2.934m</b></td></tr>
+      <tr><td>Primary Driver</td><td>Drill Rig Idle</td></tr>
+      <tr><td>Evidence Confidence</td><td><span class="lyr-pill ok">High 86%</span></td></tr>
+      <tr><td>Urgency</td><td><span class="lyr-pill alert">High</span></td></tr>
+      <tr><td>Decision Owner</td><td>Production Manager</td></tr>
+      <tr><td>Support</td><td>Geotech / Maintenance</td></tr>
+    </table>
+  </div>
+  <div class="lyr-card" style="background:#f0fdf4;border-color:#86efac">
+    <h3>RECOMMENDED DECISION</h3>
+    <div style="font-size:14px;font-weight:800;color:#15803d">INTERVENE NOW</div>
+    <div class="lyr-muted" style="margin-top:6px">Option B – Targeted idle-time reduction package. Expected recovery R1.86m of direct cost within 14 days.</div>
+  </div>
+</div>
+
+<div>
+  <div class="lyr-card" style="margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div>
+        <h2>LAYER 4 – DECISION / ACTION</h2>
+        <div class="lyr-muted">What should management do? Options, recommendation, implementation plan and expected outcome.</div>
+      </div>
+      <div style="text-align:right">
+        <div class="lyr-muted">TOTAL COST OF THE PROBLEM</div>
+        <div class="lyr-big">R2.934m</div>
+        <div class="lyr-muted">(15.7 m/day gap)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lyr-card" style="margin-bottom:10px">
+    <h3>1. DECISION OPTIONS</h3>
+    <div class="lyr-option">
+      <h4>Option A — Do Nothing (Monitor Only)</h4>
+      <table>
+        <tr><td>Cost to implement</td><td>R0</td></tr>
+        <tr><td>Expected residual cost</td><td style="color:#dc2626"><b>R2.934m</b> (full exposure continues)</td></tr>
+        <tr><td>Time to effect</td><td>N/A</td></tr>
+        <tr><td>Risk</td><td><span class="lyr-pill alert">High</span> – problem compounds</td></tr>
+        <tr><td>Score</td><td><span class="lyr-score">2.1 / 10</span></td></tr>
+      </table>
+    </div>
+    <div class="lyr-option rec">
+      <h4>✓ Option B — Targeted Idle-Time Reduction (RECOMMENDED)</h4>
+      <table>
+        <tr><td>Cost to implement</td><td><b>R0.42m</b></td></tr>
+        <tr><td>Expected cost avoided</td><td style="color:#16a34a"><b>R1.86m</b> (direct idle recovery)</td></tr>
+        <tr><td>Net value</td><td style="color:#16a34a"><b>R1.44m</b></td></tr>
+        <tr><td>Time to effect</td><td>7–14 days</td></tr>
+        <tr><td>Risk</td><td><span class="lyr-pill ok">Low–Medium</span></td></tr>
+        <tr><td>Score</td><td><span class="lyr-score">8.7 / 10</span></td></tr>
+      </table>
+    </div>
+    <div class="lyr-option">
+      <h4>Option C — Full Operational Reset</h4>
+      <table>
+        <tr><td>Cost to implement</td><td><b>R1.15m</b></td></tr>
+        <tr><td>Expected cost avoided</td><td style="color:#16a34a"><b>R2.40m</b></td></tr>
+        <tr><td>Net value</td><td style="color:#16a34a"><b>R1.25m</b></td></tr>
+        <tr><td>Time to effect</td><td>21–30 days</td></tr>
+        <tr><td>Risk</td><td><span class="lyr-pill warn">Medium</span> – disruption</td></tr>
+        <tr><td>Score</td><td><span class="lyr-score">6.4 / 10</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="lyr-grid g2">
+    <div class="lyr-card">
+      <h3>2. RECOMMENDED ACTION PLAN (OPTION B)</h3>
+      <table>
+        <tr><th>Step</th><th>Action</th><th>Owner</th><th>Due</th></tr>
+        <tr><td>1</td><td>Confirm drill-rig idle root cause with Maintenance</td><td>Maintenance Lead</td><td>Day 1</td></tr>
+        <tr><td>2</td><td>Deploy standby support crew protocol on night shift</td><td>Shift Boss</td><td>Day 2</td></tr>
+        <tr><td>3</td><td>Re-sequence face advance to protect critical path</td><td>Mine Overseer</td><td>Day 3</td></tr>
+        <tr><td>4</td><td>Daily idle-hours dashboard review (UOV link)</td><td>Tech Services</td><td>Day 1–14</td></tr>
+        <tr><td>5</td><td>Verify recovery vs R1.86m target</td><td>Projects Manager</td><td>Day 14</td></tr>
+      </table>
+    </div>
+    <div class="lyr-card">
+      <h3>3. EXPECTED OUTCOME</h3>
+      <table>
+        <tr><td>Idle hours reduction</td><td><b>−40%</b></td></tr>
+        <tr><td>Direct cost recovered</td><td style="color:#16a34a"><b>R1.86m</b></td></tr>
+        <tr><td>Residual problem cost</td><td>R1.07m</td></tr>
+        <tr><td>Advance rate recovery</td><td>+8–12 m/day</td></tr>
+        <tr><td>Schedule days recovered</td><td>~6 days</td></tr>
+        <tr><td>Confidence</td><td><span class="lyr-pill ok">78%</span></td></tr>
+      </table>
+      <div style="margin-top:10px;background:#eaf2ff;border-radius:8px;padding:10px;font-size:11px">
+        Success criterion: idle hours ≤ 75 hrs in next 14-day window and direct cost run-rate ≤ R90k/day.
+      </div>
+    </div>
+  </div>
+
+  <div class="lyr-grid g3" style="margin-top:10px">
+    <div class="lyr-card">
+      <h3>4. IMPLEMENTATION CONTROLS</h3>
+      <div class="lyr-check">
+        <div class="ok">✓ Decision logged in IGPC ledger</div>
+        <div class="ok">✓ Owners assigned with due dates</div>
+        <div class="ok">✓ Daily KPI feed from UOV / shift logs</div>
+        <div class="ok">✓ Escalation if idle hours &gt; 10 hrs/day</div>
+        <div class="ok">✓ Day-14 verification gate (W9 link)</div>
+      </div>
+    </div>
+    <div class="lyr-card">
+      <h3>5. VALUE OF ACTING</h3>
+      <table>
+        <tr><td>Intervention cost (IC)</td><td>R0.42m</td></tr>
+        <tr><td>Avoided consequence (AC)</td><td>R1.86m</td></tr>
+        <tr><td>Net intervention value</td><td style="color:#16a34a"><b>R1.44m</b></td></tr>
+        <tr><td>NIV ratio</td><td style="color:#16a34a"><b>4.43x</b></td></tr>
+        <tr><td>Decision rule</td><td>Intervene if NIV ≥ 1.5x</td></tr>
+      </table>
+    </div>
+    <div class="lyr-card">
+      <h3>6. RISKS TO THE DECISION</h3>
+      <table>
+        <tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr>
+        <tr><td>Parts delay for rig</td><td><span class="lyr-pill warn">Med</span></td><td>Expedite spares</td></tr>
+        <tr><td>Crew availability</td><td><span class="lyr-pill warn">Med</span></td><td>Cross-shift cover</td></tr>
+        <tr><td>Ground conditions worsen</td><td><span class="lyr-pill alert">High</span></td><td>Geotech daily review</td></tr>
+        <tr><td>Incomplete data feed</td><td><span class="lyr-pill ok">Low</span></td><td>UOV SLA alerts</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="lyr-side">
+  <div class="lyr-card">
+    <h3>LINEAGE TO THIS DECISION</h3>
+    <div style="font-size:11px;line-height:1.8">
+      <div>✓ Layer 1 – Data / Source (96% quality)</div>
+      <div>✓ Layer 2 – Analytics (R2.934m calculated)</div>
+      <div>✓ Layer 3 – Evidence (93% evidence quality)</div>
+      <div style="color:#075bd5;font-weight:700">● Layer 4 – Decision / Action</div>
+      <button class="lyr-btn sec" style="width:100%;padding:8px;margin-top:8px" onclick="openLyr('lyrOverlay3')">← Back to Layer 3</button>
+    </div>
+  </div>
+  <div class="lyr-card">
+    <h3>APPROVAL STATUS</h3>
+    <table>
+      <tr><td>Prepared by</td><td>IGPC Analytics Engine</td></tr>
+      <tr><td>Reviewed by</td><td>Vuyo Bangani</td></tr>
+      <tr><td>Status</td><td><span class="lyr-pill warn">Awaiting sign-off</span></td></tr>
+      <tr><td>Required approver</td><td>Production Manager</td></tr>
+    </table>
+  </div>
+  <div class="lyr-card">
+    <h3>NEXT STEP</h3>
+    <div class="lyr-muted" style="margin-bottom:8px">After decision: track recovery in W7–W9 and capture learning in W10 / F08.</div>
+    <button class="lyr-btn" style="width:100%" onclick="closeLyr()">Return to W6 Dashboard</button>
+  </div>
+  <div class="lyr-card">
+    <h3>LAYER NAVIGATION</h3>
+    <div style="font-size:11px;line-height:1.9">
+      <div>✓ Layer 1 – Data / Source</div>
+      <div>✓ Layer 2 – Analytics / Interpretation</div>
+      <div>✓ Layer 3 – Evidence / Control</div>
+      <div style="color:#075bd5;font-weight:700">● Layer 4 – Decision / Action</div>
+      <div>○ F08 – Specialist Intelligence</div>
+    </div>
+  </div>
+</div>
+
+<div class="lyr-foot">
+  <div class="lyr-muted">Layer 4 converts proven cost into a management decision with owners, value and controls.</div>
+  <button class="lyr-btn" onclick="closeLyr()">Close – Back to Analytics</button>
+</div>
+</div>
+</div>
+
+<script>
+
+/* LAYER L2 L4 FORCE WIRE */
+(function(){
+  function bind(){
+    document.querySelectorAll('[data-view="L2"]').forEach(function(b){
+      b.onclick = function(e){ e.preventDefault(); e.stopPropagation(); openLyr('lyrOverlay2'); return false; };
+    });
+    document.querySelectorAll('[data-view="L4"]').forEach(function(b){
+      b.onclick = function(e){ e.preventDefault(); e.stopPropagation(); openLyr('lyrOverlay4'); return false; };
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+  setTimeout(bind, 400);
+  setTimeout(bind, 1200);
+  try {
+    if(typeof layerViews !== 'undefined'){
+      layerViews.L2 = function(){ openLyr('lyrOverlay2'); return '<div class="card"><p>Layer 2 open</p></div>'; };
+      layerViews.L4 = function(){ openLyr('lyrOverlay4'); return '<div class="card"><p>Layer 4 open</p></div>'; };
+    }
+  } catch(e){}
+})();
+
+</script>
+<script>
+
+function openPcvOverlay(id){
+  document.querySelectorAll('.pcv-overlay').forEach(function(el){el.classList.remove('active');});
+  var el=document.getElementById(id);
+  if(el){el.classList.add('active');document.body.style.overflow='hidden';}
+}
+function closePcvOverlay(){
+  document.querySelectorAll('.pcv-overlay').forEach(function(el){el.classList.remove('active');});
+  document.body.style.overflow='';
+}
+function pcv2View(which){
+  var a=document.getElementById('pcv2A');
+  var b=document.getElementById('pcv2B');
+  if(!a||!b)return;
+  if(which==='B'){a.style.display='none';b.style.display='block';}
+  else{b.style.display='none';a.style.display='block';}
+}
+
+</script>
+<script>
+
+function openPcvOverlay(id){
+  document.querySelectorAll('.pcv-overlay').forEach(function(el){el.classList.remove('active');});
+  var el=document.getElementById(id);
+  if(el){el.classList.add('active');document.body.style.overflow='hidden';}
+}
+function closePcvOverlay(){
+  document.querySelectorAll('.pcv-overlay').forEach(function(el){el.classList.remove('active');});
+  document.body.style.overflow='';
+}
+function pcv2View(which){
+  var a=document.getElementById('pcv2A');
+  var b=document.getElementById('pcv2B');
+  if(!a||!b)return;
+  if(which==='B'){a.style.display='none';b.style.display='block';}
+  else{b.style.display='none';a.style.display='block';}
+}
+
+</script>
+<div id="pcvOverlay1" class="pcv-overlay"><div class="pcv-shell"><div class="pcv-side"><div class="logo">IGPC<small>INTEGRATED GEOTECHNICAL PROJECTS CONTROL</small></div>
+<div class="nav-item">PROJECT OVERVIEW</div><div class="nav-item">DATA LIBRARY</div>
+<div class="nav-item on">ANALYTICS</div><div class="nav-item">DIAGNOSTICS</div>
+<div class="nav-item">INTERVENTIONS</div><div class="nav-item">EVIDENCE</div>
+<div class="nav-item">LEARNING</div><div class="nav-item">REPORTS</div>
+<div class="nav-item">SETTINGS</div></div>
+<div class="pcv-main">
+<div class="pcv-topbar"><div><div class="crumb">Analytics › W1 – Analytics Chain › PCV.1 – Current</div><h1>PCV.1 – CURRENT</h1><div class="sub">Where We Are Now – The Verified Current Position</div></div><div class="pcv-meta">
+<div class="box"><b>Project ID: EXPL-001</b>Project: Exploration Drilling<br>Depth: 1,200 m &nbsp; Commodity: PGM</div>
+<div><div class="live">● Live Data</div><div style="font-size:10px;color:#64748b;margin-top:3px">24 Aug 2026 · As at: 08:30</div></div>
+<button class="pcv-btn" onclick="closePcvOverlay()">← Return to PCV</button>
+</div></div>
+<div class="pcv-body">
+<div class="pcv-info"><span>PCV.1 establishes the reality of the project right now using live, validated data.</span>
+<button class="pcv-btn" onclick="closePcvOverlay()">← Back to W1</button></div>
+<div class="pcv-tabs"><button class="active" onclick="openPcvOverlay('pcvOverlay1')">PCV.1 CURRENT</button><button class="" onclick="openPcvOverlay('pcvOverlay2')">PCV.2 FORECAST</button><button class="" onclick="openPcvOverlay('pcvOverlay3')">PCV.3 PROJECTION</button><button class="" onclick="openPcvOverlay('pcvOverlay4')">PCV.4 INTERVENTION VALUE</button></div>
+<div class="pcv-kpis k6">
+<div class="pcv-kpi"><label>Planned Advance (m/day)</label><div class="v blue">83.3</div><div class="h">Baseline Plan</div><span class="ico">📅</span></div>
+<div class="pcv-kpi"><label>Actual Advance (m/day)</label><div class="v">68.0</div><div class="h">Current Performance</div><span class="ico">⏱</span></div>
+<div class="pcv-kpi"><label>Schedule Variance (days)</label><div class="v red">−5.1</div><div class="h">Behind Plan</div><span class="ico">📆</span></div>
+<div class="pcv-kpi"><label>Cost to Date (R'000)</label><div class="v blue">7,800</div><div class="h">Actual Spend</div><span class="ico">💰</span></div>
+<div class="pcv-kpi"><label>Budget to Date (R'000)</label><div class="v">7,200</div><div class="h">Planned Spend</div><span class="ico">📋</span></div>
+<div class="pcv-kpi"><label>Cost Variance (R'000)</label><div class="v red">+600</div><div class="h">Overspend</div><span class="ico">📈</span></div>
+</div>
+<div class="pcv-grid g3">
+<div class="pcv-card"><h3>PERFORMANCE AT A GLANCE</h3>
+<table>
+<tr><th>Metric</th><th>Planned</th><th></th><th>Actual</th><th>Variance</th></tr>
+<tr><td>Advance (m/day)</td><td>83.3</td><td><span class="pcv-hbar"><i style="width:82%"></i></span></td><td>68.0</td><td style="color:#dc2626">−15.3</td></tr>
+<tr><td>Metres Drilled (m)</td><td>4,166</td><td><span class="pcv-hbar"><i style="width:70%"></i></span></td><td>3,400</td><td style="color:#dc2626">−766</td></tr>
+<tr><td>Schedule (days)</td><td>50</td><td><span class="pcv-hbar neg"><i style="width:55%"></i></span></td><td>55.1</td><td style="color:#dc2626">+5.1</td></tr>
+<tr><td>Cost (R'000)</td><td>7,200</td><td><span class="pcv-hbar neg"><i style="width:78%"></i></span></td><td>7,800</td><td style="color:#dc2626">+600</td></tr>
+<tr><td>Samples (No.)</td><td>520</td><td><span class="pcv-hbar"><i style="width:62%"></i></span></td><td>430</td><td style="color:#dc2626">−90</td></tr>
+<tr><td>Lab Turnaround (days)</td><td>7</td><td><span class="pcv-hbar neg"><i style="width:72%"></i></span></td><td>9.5</td><td style="color:#dc2626">+2.5</td></tr>
+</table>
+<div class="pcv-note" style="margin-top:8px"><span style="color:#0b5ed7">■</span> On Plan / Positive &nbsp; <span style="color:#dc2626">■</span> Off Plan / Negative</div>
+</div>
+<div class="pcv-card" style="text-align:center"><h3>PROGRESS SNAPSHOT</h3>
+<svg class="pcv-chart" viewBox="0 0 200 130" width="100%" height="130">
+  <path d="M20 105 A80 80 0 0 1 180 105" fill="none" stroke="#e2e8f0" stroke-width="18" stroke-linecap="round"/>
+  <path d="M20 105 A80 80 0 0 1 180 105" fill="none" stroke="#0b5ed7" stroke-width="18" stroke-linecap="round" stroke-dasharray="155 252"/>
+  <text x="100" y="88" text-anchor="middle" font-size="28" font-weight="800" fill="#0f172a">62%</text>
+  <text x="100" y="106" text-anchor="middle" font-size="10" fill="#64748b">Progress to Date</text>
+  <text x="20" y="122" font-size="9" fill="#94a3b8">0%</text>
+  <text x="165" y="122" font-size="9" fill="#94a3b8">100%</text>
+</svg>
+<table style="text-align:left;margin-top:4px">
+<tr><td>Planned Progress:</td><td><b>70%</b></td></tr>
+<tr><td>Actual Progress:</td><td><b>62%</b></td></tr>
+<tr><td>Behind Plan:</td><td style="color:#dc2626"><b>8%</b></td></tr>
+</table>
+</div>
+<div class="pcv-card"><h3>KEY CURRENT RISKS</h3>
+<table>
+<tr><th>Risk / Issue</th><th>Impact</th><th>Likelihood</th><th>Risk Level</th></tr>
+<tr><td>Drilling Rate Below Plan</td><td>High</td><td>High</td><td><span class="pcv-badge red">High</span></td></tr>
+<tr><td>Frequent Equipment Downtime</td><td>High</td><td>Medium</td><td><span class="pcv-badge orange">High</span></td></tr>
+<tr><td>Geological Complexity</td><td>Medium</td><td>High</td><td><span class="pcv-badge orange">High</span></td></tr>
+<tr><td>Lab Turnaround Delays</td><td>Medium</td><td>Medium</td><td><span class="pcv-badge yellow">Medium</span></td></tr>
+<tr><td>Ground Conditions Variability</td><td>Medium</td><td>Medium</td><td><span class="pcv-badge yellow">Medium</span></td></tr>
+</table>
+<div class="pcv-note" style="margin-top:8px;color:#0b5ed7;font-weight:700">View Full Risk Register →</div>
+</div>
+</div>
+<div class="pcv-grid g3">
+<div class="pcv-card"><h3>CURRENT POSITION SUMMARY</h3>
+<div style="font-size:12px;line-height:1.85">
+<div>◎ We are 5.1 days behind schedule.</div>
+<div>📈 We are overspent by R600k (8.3%).</div>
+<div>📉 Drilling productivity is 18.4% below plan.</div>
+<div>⚗ Lab turnaround is 2.5 days slower than target.</div>
+</div>
+<div class="pcv-warn">These are the facts as at now, before any intervention.</div>
+</div>
+<div class="pcv-card"><h3>DRILLING PERFORMANCE TREND</h3>
+<svg class="pcv-chart" viewBox="0 0 360 160" width="100%" height="160">
+  <line x1="40" y1="20" x2="40" y2="125" stroke="#cbd5e1"/><line x1="40" y1="125" x2="340" y2="125" stroke="#cbd5e1"/>
+  <line x1="40" y1="35" x2="340" y2="35" stroke="#e2e8f0" stroke-dasharray="3 3"/>
+  <line x1="40" y1="55" x2="340" y2="55" stroke="#e2e8f0" stroke-dasharray="3 3"/>
+  <line x1="40" y1="75" x2="340" y2="75" stroke="#e2e8f0" stroke-dasharray="3 3"/>
+  <line x1="40" y1="95" x2="340" y2="95" stroke="#e2e8f0" stroke-dasharray="3 3"/>
+  <text x="28" y="38" font-size="8" fill="#94a3b8" text-anchor="end">100</text>
+  <text x="28" y="78" font-size="8" fill="#94a3b8" text-anchor="end">60</text>
+  <text x="28" y="118" font-size="8" fill="#94a3b8" text-anchor="end">20</text>
+  <polyline fill="none" stroke="#0b5ed7" stroke-width="2.5" points="55,42 95,42 135,43 175,43 215,44 255,44 295,45 330,45"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="2.5" points="55,62 95,70 135,72 175,68 215,78 255,72 295,73 330,72"/>
+  <circle cx="55" cy="42" r="3" fill="#0b5ed7"/><circle cx="135" cy="43" r="3" fill="#0b5ed7"/><circle cx="215" cy="44" r="3" fill="#0b5ed7"/><circle cx="330" cy="45" r="3" fill="#0b5ed7"/>
+  <circle cx="55" cy="62" r="3" fill="#dc2626"/><circle cx="135" cy="72" r="3" fill="#dc2626"/><circle cx="215" cy="78" r="3" fill="#dc2626"/><circle cx="330" cy="72" r="3" fill="#dc2626"/>
+  <text x="50" y="140" font-size="8" fill="#64748b">18 Aug</text>
+  <text x="100" y="140" font-size="8" fill="#64748b">19 Aug</text>
+  <text x="155" y="140" font-size="8" fill="#64748b">20 Aug</text>
+  <text x="210" y="140" font-size="8" fill="#64748b">22 Aug</text>
+  <text x="265" y="140" font-size="8" fill="#64748b">23 Aug</text>
+  <text x="310" y="140" font-size="8" fill="#64748b">24 Aug</text>
+  <rect x="200" y="8" width="10" height="3" fill="#0b5ed7"/><text x="214" y="12" font-size="8" fill="#64748b">Planned (m/day)</text>
+  <rect x="290" y="8" width="10" height="3" fill="#dc2626"/><text x="304" y="12" font-size="8" fill="#64748b">Actual (m/day)</text>
+</svg>
+</div>
+<div class="pcv-card"><h3>CURRENT DATA QUALITY</h3>
+<div style="display:flex;gap:14px;align-items:center">
+<svg viewBox="0 0 100 100" width="100" height="100">
+  <circle cx="50" cy="50" r="38" fill="none" stroke="#e2e8f0" stroke-width="10"/>
+  <circle cx="50" cy="50" r="38" fill="none" stroke="#16a34a" stroke-width="10" stroke-dasharray="220 239" transform="rotate(-90 50 50)" stroke-linecap="round"/>
+  <text x="50" y="48" text-anchor="middle" font-size="18" font-weight="800" fill="#0f172a">92%</text>
+  <text x="50" y="62" text-anchor="middle" font-size="8" fill="#64748b">Data Quality</text>
+</svg>
+<div style="font-size:11px;line-height:1.9">
+<div>✓ Sources Connected <b>18 / 20</b></div>
+<div>✓ Data Timeliness <b>Good</b></div>
+<div>✓ Data Completeness <b>Good</b></div>
+<div>✓ Validation Status <b>Validated</b></div>
+<div class="pcv-note" style="color:#16a34a;margin-top:4px">High confidence in current position.</div>
+</div></div>
+</div>
+</div>
+<div class="pcv-foot"><div class="pcv-note">PCV.1 is the foundation. All forecasts, projections and intervention value are built on this verified current position.</div><button class="pcv-btn primary" onclick="openPcvOverlay('pcvOverlay2')">Next → PCV.2 Forecast</button></div></div></div></div></div><div id="pcvOverlay2" class="pcv-overlay"><div class="pcv-shell"><div class="pcv-side"><div class="logo">IGPC<small>INTEGRATED GEOTECHNICAL PROJECTS CONTROL</small></div>
+<div class="nav-item">PROJECT OVERVIEW</div><div class="nav-item">DATA LIBRARY</div>
+<div class="nav-item on">ANALYTICS</div><div class="nav-item">DIAGNOSTICS</div>
+<div class="nav-item">INTERVENTIONS</div><div class="nav-item">EVIDENCE</div>
+<div class="nav-item">LEARNING</div><div class="nav-item">REPORTS</div>
+<div class="nav-item">SETTINGS</div></div>
+<div class="pcv-main">
+<div class="pcv-topbar"><div><div class="crumb">Analytics › W1 – Analytics Chain › PCV.2 – Forecast</div><h1>PCV.2 – FORECAST</h1><div class="sub">What is Likely to Happen – Based on Trends and Validated Intelligence</div></div><div class="pcv-meta">
+<div class="box"><b>Project ID: EXPL-001</b>Project: Exploration Drilling<br>Depth: 1,200 m &nbsp; Commodity: PGM</div>
+<div><div class="live">● Live Data</div><div style="font-size:10px;color:#64748b;margin-top:3px">24 Aug 2026 · As at: 08:30</div></div>
+<button class="pcv-btn" onclick="closePcvOverlay()">← Return to PCV</button>
+</div></div>
+<div class="pcv-body">
+<div class="pcv-info"><span>PCV.2 uses current trends, validated data and analytical models to forecast outcomes if current conditions continue.</span>
+<div style="display:flex;gap:6px;flex-wrap:wrap">
+<button class="pcv-btn on" id="btn2A" onclick="pcv2View('A');this.classList.add('on');document.getElementById('btn2B').classList.remove('on')">View A · 78.5</button>
+<button class="pcv-btn" id="btn2B" onclick="pcv2View('B');this.classList.add('on');document.getElementById('btn2A').classList.remove('on')">View B · 74.8</button>
+<button class="pcv-btn" onclick="closePcvOverlay()">← Back to W1</button>
+</div></div>
+<div class="pcv-tabs"><button class="" onclick="openPcvOverlay('pcvOverlay1')">PCV.1 CURRENT</button><button class="active" onclick="openPcvOverlay('pcvOverlay2')">PCV.2 FORECAST</button><button class="" onclick="openPcvOverlay('pcvOverlay3')">PCV.3 PROJECTION</button><button class="" onclick="openPcvOverlay('pcvOverlay4')">PCV.4 INTERVENTION VALUE</button></div>
+<div id="pcv2A">
+<div class="pcv-kpis k5">
+<div class="pcv-kpi"><label>Forecasted Advance Rate (m/day)</label><div class="v blue">78.5</div><div class="d">▼ 6.0 vs. planned 83.3</div><div class="h">Based on current trend and model</div></div>
+<div class="pcv-kpi"><label>Forecasted Completion Date</label><div class="v">12 Dec 2026</div><div class="d">+12 days vs. planned 30 Nov 2026</div></div>
+<div class="pcv-kpi"><label>Forecasted Total Cost</label><div class="v blue">R21.8m</div><div class="d">+R3.8m vs. planned R18.0m</div></div>
+<div class="pcv-kpi"><label>Forecasted Samples</label><div class="v blue">1,120</div><div class="d">−130 vs. planned 1,250</div></div>
+<div class="pcv-kpi"><label>Forecasted Lab Turnaround</label><div class="v">10 days</div><div class="d">▼ 3 days vs. planned 7 days</div></div>
+</div>
+<div class="pcv-grid g3">
+<div class="pcv-card"><h3>FORECAST VS. PLAN – KEY METRICS</h3>
+<svg class="pcv-chart" viewBox="0 0 380 170" width="100%" height="170">
+  <line x1="40" y1="20" x2="40" y2="130" stroke="#cbd5e1"/><line x1="40" y1="130" x2="280" y2="130" stroke="#cbd5e1"/>
+  <line x1="280" y1="20" x2="280" y2="130" stroke="#cbd5e1"/>
+  <text x="30" y="25" font-size="8" fill="#94a3b8" text-anchor="end">100</text>
+  <text x="30" y="75" font-size="8" fill="#94a3b8" text-anchor="end">75</text>
+  <text x="30" y="125" font-size="8" fill="#94a3b8" text-anchor="end">50</text>
+  <text x="290" y="25" font-size="8" fill="#94a3b8">200k</text>
+  <text x="290" y="75" font-size="8" fill="#94a3b8">150k</text>
+  <text x="290" y="125" font-size="8" fill="#94a3b8">100k</text>
+  <polyline fill="none" stroke="#93c5fd" stroke-width="2" stroke-dasharray="5 4" points="50,40 100,42 150,44 200,46 250,48"/>
+  <polyline fill="none" stroke="#0b5ed7" stroke-width="2.5" points="50,55 100,58 150,62 200,66 250,70"/>
+  <polyline fill="none" stroke="#86efac" stroke-width="2" stroke-dasharray="4 3" points="50,100 100,95 150,88 200,82 250,78"/>
+  <polyline fill="none" stroke="#16a34a" stroke-width="2.5" points="50,92 100,85 150,78 200,72 250,68"/>
+  <text x="50" y="145" font-size="8" fill="#64748b">Today</text>
+  <text x="130" y="145" font-size="8" fill="#64748b">14 days</text>
+  <text x="220" y="145" font-size="8" fill="#64748b">28 days</text>
+  <text x="50" y="162" font-size="8" fill="#0b5ed7">— Forecast Advance</text>
+  <text x="160" y="162" font-size="8" fill="#93c5fd">- - Planned Advance</text>
+  <text x="270" y="162" font-size="8" fill="#16a34a">— Forecast Cost</text>
+</svg>
+</div>
+<div class="pcv-card"><h3>FORECAST COMPARISON</h3>
+<table>
+<tr><th>Metric</th><th>Planned</th><th>Forecast</th><th>Variance</th></tr>
+<tr><td>Advance (m/day)</td><td>83.3</td><td>78.5</td><td style="color:#dc2626">−6.0</td></tr>
+<tr><td>Metres Drilled (m)</td><td>4,166</td><td>3,925</td><td style="color:#dc2626">−241</td></tr>
+<tr><td>Schedule (days)</td><td>50</td><td>62</td><td style="color:#dc2626">+12</td></tr>
+<tr><td>Cost (R'000)</td><td>7,200</td><td>10,980</td><td style="color:#dc2626">+3,780</td></tr>
+<tr><td>Samples (No.)</td><td>520</td><td>1,120</td><td style="color:#dc2626">−130</td></tr>
+<tr><td>Lab Turnaround (days)</td><td>7</td><td>10</td><td style="color:#dc2626">+3</td></tr>
+</table>
+</div>
+<div class="pcv-card"><h3>KEY FORECAST INSIGHTS</h3>
+<div class="pcv-insight">
+<div>↑ Advance rate expected to drop by 6.0 m/day due to increased ground variability.</div>
+<div style="margin-top:6px">↑ Total project cost forecast to increase by R3.8m (21%).</div>
+<div style="margin-top:6px">↑ Completion delayed by 12 days.</div>
+<div style="margin-top:6px">⚠ Sample volume below target (−130).</div>
+<div style="margin-top:6px">ℹ Lab turnaround expected to increase by 3 days.</div>
+</div>
+</div>
+</div>
+<div class="pcv-grid g3">
+<div class="pcv-card"><h3>FORECAST BY ACTIVITY</h3>
+<svg class="pcv-chart" viewBox="0 0 340 150" width="100%" height="150">
+  <line x1="30" y1="15" x2="30" y2="120" stroke="#cbd5e1"/><line x1="30" y1="120" x2="320" y2="120" stroke="#cbd5e1"/>
+  <rect x="45" y="35" width="28" height="85" fill="#93c5fd"/><rect x="78" y="40" width="28" height="80" fill="#0b5ed7"/>
+  <text x="58" y="30" font-size="8" fill="#64748b" text-anchor="middle">800</text>
+  <text x="92" y="35" font-size="8" fill="#64748b" text-anchor="middle">745</text>
+  <rect x="125" y="55" width="28" height="65" fill="#93c5fd"/><rect x="158" y="65" width="28" height="55" fill="#0b5ed7"/>
+  <text x="138" y="50" font-size="8" fill="#64748b" text-anchor="middle">520</text>
+  <text x="172" y="60" font-size="8" fill="#64748b" text-anchor="middle">420</text>
+  <rect x="205" y="112" width="28" height="8" fill="#93c5fd"/><rect x="238" y="108" width="28" height="12" fill="#0b5ed7"/>
+  <text x="218" y="107" font-size="8" fill="#64748b" text-anchor="middle">7</text>
+  <text x="252" y="103" font-size="8" fill="#64748b" text-anchor="middle">10</text>
+  <rect x="275" y="25" width="28" height="95" fill="#93c5fd"/><rect x="308" y="5" width="28" height="115" fill="#0b5ed7"/>
+  <text x="288" y="20" font-size="8" fill="#64748b" text-anchor="middle">7,200</text>
+  <text x="322" y="10" font-size="8" fill="#64748b" text-anchor="middle">10,980</text>
+  <text x="70" y="138" font-size="9" fill="#64748b" text-anchor="middle">Drilling (m)</text>
+  <text x="150" y="138" font-size="9" fill="#64748b" text-anchor="middle">Sampling</text>
+  <text x="230" y="138" font-size="9" fill="#64748b" text-anchor="middle">Lab (days)</text>
+  <text x="300" y="138" font-size="9" fill="#64748b" text-anchor="middle">Cost</text>
+</svg>
+<div class="pcv-note"><span style="color:#93c5fd">■</span> Planned &nbsp; <span style="color:#0b5ed7">■</span> Forecast</div>
+</div>
+<div class="pcv-card"><h3>MAIN FACTORS DRIVING FORECAST</h3>
+<table>
+<tr><td>⛰ Ground conditions – More variable than expected.</td><td><span class="pcv-badge red">High</span></td></tr>
+<tr><td>🔧 Equipment downtime – Increased maintenance events.</td><td><span class="pcv-badge orange">Medium</span></td></tr>
+<tr><td>⚗ Lab delays – Higher than planned turnaround.</td><td><span class="pcv-badge orange">Medium</span></td></tr>
+<tr><td>🌤 Weather / site access – Minor disruptions.</td><td><span class="pcv-badge green">Low</span></td></tr>
+</table>
+</div>
+<div class="pcv-card"><h3>RECOMMENDED ACTIONS</h3>
+<ol style="margin:0;padding-left:18px;font-size:12px;line-height:1.75">
+<li>Review and adjust drilling plan to recover lost metres.</li>
+<li>Secure additional lab capacity to reduce turnaround time.</li>
+<li>Monitor ground conditions closely – prepare contingency plan.</li>
+<li>Reassess budget and update stakeholders.</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="pcv2B" style="display:none">
+<div class="pcv-grid" style="grid-template-columns:1.25fr 1fr;gap:12px;margin-bottom:12px">
+<div class="pcv-card">
+<h3>FORECAST OVERVIEW — Expected performance for the next 30 days</h3>
+<div class="pcv-kpis k4" style="margin:0">
+<div class="pcv-kpi"><label>Forecast Advance (m/day)</label><div class="v blue">74.8</div><div class="d">▼ 10.2% vs. planned 83.3</div></div>
+<div class="pcv-kpi"><label>Forecast Completion (days)</label><div class="v">134</div><div class="d">▲ 12.5% vs. planned 120</div></div>
+<div class="pcv-kpi"><label>Forecast Total Cost (R'm)</label><div class="v blue">20.4</div><div class="d">▲ 13.3% vs. planned 18.0</div></div>
+<div class="pcv-kpi"><label>Forecast Samples (30 days)</label><div class="v blue">420</div><div class="d">▼ 15.2% vs. planned 495</div></div>
+</div>
+</div>
+<div class="pcv-card"><h3>FORECAST TREND (NEXT 30 DAYS)</h3>
+<svg class="pcv-chart" viewBox="0 0 340 150" width="100%" height="150">
+  <line x1="35" y1="15" x2="35" y2="120" stroke="#cbd5e1"/><line x1="35" y1="120" x2="320" y2="120" stroke="#cbd5e1"/>
+  <polygon fill="#dbeafe" opacity=".5" points="50,45 100,48 150,52 200,55 250,55 300,55 300,75 250,78 200,82 150,85 100,78 50,70"/>
+  <polyline fill="none" stroke="#0b5ed7" stroke-width="2.5" points="50,38 100,40 150,42 200,45 250,44 300,44"/>
+  <polyline fill="none" stroke="#16a34a" stroke-width="2.5" points="50,52 100,58 150,65 200,72 250,78 300,85"/>
+  <text x="50" y="138" font-size="8" fill="#64748b">25 Aug</text>
+  <text x="150" y="138" font-size="8" fill="#64748b">10 Sep</text>
+  <text x="270" y="138" font-size="8" fill="#64748b">25 Sep</text>
+  <text x="200" y="20" font-size="8" fill="#0b5ed7">— Planned</text>
+  <text x="260" y="20" font-size="8" fill="#16a34a">— Forecast</text>
+</svg>
+</div>
+</div>
+<div class="pcv-grid g3">
+<div class="pcv-card"><h3>FORECAST VS ACTUAL PERFORMANCE</h3>
+<svg class="pcv-chart" viewBox="0 0 360 150" width="100%" height="150">
+  <line x1="30" y1="15" x2="30" y2="120" stroke="#cbd5e1"/><line x1="30" y1="120" x2="340" y2="120" stroke="#cbd5e1"/>
+  <g transform="translate(0,0)">
+  <!-- 8 day groups -->
+  <rect x="40" y="40" width="12" height="80" fill="#0b5ed7"/><rect x="54" y="50" width="12" height="70" fill="#16a34a"/>
+  <rect x="78" y="38" width="12" height="82" fill="#0b5ed7"/><rect x="92" y="48" width="12" height="72" fill="#16a34a"/>
+  <rect x="116" y="42" width="12" height="78" fill="#0b5ed7"/><rect x="130" y="52" width="12" height="68" fill="#16a34a"/>
+  <rect x="154" y="40" width="12" height="80" fill="#0b5ed7"/><rect x="168" y="50" width="12" height="70" fill="#16a34a"/>
+  <rect x="192" y="42" width="12" height="78" fill="#0b5ed7"/><rect x="206" y="52" width="12" height="68" fill="#16a34a"/>
+  <rect x="230" y="40" width="12" height="80" fill="#0b5ed7"/><rect x="244" y="50" width="12" height="70" fill="#16a34a"/>
+  <rect x="268" y="42" width="12" height="78" fill="#0b5ed7"/><rect x="282" y="52" width="12" height="68" fill="#16a34a"/>
+  <rect x="306" y="40" width="12" height="80" fill="#0b5ed7"/><rect x="320" y="50" width="12" height="70" fill="#16a34a"/>
+  <polyline fill="none" stroke="#f59e0b" stroke-width="2.5" points="46,58 84,55 122,62 160,58 198,62 236,58 274,62 312,58"/>
+  </g>
+  <text x="40" y="138" font-size="7" fill="#64748b">18 Aug</text>
+  <text x="150" y="138" font-size="7" fill="#64748b">24 Aug</text>
+  <text x="280" y="138" font-size="7" fill="#64748b">30 Aug</text>
+</svg>
+<div class="pcv-note"><span style="color:#0b5ed7">■</span> Planned &nbsp; <span style="color:#16a34a">■</span> Forecast &nbsp; <span style="color:#f59e0b">—</span> Actual</div>
+</div>
+<div class="pcv-card"><h3>KEY FORECAST INDICATORS</h3>
+<table>
+<tr><td>⚠ Risk of further deterioration</td><td style="color:#dc2626"><b>Medium – High</b></td></tr>
+<tr><td>⏱ Time to reach target</td><td style="color:#dc2626"><b>+14 days</b></td></tr>
+<tr><td>💰 Cost overrun (forecast)</td><td style="color:#dc2626"><b>+13.3%</b></td></tr>
+<tr><td>⚗ Lab turnaround (forecast)</td><td><b>9.5 days</b></td></tr>
+<tr><td>🛡 Confidence level</td><td><b>72%</b></td></tr>
+</table>
+</div>
+<div class="pcv-card"><h3>FORECAST INSIGHTS</h3>
+<div class="pcv-insight">
+<div>• Advance rate is forecast to remain below plan due to ongoing instability in the upper benches.</div>
+<div style="margin-top:6px">• Completion is likely to slip by 14 days if no intervention is made.</div>
+<div style="margin-top:6px">• Costs are expected to increase by ~13% due to additional drilling and support.</div>
+</div>
+<div class="pcv-warn">This forecast reinforces the need for intervention to avoid further cost and time overruns.</div>
+</div>
+</div>
+<div class="pcv-grid" style="grid-template-columns:1.45fr 1fr;gap:12px">
+<div class="pcv-card"><h3>FORECAST BY WORK PACKAGE</h3>
+<table>
+<tr><th>Work Package</th><th>Planned Advance</th><th>Forecast Advance</th><th>Variance</th><th>Forecast Cost (R'm)</th></tr>
+<tr><td>WP-01 – Main Drift</td><td>85.0</td><td>73.2</td><td style="color:#dc2626">▼ 13.9%</td><td>5.2</td></tr>
+<tr><td>WP-02 – Raise Line</td><td>78.0</td><td>65.5</td><td style="color:#dc2626">▼ 16.1%</td><td>4.8</td></tr>
+<tr><td>WP-03 – Cross Cut</td><td>82.0</td><td>70.4</td><td style="color:#dc2626">▼ 14.1%</td><td>4.7</td></tr>
+<tr><td>WP-04 – Development</td><td>80.0</td><td>68.9</td><td style="color:#dc2626">▼ 13.9%</td><td>5.7</td></tr>
+<tr><td><b>Total / Average</b></td><td><b>83.3</b></td><td><b>74.8</b></td><td style="color:#dc2626"><b>▼ 10.2%</b></td><td><b>20.4</b></td></tr>
+</table>
+</div>
+<div class="pcv-card"><h3>FORECAST CONFIDENCE & UNCERTAINTY</h3>
+<div style="display:flex;gap:12px;align-items:center">
+<svg viewBox="0 0 120 90" width="120" height="90">
+  <path d="M15 75 A45 45 0 0 1 105 75" fill="none" stroke="#e2e8f0" stroke-width="12" stroke-linecap="round"/>
+  <path d="M15 75 A45 45 0 0 1 105 75" fill="none" stroke="#16a34a" stroke-width="12" stroke-linecap="round" stroke-dasharray="102 142"/>
+  <text x="60" y="68" text-anchor="middle" font-size="18" font-weight="800">72%</text>
+  <text x="60" y="88" text-anchor="middle" font-size="8" fill="#64748b">Confidence Level</text>
+</svg>
+<div style="font-size:11px;line-height:1.8">
+<div><b>Uncertainty Drivers</b></div>
+<div>Ground conditions variability <span class="pcv-badge red">High</span></div>
+<div>Equipment availability <span class="pcv-badge orange">Medium</span></div>
+<div>Weather impact <span class="pcv-badge orange">Medium</span></div>
+<div>Lab turnaround <span class="pcv-badge green">Low</span></div>
+</div></div>
+</div>
+</div>
+</div>
+<div class="pcv-foot"><div class="pcv-note">PCV.2 Forecast | Both exact designs available via View A / View B.</div><button class="pcv-btn primary" onclick="openPcvOverlay('pcvOverlay3')">Next → PCV.3 Projection</button></div></div></div></div></div><div id="pcvOverlay3" class="pcv-overlay"><div class="pcv-shell"><div class="pcv-side"><div class="logo">IGPC<small>INTEGRATED GEOTECHNICAL PROJECTS CONTROL</small></div>
+<div class="nav-item">PROJECT OVERVIEW</div><div class="nav-item">DATA LIBRARY</div>
+<div class="nav-item on">ANALYTICS</div><div class="nav-item">DIAGNOSTICS</div>
+<div class="nav-item">INTERVENTIONS</div><div class="nav-item">EVIDENCE</div>
+<div class="nav-item">LEARNING</div><div class="nav-item">REPORTS</div>
+<div class="nav-item">SETTINGS</div></div>
+<div class="pcv-main">
+<div class="pcv-topbar"><div><div class="crumb">Analytics › W1 – Analytics Chain › PCV.3 – Projection</div><h1>PCV.3 – PROJECTION</h1><div class="sub">What Could Happen – Scenario Modelling and Risk Exposure</div></div><div class="pcv-meta">
+<div class="box"><b>Project ID: EXPL-001</b>Project: Exploration Drilling<br>Depth: 1,200 m &nbsp; Commodity: PGM</div>
+<div><div class="live">● Live Data</div><div style="font-size:10px;color:#64748b;margin-top:3px">24 Aug 2026 · As at: 08:30</div></div>
+<button class="pcv-btn" onclick="closePcvOverlay()">← Return to PCV</button>
+</div></div>
+<div class="pcv-body">
+<div class="pcv-info"><span>PCV.3 projects possible futures and quantifies potential time, cost and output impacts under different scenarios.</span>
+<button class="pcv-btn" onclick="closePcvOverlay()">← Back to W1</button></div>
+<div class="pcv-tabs"><button class="" onclick="openPcvOverlay('pcvOverlay1')">PCV.1 CURRENT</button><button class="" onclick="openPcvOverlay('pcvOverlay2')">PCV.2 FORECAST</button><button class="active" onclick="openPcvOverlay('pcvOverlay3')">PCV.3 PROJECTION</button><button class="" onclick="openPcvOverlay('pcvOverlay4')">PCV.4 INTERVENTION VALUE</button></div>
+<div class="pcv-grid g32">
+<div>
+<h3 style="font-size:11px;margin:0 0 8px;font-weight:800">SCENARIO SUMMARY – NEXT 60 DAYS</h3>
+<div class="pcv-grid" style="grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">
+<div class="pcv-scen green"><h4>Best Case<br>High Performance</h4>
+<div class="r"><span>Advance (m/day)</span><b>92.0</b></div>
+<div class="r"><span>Completion</span><b>28 Oct 2026</b></div>
+<div class="r"><span>Cost at Completion (R'm)</span><b>18.8</b></div>
+<div class="r"><span>Cost Variance</span><b>−4.4%</b></div>
+<div class="r"><span>Confidence</span><b>35%</b></div></div>
+<div class="pcv-scen blue"><h4>Base Case (Most Likely)<br>Current Trend Continues</h4>
+<div class="r"><span>Advance (m/day)</span><b>74.0</b></div>
+<div class="r"><span>Completion</span><b>18 Nov 2026</b></div>
+<div class="r"><span>Cost at Completion (R'm)</span><b>20.6</b></div>
+<div class="r"><span>Cost Variance</span><b>+14.4%</b></div>
+<div class="r"><span>Confidence</span><b>50%</b></div></div>
+<div class="pcv-scen orange"><h4>Worst Case<br>Deterioration Occurs</h4>
+<div class="r"><span>Advance (m/day)</span><b>55.0</b></div>
+<div class="r"><span>Completion</span><b>12 Dec 2026</b></div>
+<div class="r"><span>Cost at Completion (R'm)</span><b>23.7</b></div>
+<div class="r"><span>Cost Variance</span><b>+31.7%</b></div>
+<div class="r"><span>Confidence</span><b>15%</b></div></div>
+<div class="pcv-scen purple"><h4>Stress Case<br>Severe Disruption</h4>
+<div class="r"><span>Advance (m/day)</span><b>40.0</b></div>
+<div class="r"><span>Completion</span><b>05 Jan 2027</b></div>
+<div class="r"><span>Cost at Completion (R'm)</span><b>27.5</b></div>
+<div class="r"><span>Cost Variance</span><b>+52.8%</b></div>
+<div class="r"><span>Confidence</span><b>5%</b></div></div>
+</div></div>
+<div class="pcv-card"><h3>KEY SENSITIVITY DRIVERS – Impact on Completion Date</h3>
+<div class="sens-row"><span class="lab">Drilling Rate</span><div class="bar"><i style="width:90%"></i></div><span class="val">+18 days</span></div>
+<div class="sens-row"><span class="lab">Ground Conditions</span><div class="bar"><i style="width:70%"></i></div><span class="val">+14 days</span></div>
+<div class="sens-row"><span class="lab">Equipment Availability</span><div class="bar"><i style="width:50%"></i></div><span class="val">+10 days</span></div>
+<div class="sens-row"><span class="lab">Lab Turnaround</span><div class="bar"><i style="width:30%;background:#f97316"></i></div><span class="val">+6 days</span></div>
+<div class="sens-row"><span class="lab">Support Crew Availability</span><div class="bar"><i style="width:20%;background:#f97316"></i></div><span class="val">+4 days</span></div>
+<div class="sens-row"><span class="lab">Weather</span><div class="bar pos"><i style="width:15%"></i></div><span class="val" style="color:#16a34a">−3 days</span></div>
+</div>
+</div>
+<div class="pcv-grid g3">
+<div class="pcv-card"><h3>PROJECTED PROGRESS – ADVANCE (m/day)</h3>
+<svg class="pcv-chart" viewBox="0 0 360 150" width="100%" height="150">
+  <line x1="35" y1="15" x2="35" y2="120" stroke="#cbd5e1"/><line x1="35" y1="120" x2="340" y2="120" stroke="#cbd5e1"/>
+  <line x1="35" y1="40" x2="340" y2="40" stroke="#94a3b8" stroke-dasharray="4 3"/>
+  <polyline fill="none" stroke="#16a34a" stroke-width="2.2" points="50,28 100,26 150,25 200,26 250,28 300,30"/>
+  <polyline fill="none" stroke="#0b5ed7" stroke-width="2.2" points="50,50 100,52 150,53 200,54 250,55 300,56"/>
+  <polyline fill="none" stroke="#ea580c" stroke-width="2.2" points="50,78 100,80 150,82 200,84 250,86 300,88"/>
+  <polyline fill="none" stroke="#7c3aed" stroke-width="2.2" points="50,98 100,100 150,101 200,102 250,103 300,105"/>
+  <text x="50" y="138" font-size="8" fill="#64748b">24 Aug</text>
+  <text x="150" y="138" font-size="8" fill="#64748b">14 Sep</text>
+  <text x="260" y="138" font-size="8" fill="#64748b">12 Oct</text>
+  <text x="220" y="18" font-size="8" fill="#16a34a">Best</text>
+  <text x="250" y="18" font-size="8" fill="#0b5ed7">Base</text>
+  <text x="280" y="18" font-size="8" fill="#ea580c">Worst</text>
+  <text x="315" y="18" font-size="8" fill="#7c3aed">Stress</text>
+</svg>
+</div>
+<div class="pcv-card"><h3>COMPLETION DATE PROJECTION</h3>
+<table>
+<tr><th>Scenario</th><th>Completion Date</th><th>Variance (days)</th></tr>
+<tr><td>● Best Case</td><td>28 Oct 2026</td><td style="color:#16a34a">−21</td></tr>
+<tr><td>● Base Case</td><td>18 Nov 2026</td><td>+0</td></tr>
+<tr><td>● Worst Case</td><td>12 Dec 2026</td><td style="color:#dc2626">+24</td></tr>
+<tr><td>● Stress Case</td><td>05 Jan 2027</td><td style="color:#dc2626">+48</td></tr>
+</table>
+<div class="pcv-note" style="margin-top:8px">Baseline Plan Completion: 18 Nov 2026</div>
+</div>
+<div class="pcv-card"><h3>COST AT COMPLETION PROJECTION (R'm)</h3>
+<svg class="pcv-chart" viewBox="0 0 280 130" width="100%" height="130">
+  <line x1="20" y1="15" x2="20" y2="105" stroke="#cbd5e1"/><line x1="20" y1="105" x2="260" y2="105" stroke="#cbd5e1"/>
+  <line x1="20" y1="42" x2="260" y2="42" stroke="#94a3b8" stroke-dasharray="3 2"/>
+  <text x="265" y="45" font-size="8" fill="#64748b">Budget</text>
+  <rect x="40" y="55" width="36" height="50" fill="#16a34a" rx="3"/><text x="58" y="50" text-anchor="middle" font-size="10" font-weight="700">18.8</text>
+  <rect x="95" y="48" width="36" height="57" fill="#0b5ed7" rx="3"/><text x="113" y="43" text-anchor="middle" font-size="10" font-weight="700">20.6</text>
+  <rect x="150" y="32" width="36" height="73" fill="#ea580c" rx="3"/><text x="168" y="27" text-anchor="middle" font-size="10" font-weight="700">23.7</text>
+  <rect x="205" y="15" width="36" height="90" fill="#7c3aed" rx="3"/><text x="223" y="12" text-anchor="middle" font-size="10" font-weight="700">27.5</text>
+  <text x="58" y="120" text-anchor="middle" font-size="8" fill="#64748b">Best</text>
+  <text x="113" y="120" text-anchor="middle" font-size="8" fill="#64748b">Base</text>
+  <text x="168" y="120" text-anchor="middle" font-size="8" fill="#64748b">Worst</text>
+  <text x="223" y="120" text-anchor="middle" font-size="8" fill="#64748b">Stress</text>
+</svg>
+<div class="pcv-note">Baseline Budget (R20.0m)</div>
+</div>
+</div>
+<div class="pcv-grid g3">
+<div class="pcv-card"><h3>RISK EXPOSURE BY SCENARIO</h3>
+<table>
+<tr><th>Scenario</th><th>Top Risk Exposure</th><th>Prob.</th><th>Impact</th><th>Expected</th></tr>
+<tr><td>● Best Case</td><td>Ground conditions variability</td><td>30%</td><td>8</td><td>2.4</td></tr>
+<tr><td>● Base Case</td><td>Drilling rate below plan</td><td>60%</td><td>14</td><td>8.4</td></tr>
+<tr><td>● Worst Case</td><td>Equipment breakdown</td><td>50%</td><td>18</td><td>9.0</td></tr>
+<tr><td>● Stress Case</td><td>Multiple risk events</td><td>70%</td><td>25</td><td>17.5</td></tr>
+</table>
+</div>
+<div class="pcv-card" style="text-align:center"><h3>VALUE AT RISK (VaR) – COST OVERRUN</h3>
+<svg viewBox="0 0 110 110" width="110" height="110">
+  <circle cx="55" cy="55" r="40" fill="none" stroke="#e2e8f0" stroke-width="12"/>
+  <circle cx="55" cy="55" r="40" fill="none" stroke="#7c3aed" stroke-width="12" stroke-dasharray="201 251" transform="rotate(-90 55 55)" stroke-linecap="round"/>
+  <text x="55" y="52" text-anchor="middle" font-size="20" font-weight="800">80%</text>
+  <text x="55" y="68" text-anchor="middle" font-size="9" fill="#64748b">Confidence</text>
+</svg>
+<div style="font-size:12px;text-align:left;margin-top:6px">
+<div>VaR (80% Confidence): <b>R24.1 m</b></div>
+<div>Expected Cost (Mean): <b>R21.6 m</b></div>
+<div>Budget: <b>R20.0 m</b></div>
+</div>
+</div>
+<div class="pcv-card"><h3>SCENARIO INSIGHTS</h3>
+<div class="pcv-insight">
+<div>There is a 50% chance the project will finish between 18 Nov 2026 and 12 Dec 2026 at a cost between R20.6m and R23.7m.</div>
+<div style="margin-top:8px">⚠ Main threats to completion are drilling rate and ground conditions.</div>
+<div style="margin-top:8px">◎ Focus areas: Improve drilling rate and reduce ground condition uncertainty.</div>
+</div>
+</div>
+</div>
+<div class="pcv-foot"><div class="pcv-note">PCV.3 quantifies the range of possible futures so decisions can be made with eyes open.</div><button class="pcv-btn primary" onclick="openPcvOverlay('pcvOverlay4')">Next → PCV.4 Intervention Value</button></div></div></div></div></div><div id="pcvOverlay4" class="pcv-overlay"><div class="pcv-shell"><div class="pcv-side"><div class="logo">IGPC<small>INTEGRATED GEOTECHNICAL PROJECTS CONTROL</small></div>
+<div class="nav-item">PROJECT OVERVIEW</div><div class="nav-item">DATA LIBRARY</div>
+<div class="nav-item on">ANALYTICS</div><div class="nav-item">DIAGNOSTICS</div>
+<div class="nav-item">INTERVENTIONS</div><div class="nav-item">EVIDENCE</div>
+<div class="nav-item">LEARNING</div><div class="nav-item">REPORTS</div>
+<div class="nav-item">SETTINGS</div></div>
+<div class="pcv-main">
+<div class="pcv-topbar"><div><div class="crumb">Analytics › W1 – Analytics Chain › PCV.4 – Intervention Value</div><h1>PCV.4 – INTERVENTION VALUE</h1><div class="sub">What Should We Do – The Value of Acting Now</div></div><div class="pcv-meta">
+<div class="box"><b>Project ID: EXPL-001</b>Project: Exploration Drilling<br>Depth: 1,200 m &nbsp; Commodity: PGM</div>
+<div><div class="live">● Live Data</div><div style="font-size:10px;color:#64748b;margin-top:3px">24 Aug 2026 · As at: 08:30</div></div>
+<button class="pcv-btn" onclick="closePcvOverlay()">← Return to PCV</button>
+</div></div>
+<div class="pcv-body">
+<div class="pcv-info"><span>PCV.4 quantifies the value of taking action by comparing the cost of intervention against the expected cost of doing nothing.</span>
+<button class="pcv-btn" onclick="closePcvOverlay()">← Back to W1</button></div>
+<div class="pcv-tabs"><button class="" onclick="openPcvOverlay('pcvOverlay1')">PCV.1 CURRENT</button><button class="" onclick="openPcvOverlay('pcvOverlay2')">PCV.2 FORECAST</button><button class="" onclick="openPcvOverlay('pcvOverlay3')">PCV.3 PROJECTION</button><button class="active" onclick="openPcvOverlay('pcvOverlay4')">PCV.4 INTERVENTION VALUE</button></div>
+<div class="pcv-kpis k6">
+<div class="pcv-kpi"><label>Intervention Cost (IC) (R'm)</label><div class="v green">3.20</div><div class="h">Estimated cost to implement recommended intervention</div></div>
+<div class="pcv-kpi"><label>Avoided Consequence (AC) (R'm)</label><div class="v red">23.70</div><div class="h">Expected cost we avoid by taking action</div></div>
+<div class="pcv-kpi"><label>Net Intervention Value (NIV) (R'm)</label><div class="v blue">20.50</div><div class="h">NIV = AC − IC</div></div>
+<div class="pcv-kpi"><label>NIV Ratio (Value Multiple)</label><div class="v purple">7.41x</div><div class="h">NIV Ratio = AC / IC</div></div>
+<div class="pcv-kpi" style="text-align:center"><label>Confidence Level (%)</label>
+<svg viewBox="0 0 80 80" width="72" height="72" style="margin:2px auto;display:block">
+  <circle cx="40" cy="40" r="30" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+  <circle cx="40" cy="40" r="30" fill="none" stroke="#16a34a" stroke-width="8" stroke-dasharray="136 188" transform="rotate(-90 40 40)" stroke-linecap="round"/>
+  <text x="40" y="45" text-anchor="middle" font-size="16" font-weight="800">72%</text>
+</svg>
+<div class="h">Confidence in NIV estimate</div></div>
+<div class="pcv-decide"><div style="font-size:22px">✓</div><div class="ok">INTERVENE</div><div class="h">High Value Opportunity<br>Strong business case to act now.</div></div>
+</div>
+<div class="pcv-grid g3">
+<div class="pcv-card"><h3>FORMULAS</h3>
+<div style="font-size:12px;line-height:1.9">
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px;margin-bottom:6px">NIV = AC − IC</div>
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px;margin-bottom:6px">NIV Ratio = AC / IC</div>
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px;margin-bottom:6px">Expected NIV = (AC × Confidence) − IC</div>
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px">Expected NIV Ratio = Expected NIV / IC</div>
+</div></div>
+<div class="pcv-card"><h3>INTERVENTION COMPONENTS</h3>
+<table>
+<tr><th>Component</th><th>Description</th><th>Value (R'm)</th></tr>
+<tr><td colspan="3" style="color:#16a34a;font-weight:800">INTERVENTION COST (IC)</td></tr>
+<tr><td>Direct Implementation Cost</td><td>Cost of equipment / materials</td><td>2.10</td></tr>
+<tr><td>Execution & Support</td><td>Labour, mobilisation, support</td><td>0.70</td></tr>
+<tr><td>Contingency (15%)</td><td>Uncertainty allowance</td><td>0.40</td></tr>
+<tr><td colspan="2"><b>TOTAL IC</b></td><td style="color:#16a34a"><b>3.20</b></td></tr>
+<tr><td colspan="3" style="color:#dc2626;font-weight:800">AVOIDED CONSEQUENCES (AC)</td></tr>
+<tr><td>Schedule Delay Cost</td><td>Avoided delay impact</td><td>9.80</td></tr>
+<tr><td>Additional Drilling Cost</td><td>Avoided re-drilling / support</td><td>6.50</td></tr>
+<tr><td>Equipment Downtime Cost</td><td>Avoided downtime impact</td><td>4.40</td></tr>
+<tr><td>Other Indirect Costs</td><td>Other cost impacts avoided</td><td>3.00</td></tr>
+<tr><td colspan="2"><b>TOTAL AC</b></td><td style="color:#dc2626"><b>23.70</b></td></tr>
+</table>
+</div>
+<div class="pcv-card"><h3>NIV SENSITIVITY (R'm)</h3>
+<svg class="pcv-chart" viewBox="0 0 300 150" width="100%" height="150">
+  <line x1="35" y1="15" x2="35" y2="120" stroke="#cbd5e1"/><line x1="35" y1="120" x2="280" y2="120" stroke="#cbd5e1"/>
+  <line x1="35" y1="70" x2="280" y2="70" stroke="#94a3b8" stroke-dasharray="4 3"/>
+  <text x="285" y="73" font-size="8" fill="#64748b">Breakeven</text>
+  <polyline fill="none" stroke="#0b5ed7" stroke-width="2.5" points="55,105 95,88 140,58 185,42 225,28 265,18"/>
+  <circle cx="55" cy="105" r="4" fill="#0b5ed7"/><circle cx="95" cy="88" r="4" fill="#0b5ed7"/>
+  <circle cx="140" cy="58" r="4" fill="#0b5ed7"/><circle cx="185" cy="42" r="4" fill="#0b5ed7"/>
+  <circle cx="225" cy="28" r="4" fill="#0b5ed7"/><circle cx="265" cy="18" r="4" fill="#0b5ed7"/>
+  <text x="50" y="118" font-size="8" fill="#64748b">20%</text>
+  <text x="130" y="135" font-size="8" fill="#64748b">60%</text>
+  <text x="240" y="135" font-size="8" fill="#64748b">100%</text>
+  <text x="48" y="100" font-size="8" fill="#0b5ed7">−3.1</text>
+  <text x="255" y="14" font-size="8" fill="#0b5ed7">24.5</text>
+</svg>
+<table>
+<tr><td>NIV (R'm)</td><td><b>20.50</b></td></tr>
+<tr><td>NIV Ratio</td><td><b>7.41x</b></td></tr>
+<tr><td>Confidence</td><td>72%</td></tr>
+<tr><td>Decision Threshold</td><td>1.50x</td></tr>
+</table>
+<div class="pcv-note">Decision Rule: Intervene if NIV Ratio ≥ 1.5x and Confidence ≥ 50%</div>
+</div>
+</div>
+<div class="pcv-grid g4">
+<div class="pcv-card"><h3>RECOMMENDED INTERVENTION</h3>
+<table>
+<tr><td>Intervention ID:</td><td><b>INT-EXPL-001</b></td></tr>
+<tr><td>Type:</td><td>Ground Condition Management</td></tr>
+<tr><td>Action:</td><td>Implement targeted ground support & drilling optimisation</td></tr>
+<tr><td>Owner:</td><td>Geotechnical Team</td></tr>
+<tr><td>Planned Start:</td><td>25 Aug 2026</td></tr>
+<tr><td>Duration:</td><td>10 days</td></tr>
+<tr><td>Status:</td><td><span class="pcv-badge green">Recommended</span></td></tr>
+</table>
+<div class="pcv-note" style="margin-top:8px"><b>Expected Outcomes</b></div>
+<div style="font-size:11px;line-height:1.65">✓ Reduce drilling downtime by 14 days<br>✓ Improve advance rate by 16%<br>✓ Reduce risk of ground condition failure<br>✓ Improve overall project certainty</div>
+<div class="pcv-warn">This intervention delivers a high positive value and should be implemented as soon as possible.</div>
+</div>
+<div class="pcv-card"><h3>EXPECTED (PROBABILITY-WEIGHTED) VALUE</h3>
+<table>
+<tr><td>Avoided Consequence (AC)</td><td>R23.70 m</td></tr>
+<tr><td>Confidence</td><td>72%</td></tr>
+<tr><td>Probability-Weighted AC</td><td>R17.06 m</td></tr>
+<tr><td>Intervention Cost (IC)</td><td>R3.20 m</td></tr>
+<tr><td><b>EXPECTED NIV</b></td><td style="color:#16a34a"><b>R13.86 m</b></td></tr>
+<tr><td><b>EXPECTED NIV RATIO</b></td><td style="color:#16a34a"><b>5.33x</b></td></tr>
+</table>
+</div>
+<div class="pcv-card"><h3>KEY ASSUMPTIONS</h3>
+<ul style="margin:0;padding-left:16px;font-size:11px;line-height:1.75">
+<li>Ground conditions remain similar.</li>
+<li>Equipment availability as planned.</li>
+<li>No major scope changes.</li>
+<li>Lab turnaround within 7 days.</li>
+<li>Productivity improvement is achievable.</li>
+</ul>
+</div>
+<div class="pcv-card"><h3>KEY RISKS TO NIV</h3>
+<table>
+<tr><th>Risk</th><th>Impact on NIV</th><th>Mitigation</th></tr>
+<tr><td>Ground conditions worse than expected</td><td><span class="pcv-badge red">High</span></td><td>Increase support</td></tr>
+<tr><td>Equipment breakdown</td><td><span class="pcv-badge orange">Medium</span></td><td>Spare availability</td></tr>
+<tr><td>Lab delays</td><td><span class="pcv-badge orange">Medium</span></td><td>Escalate with lab</td></tr>
+<tr><td>Lower productivity gain</td><td><span class="pcv-badge orange">Medium</span></td><td>Monitor & optimise</td></tr>
+<tr><td>Scope change</td><td><span class="pcv-badge green">Low</span></td><td>Change control</td></tr>
+</table>
+</div>
+</div>
+<div class="pcv-foot"><div class="pcv-note">PCV.4 converts insight into decision by quantifying the value of action.</div><button class="pcv-btn primary" onclick="closePcvOverlay()">Return to PCV / Analytics</button></div></div></div></div></div>
+
+<script>
+/*IGPC_PCV_CLICK_FIX*/
+(function () {
+  function bind() {
+    document.addEventListener("click", function (e) {
+      if (typeof openPcvOverlay !== "function") return;
+      var el = e.target.closest("button, a, .btn, .go, [onclick], .module, .card");
+      if (!el) return;
+      var txt = ((el.textContent || "") + " " + (el.getAttribute("onclick") || "") + " " + (el.className || "")).toUpperCase();
+      var map = [
+        [/PCV\s*\.?\s*1|PCV1/, "pcvOverlay1"],
+        [/PCV\s*\.?\s*2|PCV2/, "pcvOverlay2"],
+        [/PCV\s*\.?\s*3|PCV3/, "pcvOverlay3"],
+        [/PCV\s*\.?\s*4|PCV4/, "pcvOverlay4"]
+      ];
+      for (var i = 0; i < map.length; i++) {
+        if (map[i][0].test(txt)) {
+          e.preventDefault();
+          e.stopPropagation();
+          openPcvOverlay(map[i][1]);
+          return;
+        }
+      }
+    }, true);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
+  else bind();
+})();
 </script>
 
 </body>
